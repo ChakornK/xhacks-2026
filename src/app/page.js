@@ -28,7 +28,7 @@ export default function HomePage() {
                 </h1>
 
                 <h2 className="@[480px]:text-2xl mx-auto max-w-3xl text-lg font-light leading-relaxed text-gray-300">
-                  Bridge the gap between Simon Fraser University academics and global careers. We map your specific
+                  Connect the gap between Simon Fraser University academics and global careers. We match your
                   course history to live career opportunities.
                 </h2>
               </div>
@@ -37,9 +37,7 @@ export default function HomePage() {
                 <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
                   <span className="truncate uppercase tracking-wide">Find Your Match</span>
                 </button>
-                <button className="flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded border border-white/20 bg-white/10 px-8 text-lg font-bold text-white backdrop-blur-md transition-all hover:bg-white/20">
-                  <span className="truncate font-medium uppercase tracking-wide">Learn More</span>
-                </button>
+                
               </div>
             </div>
           </div>
@@ -96,8 +94,7 @@ export default function HomePage() {
                     2. Upload Resume
                   </h3>
                   <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
-                    Provide your latest professional profile. We analyze your project work and extracurriculars to
-                    supplement your academic strengths.
+                    Provide your latest professional profile. We will analyze your coverletter and your SFU courses. Tips will be provided to help strengthen your resume/coverletter. 
                   </p>
                 </div>
 
@@ -122,8 +119,8 @@ export default function HomePage() {
                     3. Live Career Match
                   </h3>
                   <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
-                    Instantly see LinkedIn job postings where you hold a competitive advantage based on your SFU
-                    education.
+                    Instantly see LinkedIn job postings and see where you hold a competitive advantage based on your SFU
+                    education. Get a rating based on how well your background matches with the job.
                   </p>
                 </div>
 
@@ -165,17 +162,14 @@ export default function HomePage() {
 
                   <div className="flex items-start gap-4 text-left text-gray-700 dark:text-gray-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
-                    <div>
-                      <p className="font-bold">Real-time LinkedIn Integration</p>
-                      <p className="text-sm text-gray-500">Daily sync with the latest professional opportunities.</p>
-                    </div>
+                    
                   </div>
 
                   <div className="flex items-start gap-4 text-left text-gray-700 dark:text-gray-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
                     <div>
-                      <p className="font-bold">Alumni Success Benchmarking</p>
-                      <p className="text-sm text-gray-500">See what paths successful SFU alumni took from your program.</p>
+                      <p className="font-bold">Alumni Real-time LinkedIn Integration</p>
+                      <p className="text-sm text-gray-500">Daily sync with the latest professional opportunities.</p>
                     </div>
                   </div>
                 </div>
