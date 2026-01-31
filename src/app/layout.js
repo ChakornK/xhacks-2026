@@ -36,14 +36,14 @@ export default function RootLayout({ children }) {
           <nav className="hidden flex-1 justify-center gap-10 md:flex">
             <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
+              href="/"
             >
               Home
             </Link>
             
             <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
+              href="/courses"
             >
               Courses
             </Link>

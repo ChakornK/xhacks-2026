@@ -1,13 +1,21 @@
 // app/page.js
+"use client"
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const heroBgStyle = {
     backgroundImage:
       'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnZ7YqifeHcb0VSzaeWVsqoexw6CwakZ4cvR-KXDuoD2rzpAhHw3T5yQ9XPxVBuZ0hJLD4mYopcr8O2wP-olkAqczEPNfNvjaWrM7va0t7Zoqqdl_HBybVr12-r-cfGv_LZzd-9p_GADFk3Sd84gNQM50cOrb-8QVZ0Gdy4sJO2FxNwkyK6IzkU0yODM0xOOFUTfJpO-lKHBuStDUXzXdey3wZAZIAk3gm_OvCxewdLGOJInfXURnlI2LKxYc1-rG1XZ2gfbN69xx2")',
-  };
+    };
+
+  const router = useRouter();
+
+  function matchBtn() {
+    router.push("/courses");
+  }
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-gray-100">
+    <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
 
       <main className="flex-1">
         {/* Hero */}
@@ -27,17 +35,16 @@ export default function HomePage() {
                   Your Degree, <span className="text-sfu-red">Connected.</span>
                 </h1>
 
-                <h2 className="@[480px]:text-2xl mx-auto max-w-3xl text-lg font-light leading-relaxed text-gray-300">
+                <h2 className="@[480px]:text-2xl mx-auto max-w-3xl text-lg font-light leading-relaxed text-neutral-300">
                   Connect the gap between Simon Fraser University academics and global careers. We match your
                   course history to live career opportunities.
                 </h2>
               </div>
 
               <div className="relative z-10 mt-4 flex flex-col gap-5 sm:flex-row">
-                <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
+                <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]" onClick={matchBtn}>
                   <span className="truncate uppercase tracking-wide">Find Your Match</span>
                 </button>
-                
               </div>
             </div>
           </div>
@@ -51,15 +58,15 @@ export default function HomePage() {
                 The Matching Process
               </h2>
               <div className="bg-sfu-red h-1.5 w-24" />
-              <p className="mt-2 max-w-xl text-gray-500 dark:text-gray-400">
+              <p className="mt-2 max-w-xl text-neutral-500 dark:text-neutral-400">
                 A data-driven approach to professional development tailored specifically for the SFU curriculum.
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {/* Card 1 */}
-              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-gray-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-gray-800">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-gray-50 transition-all duration-300 group-hover:text-white dark:bg-gray-800">
+              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-neutral-800">
+                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-50 transition-all duration-300 group-hover:text-white dark:bg-neutral-800">
                   <span className="material-symbols-outlined text-4xl">sync_saved_locally</span>
                 </div>
 
@@ -67,13 +74,13 @@ export default function HomePage() {
                   <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
                     1. Sync SFU Courses
                   </h3>
-                  <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
+                  <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
                     Import your academic transcript directly. Our matching engine decodes SFU course codes into
                     industry-standard competencies.
                   </p>
                 </div>
 
-                <div className="mt-auto border-t border-gray-50 pt-6 dark:border-gray-800">
+                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
                   <a
                     className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
                     href="#"
@@ -84,8 +91,8 @@ export default function HomePage() {
               </div>
 
               {/* Card 2 */}
-              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-gray-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-gray-800">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-gray-50 transition-all duration-300 group-hover:text-white dark:bg-gray-800">
+              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-neutral-800">
+                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-50 transition-all duration-300 group-hover:text-white dark:bg-neutral-800">
                   <span className="material-symbols-outlined text-4xl">upload_file</span>
                 </div>
 
@@ -93,12 +100,12 @@ export default function HomePage() {
                   <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
                     2. Upload Resume
                   </h3>
-                  <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
+                  <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
                     Provide your latest professional profile. We will analyze your coverletter and your SFU courses. Tips will be provided to help strengthen your resume/coverletter. 
                   </p>
                 </div>
 
-                <div className="mt-auto border-t border-gray-50 pt-6 dark:border-gray-800">
+                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
                   <a
                     className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
                     href="#"
@@ -109,8 +116,8 @@ export default function HomePage() {
               </div>
 
               {/* Card 3 */}
-              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-gray-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-gray-800">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-gray-50 transition-all duration-300 group-hover:text-white dark:bg-gray-800">
+              <div className="dark:bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-100 bg-white p-10 shadow-sm transition-all hover:shadow-xl dark:border-neutral-800">
+                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-50 transition-all duration-300 group-hover:text-white dark:bg-neutral-800">
                   <span className="material-symbols-outlined text-4xl">travel_explore</span>
                 </div>
 
@@ -118,13 +125,13 @@ export default function HomePage() {
                   <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
                     3. Live Career Match
                   </h3>
-                  <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
+                  <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
                     Instantly see LinkedIn job postings and see where you hold a competitive advantage based on your SFU
                     education. Get a rating based on how well your background matches with the job.
                   </p>
                 </div>
 
-                <div className="mt-auto border-t border-gray-50 pt-6 dark:border-gray-800">
+                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
                   <a
                     className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
                     href="#"
@@ -146,48 +153,48 @@ export default function HomePage() {
                 <h2 className="text-sfu-dark mb-8 text-4xl font-extrabold leading-tight dark:text-white lg:text-5xl">
                   Technology that speaks <span className="text-sfu-red">SFU.</span>
                 </h2>
-                <p className="mb-10 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                <p className="mb-10 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
                   Standard job boards treat every degree the same. We understand that an SFU degree carries specific
                   rigor. Our AI knows exactly how your coursework prepares you for industry leaders.
                 </p>
 
                 <div className="mx-auto max-w-md space-y-6 lg:mx-0">
-                  <div className="flex items-start gap-4 text-left text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-4 text-left text-neutral-700 dark:text-neutral-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
                     <div>
                       <p className="font-bold">Course-to-Competency Mapping</p>
-                      <p className="text-sm text-gray-500">Translating course credits into professional skillsets.</p>
+                      <p className="text-sm text-neutral-500">Translating course credits into professional skillsets.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 text-left text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-4 text-left text-neutral-700 dark:text-neutral-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
                     
                   </div>
 
-                  <div className="flex items-start gap-4 text-left text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-4 text-left text-neutral-700 dark:text-neutral-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
                     <div>
                       <p className="font-bold">Alumni Real-time LinkedIn Integration</p>
-                      <p className="text-sm text-gray-500">Daily sync with the latest professional opportunities.</p>
+                      <p className="text-sm text-neutral-500">Daily sync with the latest professional opportunities.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="relative w-full flex-1">
-                <div className="mx-auto max-w-md rounded border border-gray-200 bg-gray-50 p-3 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
-                  <div className="dark:bg-background-dark flex flex-col gap-5 rounded border border-gray-100 bg-white p-6 dark:border-gray-800">
-                    <div className="flex items-center gap-4 border-b border-gray-100 pb-4 dark:border-gray-800">
-                      <div className="size-14 flex items-center justify-center rounded bg-gray-100 dark:bg-gray-800">
-                        <span className="material-symbols-outlined text-gray-400">corporate_fare</span>
+                <div className="mx-auto max-w-md rounded border border-neutral-200 bg-neutral-50 p-3 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900">
+                  <div className="dark:bg-background-dark flex flex-col gap-5 rounded border border-neutral-100 bg-white p-6 dark:border-neutral-800">
+                    <div className="flex items-center gap-4 border-b border-neutral-100 pb-4 dark:border-neutral-800">
+                      <div className="size-14 flex items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
+                        <span className="material-symbols-outlined text-neutral-400">corporate_fare</span>
                       </div>
 
                       <div>
                         <p className="text-sfu-dark text-lg font-bold tracking-tight dark:text-white">
                           Systems Architect
                         </p>
-                        <p className="text-sm text-gray-500">Tech Corp • Burnaby, BC</p>
+                        <p className="text-sm text-neutral-500">Tech Corp • Burnaby, BC</p>
                       </div>
 
                       <div className="bg-sfu-red ml-auto rounded px-2.5 py-1 text-[11px] font-bold uppercase text-white">
@@ -196,12 +203,12 @@ export default function HomePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">SFU Program Fit</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">SFU Program Fit</p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="text-sfu-dark rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-semibold dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                        <span className="text-sfu-dark rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[11px] font-semibold dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
                           CMPT 300: Operating Systems
                         </span>
-                        <span className="text-sfu-dark rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-semibold dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                        <span className="text-sfu-dark rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[11px] font-semibold dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
                           CMPT 295: Arch
                         </span>
                         <span className="bg-sfu-red/10 text-sfu-red border-sfu-red/20 rounded border px-2.5 py-1 text-[11px] font-bold">
@@ -226,7 +233,7 @@ export default function HomePage() {
         
       </main>
 
-      <footer className="dark:bg-background-dark border-t border-gray-200 bg-white py-16 dark:border-gray-800">
+      <footer className="dark:bg-background-dark border-t border-neutral-200 bg-white py-16 dark:border-neutral-800">
         <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
             <div className="col-span-1 md:col-span-1">
@@ -240,13 +247,13 @@ export default function HomePage() {
               
 
               <div className="flex gap-5">
-                <a className="hover:text-sfu-red text-gray-400 transition-colors" href="#">
+                <a className="hover:text-sfu-red text-neutral-400 transition-colors" href="#">
                   <span className="material-symbols-outlined">alternate_email</span>
                 </a>
-                <a className="hover:text-sfu-red text-gray-400 transition-colors" href="#">
+                <a className="hover:text-sfu-red text-neutral-400 transition-colors" href="#">
                   <span className="material-symbols-outlined">share</span>
                 </a>
-                <a className="hover:text-sfu-red text-gray-400 transition-colors" href="#">
+                <a className="hover:text-sfu-red text-neutral-400 transition-colors" href="#">
                   <span className="material-symbols-outlined">campaign</span>
                 </a>
               </div>
@@ -256,7 +263,7 @@ export default function HomePage() {
               <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
                 Platform
               </h4>
-              <ul className="space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+              <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
                     Matching Algorithm
@@ -284,7 +291,7 @@ export default function HomePage() {
               <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
                 Resources
               </h4>
-              <ul className="space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+              <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
                     Career Blog
@@ -312,7 +319,7 @@ export default function HomePage() {
               <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
                 Institutional
               </h4>
-              <ul className="space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+              <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
                     SFU Privacy
@@ -337,7 +344,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-gray-100 pt-8 text-[11px] font-bold uppercase tracking-widest text-gray-400 dark:border-gray-800 md:flex-row">
+          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-neutral-100 pt-8 text-[11px] font-bold uppercase tracking-widest text-neutral-400 dark:border-neutral-800 md:flex-row">
             <p>© 2024 Simon Fraser University • CareerConnect</p>
             <div className="flex gap-8">
               <a className="hover:text-sfu-red" href="#">
