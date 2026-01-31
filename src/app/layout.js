@@ -1,8 +1,9 @@
 // app/layout.js
 import "./globals.css";
+import Link from "next/link";
 
 export const metadata = {
-  title: "SFU CareerConnect | Your Future Starts Here",
+  title: "SFU CourseConnect | Your Future Starts Here",
 };
 
 export default function RootLayout({ children }) {
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
               <span className="material-symbols-outlined text-xl text-white">school</span>
             </div>
             <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight">
-              SFU <span className="text-sfu-red">CareerConnect</span>
+              SFU <span className="text-sfu-red">CourseConnect</span>
             </h2>
           </div>
 
@@ -39,23 +40,18 @@ export default function RootLayout({ children }) {
             >
               Home
             </a>
+            
             <a
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
               href="#"
             >
-              About
+              Courses
             </a>
             <a
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
               href="#"
             >
-              Features
-            </a>
-            <a
-              className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
-            >
-              Alumni
+              Match
             </a>
           </nav>
 
