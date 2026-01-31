@@ -34,25 +34,25 @@ export default function RootLayout({ children }) {
           </div>
 
           <nav className="hidden flex-1 justify-center gap-10 md:flex">
-            <a
+            <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
+              href="/"
             >
               Home
-            </a>
+            </Link>
             
-            <a
+            <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
+              href="/courses"
             >
               Courses
-            </a>
-            <a
+            </Link>
+            <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
               href="#"
             >
               Match
-            </a>
+            </Link>
           </nav>
 
           <div className="flex gap-4">

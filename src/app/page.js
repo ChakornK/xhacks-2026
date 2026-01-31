@@ -1,10 +1,18 @@
 // app/page.js
+"use client"
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const heroBgStyle = {
     backgroundImage:
       'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnZ7YqifeHcb0VSzaeWVsqoexw6CwakZ4cvR-KXDuoD2rzpAhHw3T5yQ9XPxVBuZ0hJLD4mYopcr8O2wP-olkAqczEPNfNvjaWrM7va0t7Zoqqdl_HBybVr12-r-cfGv_LZzd-9p_GADFk3Sd84gNQM50cOrb-8QVZ0Gdy4sJO2FxNwkyK6IzkU0yODM0xOOFUTfJpO-lKHBuStDUXzXdey3wZAZIAk3gm_OvCxewdLGOJInfXURnlI2LKxYc1-rG1XZ2gfbN69xx2")',
-  };
+    };
+
+  const router = useRouter();
+
+  function matchBtn() {
+    router.push("/courses");
+  }
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-gray-100">
@@ -34,10 +42,9 @@ export default function HomePage() {
               </div>
 
               <div className="relative z-10 mt-4 flex flex-col gap-5 sm:flex-row">
-                <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
+                <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]" onClick={matchBtn}>
                   <span className="truncate uppercase tracking-wide">Find Your Match</span>
                 </button>
-                
               </div>
             </div>
           </div>
