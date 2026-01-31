@@ -63,8 +63,8 @@ export default function CoursePage() {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark min-h-screen transition-colors duration-300 dark:text-gray-100">
-      <section className="border-b border-gray-100 bg-white/80 py-14 backdrop-blur dark:border-gray-800 dark:bg-[#171717]/80">
+    <div className="bg-background-light dark:bg-background-dark text-sfu-dark min-h-screen transition-colors duration-300 dark:text-neutral-100">
+      <section className="border-b border-neutral-100 bg-white/80 py-14 backdrop-blur dark:border-neutral-800 dark:bg-[#171717]/80">
         <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">
@@ -73,15 +73,15 @@ export default function CoursePage() {
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Add Your <span className="text-sfu-red">SFU</span> Courses
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-gray-500 dark:text-gray-400">
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">
               Search the SFU catalog, add the courses you&apos;ve completed, and build a timeline that powers
               your job matches.
             </p>
           </div>
 
-          <div className="grid gap-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-[#111111] md:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-4 rounded-xl border border-neutral-100 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-[#111111] md:grid-cols-[1.2fr_0.8fr]">
             <div className="flex flex-col gap-3">
-              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400">
+              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">
                 Look up a class
               </label>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -90,7 +90,7 @@ export default function CoursePage() {
                     search
                   </span>
                   <input
-                    className="text-sfu-dark focus:border-sfu-red/60 focus:ring-sfu-red/20 w-full rounded border border-gray-200 bg-gray-50 px-12 py-3 text-sm font-medium shadow-inner outline-none transition-all placeholder:text-gray-400 focus:ring-2 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                    className="text-sfu-dark focus:border-sfu-red/60 focus:ring-sfu-red/20 w-full rounded border border-neutral-200 bg-neutral-50 px-12 py-3 text-sm font-medium shadow-inner outline-none transition-all placeholder:text-neutral-400 focus:ring-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
                     placeholder="Try CMPT 125, data structures, or systems..."
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
@@ -100,7 +100,7 @@ export default function CoursePage() {
                   Search
                 </button>
               </div>
-              <p className="text-xs text-gray-400 dark:text-gray-500">
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">
                 Tip: Use course code, title, or topic keywords.
               </p>
             </div>
@@ -111,13 +111,13 @@ export default function CoursePage() {
 
       <section className="bg-background-alt py-14 dark:bg-[#181818]">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:px-10">
-          <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#111111]">
+          <div className="rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Results</p>
                 <h2 className="text-2xl font-extrabold tracking-tight">Matching Courses</h2>
               </div>
-              <p className="text-xs font-semibold text-gray-400">
+              <p className="text-xs font-semibold text-neutral-400">
                 {results.length} result{results.length === 1 ? "" : "s"}
               </p>
             </div>
@@ -128,18 +128,18 @@ export default function CoursePage() {
                 return (
                   <div
                     key={course.code}
-                    className="hover:border-sfu-red/30 flex flex-col gap-3 rounded-lg border border-gray-100 bg-gray-50 px-4 py-4 transition-all hover:bg-white dark:border-gray-800 dark:bg-[#141414] dark:hover:bg-[#1a1a1a]"
+                    className="hover:border-sfu-red/30 flex flex-col gap-3 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-4 transition-all hover:bg-white dark:border-neutral-800 dark:bg-[#141414] dark:hover:bg-[#1a1a1a]"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div>
                         <p className="text-sfu-dark text-lg font-bold dark:text-white">{course.code}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{course.title}</p>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">{course.title}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <button
                           className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
                             isAdded
-                              ? "cursor-not-allowed bg-gray-200 text-gray-500 dark:bg-gray-800"
+                              ? "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
                               : "cursor-pointer bg-sfu-red text-white hover:bg-[#8B1526]"
                           }`}
                           onClick={() => addCourse(course)}
@@ -157,7 +157,7 @@ export default function CoursePage() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#111111]">
+            <div className="rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
               <div className="mb-6 flex items-center justify-between">
                 <div>
                   <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
@@ -166,24 +166,32 @@ export default function CoursePage() {
                 <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">
                   {selected.length} total
                 </div>
-                <button
-                      className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                      onClick={() => removeCourse(course.code)}
-                      type="button"
-                    >
-                      Remove
-                    </button>
               </div>
-
+              {selected.length > 0 && (
+                <div className="mb-6">
+                  <button
+                    type="button"
+                    onClick={() => setSelected([])}
+                    className="
+                      w-full cursor-pointer rounded border px-3 py-2
+                      text-xs font-bold uppercase tracking-widest
+                      text-sfu-red border-sfu-red/20
+                      hover:bg-sfu-red/10 transition-all
+                    "
+                  >
+                    Remove All
+                  </button>
+                </div>
+              )}
               <div className="space-y-3">
                 {selected.map((course) => (
                   <div
                     key={course.code}
-                    className="flex items-center justify-between gap-4 rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 dark:border-gray-800 dark:bg-[#141414]"
+                    className="flex items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 dark:border-neutral-800 dark:bg-[#141414]"
                   >
                     <div>
                       <p className="text-sfu-dark text-sm font-bold dark:text-white">{course.code}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{course.title}</p>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
                     </div>
                     <button
                       className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
