@@ -6,53 +6,40 @@ const COURSE_CATALOG = [
   {
     code: "CMPT 120",
     title: "Introduction to Computing Science",
-    units: 3,
   },
   {
     code: "CMPT 225",
     title: "Data Structures and Programming",
-    units: 3,
   },
   {
     code: "CMPT 276",
     title: "Software Engineering",
-    units: 3,
   },
   {
     code: "CMPT 295",
     title: "Computer Architecture",
-    units: 3,
   },
   {
     code: "CMPT 300",
     title: "Operating Systems",
-    units: 3,
   },
   {
     code: "BUS 232",
     title: "Business Statistics for Decisions",
-    units: 3,
   },
   {
     code: "MACM 201",
     title: "Discrete Mathematics I",
-    units: 3,
   },
   {
     code: "STAT 270",
     title: "Probability & Statistics",
-    units: 3,
   },
 ];
 
 export default function CoursePage() {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState([
-    {
-      code: "CMPT 225",
-      title: "Data Structures and Programming",
-    },
-  ]);
+  const [selected, setSelected] = useState([]); // selected courses
   const results = useMemo(() => {
     if (!query.trim()) return COURSE_CATALOG;
     const normalized = query.toLowerCase();
@@ -149,9 +136,6 @@ export default function CoursePage() {
                         <p className="text-sm text-gray-500 dark:text-gray-400">{course.title}</p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                          {course.units} units
-                        </span>
                         <button
                           className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
                             isAdded
@@ -182,6 +166,13 @@ export default function CoursePage() {
                 <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">
                   {selected.length} total
                 </div>
+                <button
+                      className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
+                      onClick={() => removeCourse(course.code)}
+                      type="button"
+                    >
+                      Remove
+                    </button>
               </div>
 
               <div className="space-y-3">
