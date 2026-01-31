@@ -26,23 +26,18 @@ export default function HomePage() {
             >
               Home
             </a>
+          
             <a
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
               href="#"
             >
-              About
+              Courses
             </a>
             <a
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
               href="#"
             >
-              Features
-            </a>
-            <a
-              className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
-            >
-              Alumni
+              Connect
             </a>
           </nav>
 
@@ -69,13 +64,7 @@ export default function HomePage() {
               <div className="bg-sfu-red/10 absolute -right-24 -top-24 h-96 w-96 rounded-full blur-[120px]" />
 
               <div className="relative z-10 flex max-w-[900px] flex-col gap-6">
-                <span className="bg-sfu-red/20 border-sfu-red/30 inline-flex items-center gap-2 self-center rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2">
-                    <span className="bg-sfu-red absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-                    <span className="bg-sfu-red relative inline-flex h-2 w-2 rounded-full" />
-                  </span>
-                  Matching for Winter 2024 Co-op
-                </span>
+
 
                 <h1 className="@[480px]:text-7xl text-5xl font-extrabold leading-tight tracking-tight text-white">
                   Your Degree, <span className="text-sfu-red">Connected.</span>
@@ -283,31 +272,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA */}
-        <section className="mx-auto max-w-[1280px] px-6 py-24">
-          <div className="bg-sfu-red relative overflow-hidden rounded px-10 py-16 shadow-2xl lg:px-20 lg:py-24">
-            <div className="pointer-events-none absolute right-0 top-0 p-4 text-white/5">
-              <span className="material-symbols-outlined text-[240px]">architecture</span>
-            </div>
-
-            <div className="relative z-10 flex flex-col items-center text-center">
-              <h2 className="mb-8 text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
-                Ready to launch your career?
-              </h2>
-              <p className="mx-auto mb-12 max-w-2xl text-lg font-light text-white/80 lg:text-xl">
-                Join thousands of SFU students navigating the professional world with purpose.
-              </p>
-
-              <div className="flex w-full flex-col items-center justify-center gap-6 sm:flex-row">
-                <button className="text-sfu-red w-full rounded bg-white px-12 py-5 text-lg font-bold uppercase tracking-widest shadow-xl transition-colors hover:bg-gray-100 sm:w-auto">
-                  Join Now
-                </button>
-                <button className="w-full rounded border-2 border-white bg-transparent px-12 py-5 text-lg font-bold uppercase tracking-widest text-white transition-colors hover:bg-white/10 sm:w-auto">
-                  Talk to Career Services
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+        
       </main>
 
       <footer className="dark:bg-background-dark border-t border-gray-200 bg-white py-16 dark:border-gray-800">
@@ -321,10 +286,7 @@ export default function HomePage() {
                 <h2 className="text-lg font-extrabold uppercase tracking-tight">SFU CareerConnect</h2>
               </div>
 
-              <p className="mb-8 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-                A specialized platform for the Simon Fraser University community, linking academic excellence with
-                professional opportunity.
-              </p>
+              
 
               <div className="flex gap-5">
                 <a className="hover:text-sfu-red text-gray-400 transition-colors" href="#">
@@ -433,6 +395,7 @@ export default function HomePage() {
               <a className="hover:text-sfu-red" href="#">
                 Status
               </a>
+              
               <a className="hover:text-sfu-red" href="#">
                 Feedback
               </a>
