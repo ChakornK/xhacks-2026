@@ -1,4 +1,4 @@
-import { cacheData } from "@/lib/redis";
+import { cacheData, redis } from "@/lib/redis";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import { jobRankingPrompt, jobTitlesPrompt } from "@/lib/prompt";
@@ -8,7 +8,18 @@ import dbConnect from "@/lib/mongodb";
 import { getCourses } from "@/lib/courses";
 const linkedIn = require("linkedin-jobs-api");
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const getGenAI = async () => {
+  const keys = (process.env.GEMINI_API_KEY || "")
+    .split(";")
+    .map((k) => k.trim())
+    .filter((k) => k);
+  if (keys.length === 0) return new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+  const index = await redis.incr("gemini_key_rotation_index");
+  const key = keys[index % keys.length];
+
+  return new GoogleGenerativeAI(key);
+};
 
 function getLocationPriority(location) {
   if (!location) return 4;
@@ -37,7 +48,7 @@ export async function POST(req, res) {
     if (!s) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     await dbConnect();
-    const user = await User.findById(s.user.id);
+    const user = await User.findCached(s.user.id);
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     const { savedCourses: savedCoursesStr } = user;
     const savedCourses = JSON.parse(savedCoursesStr || "[]");
@@ -54,6 +65,7 @@ export async function POST(req, res) {
         };
         const endStream = () => controller.close();
 
+        const genAI = await getGenAI();
         const model = genAI.getGenerativeModel({
           model: "gemma-3-27b-it",
           // generationConfig: { responseMimeType: "application/json" },

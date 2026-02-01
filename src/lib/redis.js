@@ -1,8 +1,9 @@
 "server-only";
 
 import Redis from "ioredis";
+import "./cleanup";
 
-const redis = new Redis(process.env.REDIS_URI);
+export const redis = new Redis(process.env.REDIS_URI);
 
 export async function cacheData(key, fetchData, ttl) {
   const cachedData = await redis.get(key);
@@ -32,3 +33,20 @@ export const redisAdapter = {
     await redis.del(key);
   },
 };
+
+export async function storeUser(userId, data) {
+  await redis.set(`user:${userId}`, JSON.stringify(data), "EX", 60 * 30);
+}
+
+export async function getUser(userId) {
+  const data = await redis.get(`user:${userId}`);
+  return data ? JSON.parse(data) : null;
+}
+
+export async function removeUser(userId) {
+  await redis.del(`user:${userId}`);
+}
+
+export function disconnectRedis() {
+  redis.disconnect();
+}

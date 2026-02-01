@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import User from "@/models/User";
 import dbConnect from "./mongodb";
-import { redisAdapter } from "./redis";
+import { redisAdapter, storeUser, removeUser } from "./redis";
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db();
@@ -27,10 +27,29 @@ export const auth = betterAuth({
       create: {
         after: async (session) => {
           await dbConnect();
-          const existingUser = await User.findById(session.userId);
-          if (!existingUser) {
-            await User.create({ _id: session.userId, savedCourses: "[]", jobMatches: "{}" });
+          let user = await User.findCached(session.userId);
+          if (!user) {
+            user = await User.create({
+              _id: session.userId,
+              savedCourses: "[]",
+              jobMatches: "{}",
+            });
           }
+          await storeUser(session.userId, user);
+        },
+      },
+      update: {
+        after: async (session) => {
+          await dbConnect();
+          const user = await User.findCached(session.userId);
+          if (user) {
+            await storeUser(session.userId, user);
+          }
+        },
+      },
+      delete: {
+        after: async (session) => {
+          await removeUser(session.userId);
         },
       },
     },
