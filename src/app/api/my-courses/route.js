@@ -8,6 +8,10 @@ export async function GET(req, res) {
   if (!s) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   await dbConnect();
+
+  const user = await User.findById(s.user.id);
+  if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
+  return NextResponse.json(user.savedCourses);
 }
 
 const courseRegex = /(cmpt|math|macm|stat|ensc) \d{3}/i;

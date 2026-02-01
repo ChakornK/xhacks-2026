@@ -27,11 +27,20 @@ export default function CoursePage() {
   );
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch("/api/courses")
-      .then((res) => res.json())
-      .then((data) => setApiData(data))
-      .finally(() => setIsLoading(false));
+    (async () => {
+      let d = [];
+      setIsLoading(true);
+      await fetch("/api/courses")
+        .then((res) => res.json())
+        .then((data) => {
+          setApiData(data);
+          d = data;
+          fetch("/api/my-courses")
+            .then((res) => res.json())
+            .then((data) => setSelected(data.map((course) => d.find((item) => item.code === course))));
+        })
+        .finally(() => setIsLoading(false));
+    })();
   }, []);
 
   const results = useMemo(() => {
