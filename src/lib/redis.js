@@ -35,7 +35,7 @@ export const redisAdapter = {
 };
 
 export async function storeUser(userId, data) {
-  await redis.set(`user:${userId}`, JSON.stringify(data));
+  await redis.set(`user:${userId}`, JSON.stringify(data), "EX", 60 * 30);
 }
 
 export async function getUser(userId) {
