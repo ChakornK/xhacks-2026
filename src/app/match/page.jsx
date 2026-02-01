@@ -51,7 +51,7 @@ export default function MatchPage() {
 
           <div className="grid grid-cols-1 gap-4 rounded-xl sm:grid-cols-2">
             {JOB_MATCHES.map((job) => {
-              return <JobMatchCard key={`${title}-${link}-${company}`} {...job} compatibility={job.compatibility * 100} />;
+              return <JobMatchCard key={`${job.title}-${job.link}-${job.company}`} {...job} compatibility={job.compatibility * 100} />;
             })}
           </div>
         </div>
