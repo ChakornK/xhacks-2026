@@ -59,8 +59,8 @@ export default function AppShell({ children }) {
             <span className="material-symbols-outlined text-xl text-white">school</span>
           </div>
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide">SFU Career Net</p>
-            <p className="text-xs text-neutral-400">Student Portal</p>
+            <p className="text-sm font-bold uppercase tracking-wide">SFU</p>
+            <p className="text-sfu-red text-sm font-bold uppercase tracking-wide">CareerConnect</p>
           </div>
         </div>
 

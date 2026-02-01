@@ -107,12 +107,6 @@ export default function HomePage() {
                     Select your SFU courses. Our matching engine decodes SFU courses into industry-standard skills.
                   </p>
                 </div>
-
-                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
-                    View Courses <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
-                  </a>
-                </div>
               </div>
 
               {/* Card 2 */}
@@ -128,12 +122,6 @@ export default function HomePage() {
                     your resume/coverletter.
                   </p>
                 </div>
-
-                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
-                    View Resume Tips <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
-                  </a>
-                </div>
               </div>
 
               {/* Card 3 */}
@@ -148,12 +136,6 @@ export default function HomePage() {
                     View LinkedIn job postings and see where you hold a competitive advantage based on your SFU education. Get a rating based on how well your
                     background matches with the job.
                   </p>
-                </div>
-
-                <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
-                    View Matches <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
-                  </a>
                 </div>
               </div>
             </div>
