@@ -1,13 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { extractText, getDocumentProxy } from "unpdf";
 
 export default function ResumePage() {
   const router = useRouter();
+  const fileUploadRef = useRef(null);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [fileOver, setFileOver] = useState(false);
 
   const [status, setStatus] = useState(null);
 
@@ -74,17 +77,28 @@ export default function ResumePage() {
 
           {/* UPLOAD BOX */}
           <div className="grid gap-4 rounded-xl border border-neutral-800 bg-[#111111] p-8 shadow-sm">
-            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-neutral-700 py-12">
-              <span className="material-symbols-outlined text-sfu-red mb-4 text-5xl">cloud_upload</span>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="file:bg-sfu-red cursor-pointer text-sm text-neutral-400 file:mr-4 file:rounded file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#8B1526]"
-                accept=".pdf,.doc,.docx"
-              />
-              <p className="mt-4 text-xs font-medium uppercase tracking-widest text-neutral-400">
-                {file ? `Selected: ${file.name}` : "PDF or Word documents only"}
-              </p>
+            <div
+              className={`flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed py-12 ${fileOver ? "bg-sfu-red/10 border-sfu-red" : "border-neutral-700"}`}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setFileOver(true);
+              }}
+              onDragLeave={() => {
+                setFileOver(false);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                e.dataTransfer.files[0] && setFile(e.dataTransfer.files[0]);
+              }}
+            >
+              <span className="material-symbols-outlined text-sfu-red text-5xl">cloud_upload</span>
+              <input ref={fileUploadRef} type="file" onChange={handleFileChange} className="hidden" accept=".pdf,.doc,.docx" />
+              {!file && (
+                <button className="btn max-w-fit" onClick={() => fileUploadRef.current.click()}>
+                  Browse File
+                </button>
+              )}
+              <p className="text-xs font-medium uppercase tracking-widest text-neutral-400">{file ? `Selected: ${file.name}` : "PDF or Word documents only"}</p>
             </div>
 
             <button
