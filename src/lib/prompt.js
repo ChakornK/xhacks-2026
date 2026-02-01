@@ -5,8 +5,6 @@ Task:
 Generate 3 high-demand job titles for someone targeting employment in **British Columbia**.
 
 Hard constraints:
-- Prioritize roles that are commonly hired in BC (Vancouver, Burnaby, Richmond, Surrey, Victoria).
-- Avoid roles that are primarily concentrated in Eastern Canada / GTA-only.
 - Titles must be real, commonly used job titles in Canada (not made-up).
 - Keep titles general enough to appear on job boards (not company-specific).
 
@@ -21,7 +19,7 @@ export function jobRankingPrompt(courseContext, jobs) {
   return `Student experience:${courseContext}
 Jobs: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
 
-Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT 225).
+Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
 Return JSON array of objects: [{"id": 0, "score": 85, "reason": "..."}]
 
 In addition to the jobs, provide a general "profileSummary" and "interviewPrep".
