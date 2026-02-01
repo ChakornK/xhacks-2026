@@ -1,19 +1,39 @@
 "use client";
 
-import { signIn } from "@/lib/auth-client";
+import { useSession, signIn } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function SignInButton() {
+  // Check if the user is logged in
+  const {data: session, isPending} = useSession();
+  const router = useRouter();
+
+  if (isPending) {
+    return (
+      <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-2xl font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
+        Loading...
+      </button>
+    );
+  }
+
+  if (session) {
+    return (
+      <button onClick={() => router.push("/courses")} className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-2xl font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
+        Go to Courses
+      </button>
+    );
+  }
   return (
     <button
       onClick={async () => {
         await signIn.social({
           provider: "google",
-          callbackURL: "/dashboard",
+          callbackURL: "/courses",
         });
       }}
-      className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+      className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-2xl font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]"
     >
-      Sign in with Google
+      Get Started
     </button>
   );
 }
