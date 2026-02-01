@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <div className="bg-background-dark relative flex w-full flex-col overflow-x-hidden text-neutral-100 transition-colors duration-300">
       <main className="flex-1">
-        <section className="relative h-dvh">
+        <section className="h-dvh relative">
           <div
             className="absolute inset-0"
             style={{
@@ -22,7 +22,7 @@ export default function HomePage() {
               backgroundPosition: "center top",
             }}
           />
-          <div className="bg-black/75 absolute inset-0 h-dvh"/>
+          <div className="h-dvh absolute inset-0 bg-black/75" />
           <div className="relative z-10">
             <div className="sticky top-0 z-50 w-full">
               <div className={`mx-auto flex max-w-7xl items-center whitespace-nowrap px-6 py-4 lg:px-10 ${session ? "justify-between" : "justify-center"}`}>
