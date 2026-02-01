@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
             </Link>
             <Link
               className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300"
-              href="#"
+              href="/match"
             >
               Match
             </Link>
