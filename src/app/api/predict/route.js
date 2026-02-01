@@ -109,7 +109,16 @@ export async function POST(request) {
         Jobs: ${priorityJobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
         
         Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., ${courses[0]?.dept} ${courses[0]?.number}).
-        Return JSON array of objects: [{"id": 0, "score": 85, "reason": "..."}]`,
+        Return JSON array of objects: [{"id": 0, "score": 85, "reason": "..."}]
+        
+        In addition to the jobs, provide a general "profileSummary" and "interviewPrep".
+        Return the final JSON in this format:
+        {
+          "jobs": [...],
+          "profileSummary": "A 2-sentence summary of their current competitiveness.",
+          "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"]
+        }`,
+        
       },
     ];
     if (resumeData) rankingPrompt.push(resumeData);
@@ -119,7 +128,10 @@ export async function POST(request) {
     const rankedScores = JSON.parse(rawRankingText);
 
     // 6. Final Merge with Safety Check
-    const finalJobs = rankedScores
+    // Check if rankedScores is the new object format or the old array format
+    const jobsToMap = Array.isArray(rankedScores) ? rankedScores : (rankedScores.jobs || []);
+
+    const finalJobs = jobsToMap
       .map((score) => {
         const originalJob = priorityJobs[score.id];
         if (!originalJob) return null;
@@ -132,13 +144,20 @@ export async function POST(request) {
           matchScore: score.score,
           adjustedScore: Math.min(score.score +locationBoost, 100),
           matchReason: score.reason,
+          missingCourses: score.missingCourses || [], // Ensure these exist for your card
+          missingSkills: score.missingSkills || [],
           url: originalJob.jobUrl,
         };
       })
       .filter((job) => job !== null) // Remove any failed matches
       .sort((a, b) => b.adjustedScore - a.adjustedScore);
 
-    return NextResponse.json({ jobs: finalJobs });
+    // Return EVERYTHING to the frontend
+    return NextResponse.json({ 
+      jobs: finalJobs,
+      profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
+      interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"]
+    });
   } catch (error) {
     console.error("Predict Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
