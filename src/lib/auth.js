@@ -19,6 +19,7 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_OAUTH_ID,
       clientSecret: process.env.GOOGLE_OAUTH_SECRET,
+      prompt: "consent",
     },
   },
   databaseHooks: {
