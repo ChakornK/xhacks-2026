@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import JobMatchCard from "@/components/JobMatchCard";
-import { motion } from "motion/react"
 
 export default function MatchPage() {
   const [loading, setLoading] = useState(true);
@@ -65,25 +64,23 @@ export default function MatchPage() {
         </div>
         <div className="mx-auto grid max-w-7xl gap-8">
           {/* JOB LIST */}
-          <motion.div initial="hidden" whileInView="animate" viewport={{ once: true }} exit="exit">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {jobsData.jobs.length > 0 ?
-                jobsData.jobs.map((job, index) => (
-                  <JobMatchCard
-                    key={index}
-                    title={job.position}
-                    company={job.company}
-                    location={job.location || "Unknown"}
-                    compatibility={job.matchScore}
-                    link={job.url}
-                    missingCourses={job.missingCourses || []}
-                    missingSkills={job.missingSkills || []}
-                    additionalInfo={job.matchReason}
-                  />
-                ))
-              : <div className="col-span-2 py-20 text-center text-neutral-400">No matches found. Try uploading your resume again.</div>}
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {jobsData.jobs.length > 0 ?
+              jobsData.jobs.map((job, index) => (
+                <JobMatchCard
+                  key={index}
+                  title={job.position}
+                  company={job.company}
+                  location={job.location || "Unknown"}
+                  compatibility={job.matchScore}
+                  link={job.url}
+                  missingCourses={job.missingCourses || []}
+                  missingSkills={job.missingSkills || []}
+                  additionalInfo={job.matchReason}
+                />
+              ))
+            : <div className="col-span-2 py-20 text-center text-neutral-400">No matches found. Try uploading your resume again.</div>}
+          </div>
         </div>
       </section>
     </main>
