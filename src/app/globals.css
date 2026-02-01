@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sfu-red: #A6192E;
-  --color-sfu-dark: #231F20;
-  --color-background-alt: #F7F7F7;
+  --color-sfu-red: #a6192e;
+  --color-sfu-dark: #231f20;
+  --color-background-alt: #f7f7f7;
   --color-background-dark: #121212;
-  --color-background-light: #FFFFFF;
+  --color-background-light: #ffffff;
+}
+
+.btn {
+  @apply bg-sfu-red flex w-full select-none items-center justify-between gap-1 rounded px-4 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:brightness-110;
 }
