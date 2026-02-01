@@ -91,13 +91,14 @@ export async function POST(req, res) {
         const jobSearches = await Promise.allSettled(
           predictedTitles.map((title) =>
             cacheData(
-              `linkedin-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
+              `linkedin-intern-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
               () =>
                 linkedIn.query({
                   keyword: title,
                   location: "Vancouver, BC",
                   limit: "15",
                   dateSincePosted: "past Month",
+                  experienceLevel: "internship",
                 }),
               60 * 60 * 24, // 24 hour cache
             ),
