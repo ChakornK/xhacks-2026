@@ -4,10 +4,8 @@ import JobMatchCard from "@/components/JobMatchCard";
 import LoginButton from "@/components/LoginButton";
 import LogOut from "@/components/LogOut";
 import { useSession } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-  const router = useRouter();
   const { data: sessionData } = useSession();
 
   return (
