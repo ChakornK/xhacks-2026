@@ -33,43 +33,36 @@ export default function MatchPage() {
         </div>
       </section>
 
-      <section className="bg-background-alt py-14">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.6fr_1.4fr] lg:px-10">
-          {/* SIDEBAR - PROFILE STRENGTH */}
-          <div className="flex flex-col gap-6">
-            <div className="sticky top-8 rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
-              <div className="mb-4">
-                <p className="text-sfu-red mb-1 text-[10px] font-bold uppercase tracking-[0.2em]">Analysis</p>
-                <h2 className="text-2xl font-extrabold tracking-tight text-white">Profile Strength</h2>
-              </div>
-
-              <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">
-                "{!loading ? jobsData.profileSummary : "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
-              </p>
-
-              <hr className="mb-6 border-neutral-800" />
-
-              <div className="space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-400">Interview Strategy</h3>
-                <ul className="space-y-3">
-                  {(jobsData?.interviewPrep && jobsData.interviewPrep.length > 0 ?
-                    jobsData.interviewPrep
-                  : [
-                      "Highlight specific technical projects from your SFU coursework.",
-                      "Prepare to discuss your problem-solving process in depth.",
-                      "Be ready to map your academic skills to the job's daily tasks.",
-                    ]
-                  ).map((tip, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-neutral-300">
-                      <span className="text-sfu-red font-bold">•</span>
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+      <section className="bg-background-alt flex flex-col gap-4 px-8 py-12">
+        <div className="grid rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm lg:grid-cols-2">
+          <div className="border-neutral-700 lg:border-r lg:pr-4">
+            <p className="text-sfu-red text-[10px] font-bold uppercase tracking-[0.2em]">Overview</p>
+            <h2 className="mb-2 text-2xl font-extrabold tracking-tight text-white">Your Profile</h2>
+            <p className="text-sm italic leading-relaxed text-neutral-400">
+              "{!loading ? jobsData.profileSummary : "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
+            </p>
           </div>
 
+          <div className="mt-6 space-y-2 lg:mt-1 lg:pl-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-400">Interview Strategy</h3>
+            <ul className="space-y-2">
+              {(jobsData?.interviewPrep && jobsData.interviewPrep.length > 0 ?
+                jobsData.interviewPrep
+              : [
+                  "Highlight specific technical projects from your SFU coursework.",
+                  "Prepare to discuss your problem-solving process in depth.",
+                  "Be ready to map your academic skills to the job's daily tasks.",
+                ]
+              ).map((tip, i) => (
+                <li key={i} className="flex gap-3 text-sm text-neutral-300">
+                  <span className="text-sfu-red font-bold">•</span>
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="mx-auto grid max-w-7xl gap-8">
           {/* JOB LIST */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {jobsData.jobs.length > 0 ?
