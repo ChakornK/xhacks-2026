@@ -1,11 +1,11 @@
-// app/page.js
 "use client"
+
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const heroBgStyle = {
     backgroundImage:
-      'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnZ7YqifeHcb0VSzaeWVsqoexw6CwakZ4cvR-KXDuoD2rzpAhHw3T5yQ9XPxVBuZ0hJLD4mYopcr8O2wP-olkAqczEPNfNvjaWrM7va0t7Zoqqdl_HBybVr12-r-cfGv_LZzd-9p_GADFk3Sd84gNQM50cOrb-8QVZ0Gdy4sJO2FxNwkyK6IzkU0yODM0xOOFUTfJpO-lKHBuStDUXzXdey3wZAZIAk3gm_OvCxewdLGOJInfXURnlI2LKxYc1-rG1XZ2gfbN69xx2")',
+      'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://www.sfu.ca/content/sfu/main/campuses/surrey/jcr:content/main_content/image_0.img.2000.low.jpg/1614225784102.jpg")',
     };
 
   const router = useRouter();
