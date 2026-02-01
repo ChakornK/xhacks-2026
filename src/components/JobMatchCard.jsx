@@ -22,14 +22,14 @@ export default function JobMatchCard({ title, company, location, compatibility, 
         <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Missing Courses</p>
         <div className="flex flex-wrap gap-2">
           {missingCourses.map((j) => (
-            <span className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
+            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
           ))}
         </div>
 
         <p className="mt-4 text-[10px] font-bold uppercase tracking-widest text-neutral-400">Missing Skills</p>
         <div className="flex flex-wrap gap-2">
           {missingSkills.map((j) => (
-            <span className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
+            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
           ))}
         </div>
       </div>
