@@ -25,7 +25,7 @@ export default function AppShell({ children }) {
         <span className="material-symbols-outlined text-2xl">menu</span>
       </button>
 
-      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-neutral-800 bg-gradient-to-b from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 lg:flex">
+      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-neutral-800 bg-neutral-950 px-5 py-6 text-neutral-200 lg:flex">
         <div className="mb-8 flex items-center gap-3">
           <div className="bg-sfu-red size-9 flex items-center justify-center rounded">
             <span className="material-symbols-outlined text-xl text-white">school</span>
@@ -37,39 +37,23 @@ export default function AppShell({ children }) {
         </div>
 
         <nav className="flex flex-col gap-2 text-sm font-semibold">
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/"
-          >
+          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/">
             <span className="material-symbols-outlined text-base">dashboard</span>
             Home
           </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white"
-            href="/"
-            aria-current="page"
-          >
+          <Link className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white" href="/" aria-current="page">
             <span className="material-symbols-outlined text-base">person</span>
             Courses
           </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/courses"
-          >
+          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/match">
             <span className="material-symbols-outlined text-base">work</span>
             Job Matches
           </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/courses"
-          >
+          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/courses">
             <span className="material-symbols-outlined text-base">insights</span>
             Skill Insights
           </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/"
-          >
+          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/">
             <span className="material-symbols-outlined text-base">settings</span>
             Settings
           </Link>
@@ -77,9 +61,7 @@ export default function AppShell({ children }) {
       </aside>
 
       <div
-        className={`fixed inset-0 z-50 bg-black/60 transition-opacity lg:hidden ${
-          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
+        className={`fixed inset-0 z-50 bg-black/60 transition-opacity lg:hidden ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         onClick={() => setIsOpen(false)}
       />
 
@@ -101,11 +83,7 @@ export default function AppShell({ children }) {
               <p className="text-xs text-neutral-400">Student Portal</p>
             </div>
           </div>
-          <button
-            className="text-neutral-300 hover:text-white"
-            onClick={() => setIsOpen(false)}
-            aria-label="Close navigation"
-          >
+          <button className="text-neutral-300 hover:text-white" onClick={() => setIsOpen(false)} aria-label="Close navigation">
             <span className="material-symbols-outlined text-2xl">close</span>
           </button>
         </div>
@@ -119,16 +97,11 @@ export default function AppShell({ children }) {
             <span className="material-symbols-outlined text-base">dashboard</span>
             Dashboard
           </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white"
-            href="/"
-            aria-current="page"
-            onClick={() => setIsOpen(false)}
-          >
+          <Link className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white" href="/" aria-current="page" onClick={() => setIsOpen(false)}>
             <span className="material-symbols-outlined text-base">person</span>
             Profile
           </Link>
-          
+
           <Link
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
             href="/courses"
