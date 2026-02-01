@@ -1,6 +1,7 @@
 "use client";
 
 import { CircularIndicator } from "@/components/CircularIndicator";
+import JobMatchCard from "@/components/JobMatchCard";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import { Icon } from "@mui/material";
 
@@ -51,60 +52,10 @@ export default function MatchPage() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">Results</p>
-                <h2 className="text-2xl font-extrabold tracking-tight">Job Matches</h2>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {JOB_MATCHES.map((job) => {
-                return (
-                  <div key={`${job.link}-${job.title}`} className="flex gap-3 rounded-lg border border-neutral-800 bg-[#141414] px-4 py-4 transition-all">
-                    <div className="flex grow flex-col items-start justify-between">
-                      <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">{job.company}</p>
-                      <p className="text-xl font-extrabold text-white">{job.title}</p>
-                      <p className="text-sm font-semibold text-neutral-400">{job.location}</p>
-                      <div className="mt-2 grid w-full grid-cols-2">
-                        <div>
-                          <p className="mb-2 font-semibold">Missing Courses</p>
-                          <div className="flex flex-wrap gap-2">
-                            {job.missingCourses.length > 0 &&
-                              job.missingCourses.map((j) => <div className="rounded-lg bg-neutral-800 px-2 py-1 text-sm font-semibold">{j}</div>)}
-                          </div>
-                        </div>
-                        <div>
-                          <p className="mb-2 font-semibold">Missing Skills</p>
-                          <div className="flex flex-wrap gap-2">
-                            {job.missingSkills.length > 0 &&
-                              job.missingSkills.map((s) => <div className="rounded-lg bg-neutral-800 px-2 py-1 text-sm font-semibold">{s}</div>)}
-                          </div>
-                        </div>
-                      </div>
-                      <a
-                        href={job.link}
-                        target="_blank"
-                        className="bg-sfu-red mt-4 flex cursor-pointer items-center gap-1 rounded px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#8B1526]"
-                      >
-                        Apply
-                        <Icon
-                          component={OpenInNewRoundedIcon}
-                          sx={{
-                            width: "1rem",
-                            height: "1rem",
-                          }}
-                        />
-                      </a>
-                    </div>
-                    <div className="text-sfu-red w-12 text-center text-xl font-bold">
-                      <CircularIndicator colour={"#A6192E"} percentage={job.compatibility * 100} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="grid grid-cols-1 gap-4 rounded-xl sm:grid-cols-2">
+            {JOB_MATCHES.map((job) => {
+              return <JobMatchCard {...job} compatibility={job.compatibility * 100} />;
+            })}
           </div>
         </div>
       </section>
