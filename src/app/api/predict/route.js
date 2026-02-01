@@ -18,9 +18,12 @@ function getLocationPriority(location) {
 
 function getLocationBoost(priority) {
   switch (priority) {
-    case 0: return 10;  // Vancouver/Burnaby/Richmond/Surrey: +10 points
-    case 1: return 5;   // Rest of BC: +5 points
-    default: return 0;  // Ontario/Other: no boost
+    case 0:
+      return 10; // Vancouver/Burnaby/Richmond/Surrey: +10 points
+    case 1:
+      return 5; // Rest of BC: +5 points
+    default:
+      return 0; // Ontario/Other: no boost
   }
 }
 
@@ -93,7 +96,7 @@ export async function POST(request) {
         _priority: getLocationPriority(job.location),
         _originalIndex: originalIndex,
       }))
-      .sort((a,b) => {
+      .sort((a, b) => {
         // Sort Location by priority
         if (a._priority !== b._priority) return a._priority - b._priority;
         // If same priority, sort by original index
@@ -118,7 +121,6 @@ export async function POST(request) {
           "profileSummary": "A 2-sentence summary of their current competitiveness.",
           "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"]
         }`,
-        
       },
     ];
     if (resumeData) rankingPrompt.push(resumeData);
@@ -129,7 +131,7 @@ export async function POST(request) {
 
     // 6. Final Merge with Safety Check
     // Check if rankedScores is the new object format or the old array format
-    const jobsToMap = Array.isArray(rankedScores) ? rankedScores : (rankedScores.jobs || []);
+    const jobsToMap = Array.isArray(rankedScores) ? rankedScores : rankedScores.jobs || [];
 
     const finalJobs = jobsToMap
       .map((score) => {
@@ -142,7 +144,7 @@ export async function POST(request) {
         return {
           ...originalJob,
           matchScore: score.score,
-          adjustedScore: Math.min(score.score +locationBoost, 100),
+          adjustedScore: Math.min(score.score + locationBoost, 100),
           matchReason: score.reason,
           missingCourses: score.missingCourses || [], // Ensure these exist for your card
           missingSkills: score.missingSkills || [],
@@ -153,10 +155,10 @@ export async function POST(request) {
       .sort((a, b) => b.adjustedScore - a.adjustedScore);
 
     // Return EVERYTHING to the frontend
-    return NextResponse.json({ 
+    return NextResponse.json({
       jobs: finalJobs,
       profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
-      interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"]
+      interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
     });
   } catch (error) {
     console.error("Predict Error:", error);

@@ -42,7 +42,7 @@ export default function AppShell({ children }) {
   }
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark flex min-h-screen w-full overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
+    <div className="bg-background-dark flex min-h-screen w-full overflow-x-hidden text-neutral-100 transition-colors duration-300">
       <button
         className="bg-sfu-red size-11 fixed left-4 top-4 z-50 flex items-center justify-center rounded-lg text-white shadow-lg lg:hidden"
         onClick={() => setIsOpen(true)}
@@ -85,7 +85,7 @@ export default function AppShell({ children }) {
 
       <aside
         id="mobile-side-header"
-        className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 bg-gradient-to-b from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 shadow-2xl transition-transform lg:hidden ${
+        className={`bg-linear-to-b fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 shadow-2xl transition-transform lg:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="dialog"

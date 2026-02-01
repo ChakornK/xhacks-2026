@@ -8,7 +8,7 @@ export default function JobMatchCard({ title, company, location, compatibility, 
       <div className="flex items-center gap-4 border-b border-neutral-800 pb-4">
         <div className="grow">
           <p className="text-lg font-bold tracking-tight text-white">{title}</p>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-400">
             {company} • {location}
           </p>
         </div>
@@ -22,14 +22,18 @@ export default function JobMatchCard({ title, company, location, compatibility, 
         <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Missing Courses</p>
         <div className="flex flex-wrap gap-2">
           {missingCourses.map((j) => (
-            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
+            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">
+              {j}
+            </span>
           ))}
         </div>
 
         <p className="mt-4 text-[10px] font-bold uppercase tracking-widest text-neutral-400">Missing Skills</p>
         <div className="flex flex-wrap gap-2">
           {missingSkills.map((j) => (
-            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">{j}</span>
+            <span key={j} className="rounded border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-[11px] font-semibold text-neutral-300">
+              {j}
+            </span>
           ))}
         </div>
       </div>

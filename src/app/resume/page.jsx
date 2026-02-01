@@ -16,68 +16,69 @@ export default function ResumePage() {
   const handleUpload = async () => {
     if (!file) return alert("Please select a file first!");
     setIsUploading(true);
-    
-    try {
-        const savedCourses = localStorage.getItem("selectedCourses");
-        const formData = new FormData();
-        formData.append("resume", file);
-        formData.append("courses", savedCourses);
 
-        const response = await fetch("/api/predict", { // Ensure this matches your route filename
+    try {
+      const savedCourses = localStorage.getItem("selectedCourses");
+      const formData = new FormData();
+      formData.append("resume", file);
+      formData.append("courses", savedCourses);
+
+      const response = await fetch("/api/predict", {
+        // Ensure this matches your route filename
         method: "POST",
         body: formData, // No headers needed for FormData
-        });
+      });
 
-        const data = await response.json();
-        if (response.ok) {
+      const data = await response.json();
+      if (response.ok) {
         // Save Gemini's actual results to use on the next page
         localStorage.setItem("jobMatches", JSON.stringify(data.jobs));
         router.push("/match");
-        } else {
+      } else {
         throw new Error(data.error || "Analysis failed");
-        }
+      }
     } catch (error) {
-        console.error("Analysis Error:", error);
-        alert("Error: " + error.message);
+      console.error("Analysis Error:", error);
+      alert("Error: " + error.message);
     } finally {
-        setIsUploading(false);
+      setIsUploading(false);
     }
-    };
+  };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark min-h-screen transition-colors duration-300 dark:text-neutral-100">
+    <div className="bg-background-dark min-h-screen text-neutral-100 transition-colors duration-300">
       {/* HEADER SECTION */}
-      <section className="border-b border-neutral-100 bg-white/80 py-14 backdrop-blur dark:border-neutral-800 dark:bg-[#171717]/80">
+      <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Profile Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Upload Your <span className="text-sfu-red">Resume</span>
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-400">
               Our AI analyzes your experience to better match you with SFU-friendly job opportunities.
             </p>
           </div>
 
           {/* UPLOAD BOX */}
-          <div className="grid gap-4 rounded-xl border border-neutral-100 bg-white p-8 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-neutral-200 py-12 dark:border-neutral-700 rounded-lg">
-              <span className="material-symbols-outlined text-sfu-red text-5xl mb-4">cloud_upload</span>
-              <input 
-                type="file" 
+          <div className="grid gap-4 rounded-xl border border-neutral-800 bg-[#111111] p-8 shadow-sm">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-neutral-700 py-12">
+              <span className="material-symbols-outlined text-sfu-red mb-4 text-5xl">cloud_upload</span>
+              <input
+                type="file"
                 onChange={handleFileChange}
-                className="text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-sfu-red file:text-white hover:file:bg-[#8B1526] cursor-pointer"
+                className="file:bg-sfu-red cursor-pointer text-sm text-neutral-400 file:mr-4 file:rounded file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#8B1526]"
                 accept=".pdf,.doc,.docx"
               />
-              <p className="mt-4 text-xs text-neutral-400 font-medium tracking-widest uppercase">
+              <p className="mt-4 text-xs font-medium uppercase tracking-widest text-neutral-400">
                 {file ? `Selected: ${file.name}` : "PDF or Word documents only"}
               </p>
             </div>
-            
-            <button 
+
+            <button
               onClick={handleUpload}
               disabled={!file || isUploading}
-              className="bg-sfu-red w-full flex h-12 cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:bg-neutral-300 dark:disabled:bg-neutral-800"
+              className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:bg-neutral-800"
             >
               {isUploading ? "Processing..." : "Upload Resume"}
             </button>

@@ -3,11 +3,14 @@
 @theme {
   --color-sfu-red: #c2273b;
   --color-sfu-dark: #3b0c1e;
-  --color-background-alt: #f7f7f7;
+  --color-background-alt: #181818;
   --color-background-dark: #121212;
-  --color-background-light: #ffffff;
 
   --font-sans: Lexend, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
 }
 
 .btn {
