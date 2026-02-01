@@ -90,9 +90,16 @@ export default function ResumePage() {
             <button
               onClick={handleUpload}
               disabled={!file || isUploading}
-              className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:bg-neutral-800"
+              className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:cursor-not-allowed disabled:bg-neutral-800"
             >
-              {isUploading ? `${status || "Processing"}...` : "Upload Resume"}
+              {isUploading ?
+                <>
+                  {`${status || "Processing"}`}
+                  <span className="anim-elip-1">.</span>
+                  <span className="anim-elip-2">.</span>
+                  <span className="anim-elip-3">.</span>
+                </>
+              : "Upload Resume"}
             </button>
           </div>
         </div>
