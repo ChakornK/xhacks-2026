@@ -1,5 +1,5 @@
 "use client";
-
+ import { motion } from "motion/react";
 import JobMatchCard from "@/components/JobMatchCard";
 import LoginButton from "@/components/LoginButton";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,9 @@ import Link from "next/link";
 export default function HomePage() {
   const heroBgStyle = {
     backgroundImage:
-      'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://www.sfu.ca/content/sfu/main/campuses/surrey/jcr:content/main_content/image_0.img.2000.low.jpg/1614225784102.jpg")',
+      'url("https://www.sfu.ca/content/sfu/main/campuses/surrey/jcr:content/main_content/image_0.img.2000.low.jpg/1614225784102.jpg")',
+    backgroundSize: "cover",
+    backgroundPosition: "center top",
   };
 
   const router = useRouter();
@@ -19,8 +21,20 @@ export default function HomePage() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
       <main className="flex-1">
-        <div className="dark:bg-background-dark/95 dark:bg-background-dark sticky top-0 z-50 w-full border-b border-solid border-neutral-200 bg-white/95 backdrop-blur-md dark:border-neutral-800">
-          <div className="mx-auto flex max-w-[1280px] items-center justify-between whitespace-nowrap px-6 py-4 lg:px-10">
+        <section className="relative">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'url("https://www.sfu.ca/content/sfu/main/campuses/surrey/jcr:content/main_content/image_0.img.2000.low.jpg/1614225784102.jpg")',
+              backgroundSize: "cover",
+              backgroundPosition: "center top",
+            }}
+          />
+          <div className="bg-black/65 absolute inset-0" />
+          <div className="relative z-10">
+            <div className="sticky top-0 z-50 w-full">
+              <div className="mx-auto flex max-w-[1280px] items-center justify-center whitespace-nowrap px-6 py-4 lg:px-10">
             <div className="text-sfu-dark group flex cursor-pointer items-center gap-3 dark:text-white">
               <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
                 <span className="material-symbols-outlined text-xl text-white">school</span>
@@ -29,39 +43,12 @@ export default function HomePage() {
                 SFU <span className="text-sfu-red">CareerConnect</span>
               </h2>
             </div>
-            <div>
+              </div>
             </div>
-
-            {/* <nav className="hidden flex-1 justify-center gap-10 md:flex">
-              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/">
-                Process
-              </Link>
-
-              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/courses">
-                Courses
-              </Link>
-              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="#">
-                Match
-              </Link>
-            </nav> */}
-
-            {/* <div className="flex gap-4">
-              <button className="text-sfu-dark flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded border border-neutral-300 bg-transparent px-4 text-sm font-bold transition-all hover:bg-neutral-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/5">
-                Login
-              </button>
-              <button className="bg-sfu-red flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded px-4 text-sm font-bold text-white shadow-md transition-all hover:bg-[#8B1526]">
-                Sign-up
-              </button>
-            </div> */}
-          </div>
-        </div>
         {/* Hero */}
-        <div className="@container mx-auto max-w-[1440px]">
-          <div className="@[480px]:p-10 p-6">
-            <div
-              className="@[480px]:gap-8 relative flex min-h-[600px] flex-col items-center justify-center gap-6 overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat p-8 text-center"
-              style={heroBgStyle}
-            >
+            <div className="@container mx-auto max-w-[1440px]">
+              <div className="@[480px]:p-10 p-6">
+                <div className="@[480px]:gap-8 relative flex min-h-[600px] flex-col items-center justify-center gap-6 p-8 text-center">
               <div className="bg-sfu-red/10 absolute -right-24 -top-24 h-96 w-96 rounded-full blur-[120px]" />
 
               <div className="relative z-10 flex max-w-[900px] flex-col gap-6">
@@ -80,6 +67,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+          </div>
+        </section>
 
         {/* Matching Process */}
         <div className="bg-background-alt py-24 dark:bg-[#181818]">

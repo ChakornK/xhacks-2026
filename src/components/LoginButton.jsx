@@ -1,5 +1,4 @@
 "use client";
-
 import { useSession, signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +17,11 @@ export default function SignInButton() {
 
   if (session) {
     return (
-      <button onClick={() => router.push("/courses")} className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-2xl font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">
+      <button
+        className="bg-sfu-red flex h-14 min-w-[200px] items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:scale-110 hover:bg-[#8B1526] active:scale-105"
+        
+        onClick={() => router.push("/courses")}
+      >
         Go to Courses
       </button>
     );
