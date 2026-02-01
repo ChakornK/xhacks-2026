@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
       <main className="flex-1">
-        <div className="dark:bg-background-dark/95 dark:bg-background-dark sticky top-0 z-50 w-full border-b border-solid border-gray-200 bg-white/95 backdrop-blur-md dark:border-gray-800">
+        <div className="dark:bg-background-dark/95 dark:bg-background-dark sticky top-0 z-50 w-full border-b border-solid border-neutral-200 bg-white/95 backdrop-blur-md dark:border-neutral-800">
           <div className="mx-auto flex max-w-[1280px] items-center justify-between whitespace-nowrap px-6 py-4 lg:px-10">
             <div className="text-sfu-dark group flex cursor-pointer items-center gap-3 dark:text-white">
               <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
@@ -30,20 +30,20 @@ export default function HomePage() {
             </div>
 
             <nav className="hidden flex-1 justify-center gap-10 md:flex">
-              <Link className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300" href="/">
+              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/">
                 Home
               </Link>
 
-              <Link className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300" href="/courses">
+              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/courses">
                 Courses
               </Link>
-              <Link className="hover:text-sfu-red text-sm font-semibold text-gray-600 transition-colors dark:text-gray-300" href="#">
+              <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="#">
                 Match
               </Link>
             </nav>
 
             <div className="flex gap-4">
-              <button className="text-sfu-dark flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded border border-gray-300 bg-transparent px-4 text-sm font-bold transition-all hover:bg-gray-50 dark:border-gray-700 dark:text-white dark:hover:bg-white/5">
+              <button className="text-sfu-dark flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded border border-neutral-300 bg-transparent px-4 text-sm font-bold transition-all hover:bg-neutral-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/5">
                 Login
               </button>
               <button className="bg-sfu-red flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded px-4 text-sm font-bold text-white shadow-md transition-all hover:bg-[#8B1526]">
