@@ -1,6 +1,7 @@
 "server-only";
 
 import mongoose from "mongoose";
+import "./cleanup";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

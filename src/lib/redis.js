@@ -1,6 +1,7 @@
 "server-only";
 
 import Redis from "ioredis";
+import "./cleanup";
 
 const redis = new Redis(process.env.REDIS_URI);
 
@@ -32,3 +33,5 @@ export const redisAdapter = {
     await redis.del(key);
   },
 };
+
+export const disconnectRedis = () => redis.disconnect();
