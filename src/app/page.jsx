@@ -21,7 +21,7 @@ export default function HomePage() {
           <div className="bg-black/65 absolute inset-0" />
           <div className="relative z-10">
             <div className="sticky top-0 z-50 w-full">
-              <div className="mx-auto flex max-w-[1280px] items-center justify-center whitespace-nowrap px-6 py-4 lg:px-10">
+              <div className="mx-auto flex max-w-7xl items-center justify-center whitespace-nowrap px-6 py-4 lg:px-10">
                 <div className="group flex cursor-pointer items-center gap-3 text-white">
                   <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
                     <span className="material-symbols-outlined text-xl text-white">school</span>
@@ -33,12 +33,12 @@ export default function HomePage() {
               </div>
             </div>
             {/* Hero */}
-            <div className="@container mx-auto max-w-[1440px]">
+            <div className="@container max-w-360 mx-auto">
               <div className="@[480px]:p-10 p-6">
-                <div className="@[480px]:gap-8 relative flex min-h-[600px] flex-col items-center justify-center gap-6 p-8 text-center">
+                <div className="@[480px]:gap-8 min-h-150 relative flex flex-col items-center justify-center gap-6 p-8 text-center">
                   <div className="bg-sfu-red/10 absolute -right-24 -top-24 h-96 w-96 rounded-full blur-[120px]" />
 
-                  <div className="relative z-10 flex max-w-[900px] flex-col gap-6">
+                  <div className="max-w-225 relative z-10 flex flex-col gap-6">
                     <h1 className="@[480px]:text-7xl text-5xl font-extrabold leading-tight tracking-tight text-white">
                       Your Career, <span className="text-sfu-red">Connected.</span>
                     </h1>
@@ -59,7 +59,7 @@ export default function HomePage() {
 
         {/* Matching Process */}
         <div className="bg-background-alt py-24">
-          <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <div className="mb-16 flex flex-col items-center gap-4 text-center">
               <h2 className="text-4xl font-extrabold tracking-tight text-white">The Matching Process</h2>
               <div className="bg-sfu-red h-1.5 w-24" />
@@ -117,7 +117,7 @@ export default function HomePage() {
         {/* SFU Edge */}
 
         <section className="bg-background-dark overflow-hidden py-24">
-          <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <div className="flex flex-col items-center gap-16 lg:flex-row">
               <div className="flex-1 text-center lg:text-left">
                 <h2 className="mb-8 text-4xl font-extrabold leading-tight text-white lg:text-5xl">
