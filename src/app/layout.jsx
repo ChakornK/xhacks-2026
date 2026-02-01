@@ -3,7 +3,7 @@ import "./globals.css";
 import AppShell from "@/components/AppShell";
 
 export const metadata = {
-  title: "SFU CourseConnect | Your Future Starts Here",
+  title: "SFU CareerConnect",
 };
 
 export default function RootLayout({ children }) {
