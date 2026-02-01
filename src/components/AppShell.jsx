@@ -38,7 +38,7 @@ export default function AppShell({ children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   if (isLanding) {
-    return children;
+    return <main className="h-dvh flex-1 overflow-y-auto overflow-x-clip">{children}</main>;
   }
 
   return (
