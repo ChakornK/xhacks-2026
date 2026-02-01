@@ -1,7 +1,11 @@
 import { cacheData } from "@/lib/redis";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-import { jobTitlesPrompt } from "@/lib/prompt";
+import { jobRankingPrompt, jobTitlesPrompt } from "@/lib/prompt";
+import { session } from "@/lib/session";
+import User from "@/models/User";
+import dbConnect from "@/lib/mongodb";
+import { getCourses } from "@/lib/courses";
 const linkedIn = require("linkedin-jobs-api");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -27,44 +31,43 @@ function getLocationBoost(priority) {
   }
 }
 
-export async function POST(request) {
+export async function POST(req, res) {
   try {
-    const formData = await request.formData();
-    const coursesJson = formData.get("courses");
-    const resumeFile = formData.get("resume");
+    const s = await session();
+    if (!s) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    if (!coursesJson) return NextResponse.json({ error: "No courses" }, { status: 400 });
+    await dbConnect();
+    const user = await User.findById(s.user.id);
+    if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const { savedCourses } = user;
+    if (!savedCourses || savedCourses.length === 0) return NextResponse.json({ error: "No saved courses" }, { status: 400 });
 
-    const courses = JSON.parse(coursesJson);
+    const { resume } = await req.json();
+    if (!resume) return NextResponse.json({ error: "No resume" }, { status: 400 });
 
-    // 1. Process Resume
-    let resumeData = null;
-    if (resumeFile && resumeFile.size > 0) {
-      const bytes = await resumeFile.arrayBuffer();
-      const base64 = Buffer.from(bytes).toString("base64");
-      resumeData = {
-        inlineData: { data: base64, mimeType: "application/pdf" },
-      };
-    }
-
-    // FIXED MODEL NAME HERE
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview",
-      generationConfig: { responseMimeType: "application/json" },
+      model: "gemma-3-27b-it",
+      // generationConfig: { responseMimeType: "application/json" },
     });
 
-    // 2. Build Context
-    const courseContext = courses.map((c) => `[${c.dept} ${c.number}] ${c.title}${c.description ? `: ${c.description}` : ""}`).join("\n");
+    const allCourses = await getCourses();
+    const courseContext = savedCourses
+      .map((courseCode) => {
+        const c = allCourses.find((course) => course.code === courseCode);
+        return `[${c.dept} ${c.number}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
+      })
+      .join("\n");
 
-    // 3. Phase 1: Strategic Job Title Prediction
-    const jobTitlePrompt = jobTitlesPrompt(courseContext);
-    if (resumeData) jobTitlePrompt.push(resumeData);
+    // Phase 1: Strategic Job Title Prediction
+    const filledJobTitlePrompt = jobTitlesPrompt(courseContext, resume);
 
-    const titleResult = await model.generateContent(jobTitlePrompt);
-    const rawTitleText = titleResult.response.text().replace(/```json|```/g, "");
+    const titleResult = await model.generateContent(filledJobTitlePrompt);
+    const rawTitleText = titleResult.response.text().match(/\[[^`]*\]/);
     const predictedTitles = JSON.parse(rawTitleText);
 
-    // 4. Phase 2: Live LinkedIn Job Search
+    console.log("Predicted Job Titles:", predictedTitles);
+
+    // Phase 2: Live LinkedIn Job Search
     const jobSearches = await Promise.allSettled(
       predictedTitles.map((title) =>
         cacheData(
@@ -104,29 +107,11 @@ export async function POST(request) {
       })
       .slice(0, 15); // Limit to 15 jobs
 
-    // 5. Phase 3: AI Match Ranking
-    const rankingPrompt = [
-      {
-        text: `
-        Student Background: ${courseContext}
-        Jobs: ${priorityJobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
-        
-        Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., ${courses[0]?.dept} ${courses[0]?.number}).
-        Return JSON array of objects: [{"id": 0, "score": 85, "reason": "..."}]
-        
-        In addition to the jobs, provide a general "profileSummary" and "interviewPrep".
-        Return the final JSON in this format:
-        {
-          "jobs": [...],
-          "profileSummary": "A 2-sentence summary of their current competitiveness.",
-          "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"]
-        }`,
-      },
-    ];
-    if (resumeData) rankingPrompt.push(resumeData);
+    // Phase 3: AI Match Ranking
+    const filledJobRankingPrompt = jobRankingPrompt(courseContext, priorityJobs);
 
-    const rankingResult = await model.generateContent(rankingPrompt);
-    const rawRankingText = rankingResult.response.text().replace(/```json|```/g, "");
+    const rankingResult = await model.generateContent(filledJobRankingPrompt);
+    const rawRankingText = rankingResult.response.text().match(/{[^`]*}/);
     const rankedScores = JSON.parse(rawRankingText);
 
     // 6. Final Merge with Safety Check
@@ -154,12 +139,16 @@ export async function POST(request) {
       .filter((job) => job !== null) // Remove any failed matches
       .sort((a, b) => b.adjustedScore - a.adjustedScore);
 
-    // Return EVERYTHING to the frontend
-    return NextResponse.json({
+    const finalJobMatches = {
       jobs: finalJobs,
       profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
       interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
-    });
+    };
+
+    user.jobMatches = JSON.stringify(finalJobMatches);
+    await user.save();
+
+    return NextResponse.json({ status: "success" });
   } catch (error) {
     console.error("Predict Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

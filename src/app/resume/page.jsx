@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { extractText, getDocumentProxy } from "unpdf";
 
 export default function ResumePage() {
   const router = useRouter();
@@ -18,24 +19,18 @@ export default function ResumePage() {
     setIsUploading(true);
 
     try {
-      const savedCourses = localStorage.getItem("selectedCourses");
-      const formData = new FormData();
-      formData.append("resume", file);
-      formData.append("courses", savedCourses);
+      const pdf = await getDocumentProxy(new Uint8Array(await file.arrayBuffer()));
+      const { text } = await extractText(pdf, { mergePages: true });
 
       const response = await fetch("/api/predict", {
-        // Ensure this matches your route filename
         method: "POST",
-        body: formData, // No headers needed for FormData
+        body: JSON.stringify({ resume: text }),
       });
 
-      const data = await response.json();
       if (response.ok) {
-        // Save Gemini's actual results to use on the next page
-        localStorage.setItem("jobMatches", JSON.stringify(data.jobs));
         router.push("/match");
       } else {
-        throw new Error(data.error || "Analysis failed");
+        alert("Analysis failed, please try again");
       }
     } catch (error) {
       console.error("Analysis Error:", error);
