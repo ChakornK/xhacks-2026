@@ -27,7 +27,7 @@ export const auth = betterAuth({
       create: {
         after: async (session) => {
           await dbConnect();
-          let user = await User.findById(session.userId);
+          let user = await User.findCached(session.userId);
           if (!user) {
             user = await User.create({
               _id: session.userId,
@@ -41,7 +41,7 @@ export const auth = betterAuth({
       update: {
         after: async (session) => {
           await dbConnect();
-          const user = await User.findById(session.userId);
+          const user = await User.findCached(session.userId);
           if (user) {
             await storeUser(session.userId, user);
           }

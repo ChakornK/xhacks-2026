@@ -38,6 +38,11 @@ export async function storeUser(userId, data) {
   await redis.set(`user:${userId}`, JSON.stringify(data));
 }
 
+export async function getUser(userId) {
+  const data = await redis.get(`user:${userId}`);
+  return data ? JSON.parse(data) : null;
+}
+
 export async function removeUser(userId) {
   await redis.del(`user:${userId}`);
 }
