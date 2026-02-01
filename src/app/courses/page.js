@@ -173,7 +173,7 @@ export default function CoursePage() {
                     type="button"
                     onClick={() => setSelected([])}
                     className="
-                      w-full cursor-pointer rounded border-3 px-3 py-2
+                      w-full cursor-pointer rounded border px-3 py-2
                       text-xs font-bold uppercase tracking-widest
                       text-sfu-red border-sfu-red/20
                       hover:bg-sfu-red/10 transition-all
