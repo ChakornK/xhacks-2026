@@ -18,7 +18,7 @@ const NAV_ITEMS = [
   },
   {
     icon: "work",
-    label: "Job Matches",
+    label: "Internship Matches",
     href: "/match",
   },
   {

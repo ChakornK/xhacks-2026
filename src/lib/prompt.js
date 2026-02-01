@@ -19,13 +19,13 @@ export function jobRankingPrompt(courseContext, allCourses, resume, jobs) {
   return `Student experience:${courseContext}
 All courses:${allCourses}
 Resume: ${resume}
-Jobs: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
+Internships: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
 
-Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
-Include missing/recommended courses that are directly related to "reason" and missing skills required for the job.
+Rate each internship (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
+Include missing/recommended courses that are directly related to "reason" and missing skills required for the internship.
 Return JSON array of objects: [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...]
 
-In addition to the jobs, provide a general "profileSummary", "interviewPrep", and "competencies".
+In addition to the internships, provide a general "profileSummary", "interviewPrep", and "competencies".
 Return the final JSON in this format:
 {
   "jobs": [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...],

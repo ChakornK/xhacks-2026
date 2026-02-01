@@ -12,7 +12,7 @@ export default function MatchPage() {
   });
 
   useEffect(() => {
-    fetch("/api/job-matches")
+    fetch("/api/internship-matches")
       .then((res) => res.json())
       .then((data) => {
         setJobsData(data);
@@ -27,7 +27,7 @@ export default function MatchPage() {
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">AI Analysis</p>
             <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-              {!loading ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
+              {!loading ? `${jobsData.jobs.length} Internships Found` : "Looking for matches..."}
             </h1>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function MatchPage() {
               : [
                   "Highlight specific technical projects from your SFU coursework.",
                   "Prepare to discuss your problem-solving process in depth.",
-                  "Be ready to map your academic skills to the job's daily tasks.",
+                  "Be ready to map your academic skills to the internship's daily tasks.",
                 ]
               ).map((tip, i) => (
                 <li key={i} className="flex gap-3 text-sm text-neutral-300">
@@ -71,7 +71,7 @@ export default function MatchPage() {
                   key={index}
                   title={job.position}
                   company={job.company}
-                  location={job.location || "Canada"}
+                  location={job.location || "Unknown"}
                   compatibility={job.matchScore}
                   link={job.url}
                   missingCourses={job.missingCourses || []}

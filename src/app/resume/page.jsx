@@ -70,7 +70,7 @@ export default function ResumePage() {
               Upload Your <span className="text-sfu-red">Resume</span>
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-neutral-400">
-              Our AI analyzes your experience to better match you with SFU-friendly job opportunities.
+              Our AI analyzes your experience to better match you with internship opportunities that align with your skills.
             </p>
           </div>
         </div>

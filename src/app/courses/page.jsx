@@ -85,7 +85,7 @@ export default function CoursePage() {
               Add Your <span className="text-sfu-red">SFU</span> Courses
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-neutral-400">
-              Search the SFU catalog, add the courses you&apos;ve completed, and build a timeline that powers your job matches.
+              Search the SFU catalog, add the courses you&apos;ve completed, and get internship matches tailored to your experience.
             </p>
           </div>
 

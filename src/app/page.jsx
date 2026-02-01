@@ -112,8 +112,8 @@ export default function HomePage() {
                 <div className="flex flex-col gap-4">
                   <h3 className="text-xl font-bold uppercase tracking-tight text-white">3. Connect to careers</h3>
                   <p className="text-base leading-relaxed text-neutral-400">
-                    View LinkedIn job postings and see where you hold a competitive advantage based on your SFU education. Get a rating based on how well your
-                    background matches with the job.
+                    View internships from LinkedIn and see where you hold a competitive advantage based on your SFU education. Get a rating based on how well
+                    your background matches with the internship.
                   </p>
                 </div>
               </div>
