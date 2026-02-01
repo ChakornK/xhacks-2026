@@ -29,7 +29,7 @@ export const auth = betterAuth({
           await dbConnect();
           const existingUser = await User.findById(session.userId);
           if (!existingUser) {
-            await User.create({ _id: session.userId, savedCourses: [] });
+            await User.create({ _id: session.userId, savedCourses: "[]", jobMatches: "{}" });
           }
         },
       },

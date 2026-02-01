@@ -39,7 +39,8 @@ export async function POST(req, res) {
     await dbConnect();
     const user = await User.findById(s.user.id);
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
-    const { savedCourses } = user;
+    const { savedCourses: savedCoursesStr } = user;
+    const savedCourses = JSON.parse(savedCoursesStr || "[]");
     if (!savedCourses || savedCourses.length === 0) return NextResponse.json({ error: "No saved courses" }, { status: 400 });
 
     const { resume } = await req.json();
@@ -91,13 +92,14 @@ export async function POST(req, res) {
         const jobSearches = await Promise.allSettled(
           predictedTitles.map((title) =>
             cacheData(
-              `linkedin-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
+              `linkedin-intern-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
               () =>
                 linkedIn.query({
                   keyword: title,
                   location: "Vancouver, BC",
                   limit: "15",
                   dateSincePosted: "past Month",
+                  experienceLevel: "internship",
                 }),
               60 * 60 * 24, // 24 hour cache
             ),
@@ -130,8 +132,9 @@ export async function POST(req, res) {
           .slice(0, 15); // Limit to 15 jobs
 
         // Phase 3: AI Match Ranking
-        updateStatus("Computing job match scores");
-        const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, uniqueJobs);
+        updateStatus("Analyzing your experience");
+        setTimeout(() => updateStatus("Computing job match scores"), 10000);
+        const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, resume, uniqueJobs);
 
         let rankingResult;
         let rankingResultRetries = 3;

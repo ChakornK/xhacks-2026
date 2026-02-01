@@ -47,11 +47,12 @@ export default function HomePage() {
 
                   <div className="max-w-225 relative z-10 flex flex-col gap-6">
                     <h1 className="@[480px]:text-7xl text-5xl font-extrabold leading-tight tracking-tight text-white">
-                      Your Career, <span className="text-sfu-red">Connected.</span>
+                      Your Career, <span className="text-sfu-red">Connected</span>
                     </h1>
 
                     <h2 className="@[480px]:text-2xl mx-auto max-w-3xl text-lg font-light leading-relaxed text-neutral-300">
-                      Connect the gap between Simon Fraser University academics and global careers. We match your course history to live career opportunities.
+                      Connect the gap between Simon Fraser University academics and your future career. We match your course history to live internship
+                      opportunities.
                     </h2>
                   </div>
 
@@ -75,8 +76,8 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {/* Card 1 */}
-              <div className="bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all hover:shadow-xl">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300 group-hover:text-white">
+              <div className="bg-background-dark group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all">
+                <div className="size-16 text-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300">
                   <span className="material-symbols-outlined text-4xl">sync_saved_locally</span>
                 </div>
 
@@ -89,31 +90,30 @@ export default function HomePage() {
               </div>
 
               {/* Card 2 */}
-              <div className="bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all hover:shadow-xl">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300 group-hover:text-white">
+              <div className="bg-background-dark group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all">
+                <div className="size-16 text-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300">
                   <span className="material-symbols-outlined text-4xl">upload_file</span>
                 </div>
 
                 <div className="flex flex-col gap-4">
                   <h3 className="text-xl font-bold uppercase tracking-tight text-white">2. Upload Resume</h3>
                   <p className="text-base leading-relaxed text-neutral-400">
-                    Provide your latest professional profile. We will analyze your coverletter and your SFU courses. Tips will be provided to help strengthen
-                    your resume/coverletter.
+                    Provide your latest professional profile. We will analyze your resume to learn more about your skills outside of your courses.
                   </p>
                 </div>
               </div>
 
               {/* Card 3 */}
-              <div className="bg-background-dark hover:border-sfu-red/30 group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all hover:shadow-xl">
-                <div className="size-16 text-sfu-red group-hover:bg-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300 group-hover:text-white">
+              <div className="bg-background-dark group flex flex-col gap-8 rounded border border-neutral-800 p-10 shadow-sm transition-all">
+                <div className="size-16 text-sfu-red flex items-center justify-center rounded bg-neutral-800 transition-all duration-300">
                   <span className="material-symbols-outlined text-4xl">travel_explore</span>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-white">3. Connect to careers</h3>
+                  <h3 className="text-xl font-bold uppercase tracking-tight text-white">3. Discover Internships</h3>
                   <p className="text-base leading-relaxed text-neutral-400">
-                    View LinkedIn job postings and see where you hold a competitive advantage based on your SFU education. Get a rating based on how well your
-                    background matches with the job.
+                    View internships from LinkedIn and see where you hold a competitive advantage based on your SFU education. Get a rating based on how well
+                    your background matches with the internship.
                   </p>
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function HomePage() {
             <div className="flex flex-col items-center gap-16 lg:flex-row">
               <div className="flex-1 text-center lg:text-left">
                 <h2 className="mb-8 text-4xl font-extrabold leading-tight text-white lg:text-5xl">
-                  Technology that speaks <span className="text-sfu-red">SFU.</span>
+                  Technology that speaks <span className="text-sfu-red">SFU</span>
                 </h2>
                 <p className="mb-10 text-lg leading-relaxed text-neutral-400">
                   We understand that an SFU degree carries specific precision based on personal projects. Our AI knows exactly how your coursework prepares you
@@ -147,8 +147,8 @@ export default function HomePage() {
                   <div className="flex items-start gap-4 text-left text-neutral-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
                     <div>
-                      <p className="font-bold">Student Real-time LinkedIn Connection</p>
-                      <p className="text-sm text-neutral-400">Connections with the latest professional opportunities.</p>
+                      <p className="font-bold">Real-time Feedback</p>
+                      <p className="text-sm text-neutral-400">Providing instant recommentations for improvement.</p>
                     </div>
                   </div>
                 </div>
