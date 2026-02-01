@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className="dark:bg-background-dark">
+      <body className="bg-background-dark text-neutral-100">
         <AppShell>{children}</AppShell>
       </body>
     </html>

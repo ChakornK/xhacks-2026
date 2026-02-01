@@ -42,7 +42,7 @@ export default function AppShell({ children }) {
   }
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark flex min-h-screen w-full overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
+    <div className="bg-background-dark flex min-h-screen w-full overflow-x-hidden text-neutral-100 transition-colors duration-300">
       <button
         className="bg-sfu-red size-11 fixed left-4 top-4 z-50 flex items-center justify-center rounded-lg text-white shadow-lg lg:hidden"
         onClick={() => setIsOpen(true)}

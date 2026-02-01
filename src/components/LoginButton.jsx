@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function SignInButton() {
   // Check if the user is logged in
-  const {data: session, isPending} = useSession();
+  const { data: session, isPending } = useSession();
   const router = useRouter();
 
   if (isPending) {
@@ -19,7 +19,6 @@ export default function SignInButton() {
     return (
       <button
         className="bg-sfu-red flex h-14 min-w-[200px] items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:scale-110 hover:bg-[#8B1526] active:scale-105"
-        
         onClick={() => router.push("/courses")}
       >
         Go to Courses

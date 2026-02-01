@@ -1,7 +1,7 @@
 export function jobTitlesPrompt(courseContext) {
-    return [
-      {
-        text: `Analyze these SFU courses:${courseContext}
+  return [
+    {
+      text: `Analyze these SFU courses:${courseContext}
   
   Task:
   Generate 5 high-demand job titles for someone targeting employment in **British Columbia**.
@@ -16,8 +16,7 @@ export function jobTitlesPrompt(courseContext) {
   - Return ONLY a JSON array of strings (example: ["Title 1","Title 2"]).
   - No markdown, no explanation, no extra keys, no trailing commas.
   - If you are unsure, still return your best guess but obey the JSON-only rule.
-  `
-  },
+  `,
+    },
   ];
 }
-  
