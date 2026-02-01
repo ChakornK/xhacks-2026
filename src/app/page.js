@@ -16,7 +16,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
-
+      
       <main className="flex-1">
         {/* Hero */}
         <div className="@container mx-auto max-w-[1440px]">

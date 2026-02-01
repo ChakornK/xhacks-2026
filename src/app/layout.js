@@ -64,9 +64,9 @@ export default function RootLayout({ children }) {
             </button>
           </div>
         </div>
-      </div>
+        </div>
         {children}
-        </body>
+      </body>
     </html>
   );
 }
