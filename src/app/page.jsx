@@ -2,14 +2,18 @@
 
 import JobMatchCard from "@/components/JobMatchCard";
 import LoginButton from "@/components/LoginButton";
+import LogOut from "@/components/LogOut";
+import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+
 export default function HomePage() {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <div className="bg-background-dark relative flex w-full flex-col overflow-x-hidden text-neutral-100 transition-colors duration-300">
       <main className="flex-1">
-        <section className="relative">
+        <section className="h-dvh relative">
           <div
             className="absolute inset-0"
             style={{
@@ -18,10 +22,10 @@ export default function HomePage() {
               backgroundPosition: "center top",
             }}
           />
-          <div className="bg-black/65 absolute inset-0" />
+          <div className="h-dvh absolute inset-0 bg-black/75" />
           <div className="relative z-10">
             <div className="sticky top-0 z-50 w-full">
-              <div className="mx-auto flex max-w-7xl items-center justify-center whitespace-nowrap px-6 py-4 lg:px-10">
+              <div className={`mx-auto flex max-w-7xl items-center whitespace-nowrap px-6 py-4 lg:px-10 ${session ? "justify-between" : "justify-center"}`}>
                 <div className="group flex cursor-pointer items-center gap-3 text-white">
                   <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
                     <span className="material-symbols-outlined text-xl text-white">school</span>
@@ -30,6 +34,7 @@ export default function HomePage() {
                     SFU <span className="text-sfu-red">CareerConnect</span>
                   </h2>
                 </div>
+                {session && <LogOut />}
               </div>
             </div>
             {/* Hero */}

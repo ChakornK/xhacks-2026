@@ -10,11 +10,12 @@ export const getCourses = async () => {
     async () => {
       const listRes = await fetch("https://api.sfucourses.com/v1/rest/outlines");
       const courseList = await listRes.json();
-      return courseList.reduce((prev, { dept, number, title }) => {
+      return courseList.reduce((prev, { dept, number, title, description }) => {
         if (allowedDepts.includes(dept)) {
           prev.push({
             code: `${dept} ${number}`,
             title,
+            description,
           });
         }
         return prev;

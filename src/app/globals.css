@@ -14,8 +14,45 @@
 }
 
 .btn {
-  @apply bg-sfu-red flex w-full cursor-pointer select-none items-center justify-between gap-1 rounded px-4 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:brightness-110;
+  @apply bg-sfu-red flex w-full cursor-pointer select-none items-center justify-between gap-1 rounded px-4 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:scale-105 hover:brightness-110 active:scale-100;
 }
 .btn-secondary {
   @apply text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 flex w-full cursor-pointer select-none rounded border px-4 py-3 text-sm font-bold uppercase tracking-widest transition-all;
+}
+
+@keyframes anim-elip-1 {
+  0% {
+    width: 0px;
+  }
+  33% {
+    width: auto;
+  }
+}
+@keyframes anim-elip-2 {
+  0% {
+    width: 0px;
+  }
+  66% {
+    width: auto;
+  }
+}
+@keyframes anim-elip-3 {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: auto;
+  }
+}
+.anim-elip-1 {
+  overflow: clip;
+  animation: anim-elip-1 2s linear infinite;
+}
+.anim-elip-2 {
+  overflow: clip;
+  animation: anim-elip-2 2s linear infinite;
+}
+.anim-elip-3 {
+  overflow: clip;
+  animation: anim-elip-3 2s linear infinite;
 }

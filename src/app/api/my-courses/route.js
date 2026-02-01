@@ -31,5 +31,5 @@ export async function POST(req, res) {
   user.savedCourses = data;
   await user.save();
 
-  return NextResponse.json({});
+  return NextResponse.json({ status: "success" });
 }
