@@ -9,7 +9,7 @@ export async function GET(req, res) {
 
   await dbConnect();
 
-  const user = await User.findById(s.user.id);
+  const user = await User.findCached(s.user.id);
   if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
   const parsed = JSON.parse(user.jobMatches || "{}");

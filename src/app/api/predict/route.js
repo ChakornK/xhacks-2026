@@ -37,7 +37,7 @@ export async function POST(req, res) {
     if (!s) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     await dbConnect();
-    const user = await User.findById(s.user.id);
+    const user = await User.findCached(s.user.id);
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     const { savedCourses: savedCoursesStr } = user;
     const savedCourses = JSON.parse(savedCoursesStr || "[]");
