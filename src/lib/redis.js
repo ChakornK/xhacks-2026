@@ -34,4 +34,6 @@ export const redisAdapter = {
   },
 };
 
-export const disconnectRedis = () => redis.disconnect();
+export function disconnectRedis() {
+  redis.disconnect();
+}
