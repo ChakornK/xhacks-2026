@@ -112,7 +112,7 @@ export default function CoursePage() {
                             className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
                               isAdded ?
                                 "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
-                              : "bg-sfu-red cursor-pointer text-white hover:bg-[#8B1526]"
+                              : "bg-sfu-red cursor-pointer text-white hover:scale-110 hover:bg-[#8B1526] active:scale-105"
                             }`}
                             onClick={() => addCourse(course)}
                             disabled={isAdded}
