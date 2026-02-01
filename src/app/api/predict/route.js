@@ -39,7 +39,8 @@ export async function POST(req, res) {
     await dbConnect();
     const user = await User.findById(s.user.id);
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
-    const { savedCourses } = user;
+    const { savedCourses: savedCoursesStr } = user;
+    const savedCourses = JSON.parse(savedCoursesStr || "[]");
     if (!savedCourses || savedCourses.length === 0) return NextResponse.json({ error: "No saved courses" }, { status: 400 });
 
     const { resume } = await req.json();

@@ -33,9 +33,9 @@ Return the final JSON in this format:
   "profileSummary": "A 2-sentence summary of their current competitiveness.",
   "interviewPrep": ["Brush up on Python", "Prepare to discuss your CMPT 225 project"],
   "competencies": [
-    {"skill": "Python", "level": 90, "source": "Used in CMPT 120 and Research Project"},
+    {"skill": "Python", "level": 90, "source": "Used in CMPT 120 and STAT 100"},
     {"skill": "Data Analysis", "level": 85, "source": "Experience at Research Lab"},
-    {"skill": "Machine Learning", "level": 80, "source": "Personal project"}
+    {"skill": "TypeScript", "level": 40, "source": "Awesome Project"}
   ]
 }
 
