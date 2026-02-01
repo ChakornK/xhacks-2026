@@ -32,7 +32,7 @@ export default function ResumePage() {
       const data = await response.json();
       if (response.ok) {
         // Save Gemini's actual results to use on the next page
-        localStorage.setItem("jobMatches", JSON.stringify(data.jobs));
+        localStorage.setItem("jobMatches", JSON.stringify(data));
         router.push("/match");
       } else {
         throw new Error(data.error || "Analysis failed");

@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import JobMatchCard from "@/components/JobMatchCard";
 
@@ -34,6 +34,16 @@ export default function MatchPage() {
   // 3. Keep your existing jobs constant for the main list
   const jobs = jobsData.jobs || [];
 
+  const scrollToInsights = () => {
+    // Scroll to the sidebar on mobile or just trigger animation
+    sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Trigger a pulse animation
+    setIsHighlighting(true);
+    setTimeout(() => setIsHighlighting(false), 2000); 
+  };
+  
+
   return (
     <main className="bg-background-dark min-h-screen text-neutral-100">
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
@@ -49,48 +59,37 @@ export default function MatchPage() {
 
       <section className="bg-background-alt py-14">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.6fr_1.4fr] lg:px-10">
-          {/* SIDEBAR - PROFILE STRENGTH */}
+          {/* SIDEBAR - CLEAN VERSION */}
           <div className="flex flex-col gap-6">
-            <div className="sticky top-8 rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
-              <div className="mb-4">
-                <p className="text-sfu-red mb-1 text-[10px] font-bold uppercase tracking-[0.2em]">Analysis</p>
-                <h2 className="text-2xl font-extrabold tracking-tight text-white">Profile Strength</h2>
+            <div className="sticky top-8 rounded-xl border border-neutral-800 bg-[#111111] p-8 shadow-2xl overflow-hidden relative">
+              {/* Decorative Background Element */}
+              <div className="absolute -top-10 -right-10 h-32 w-32 bg-sfu-red/10 blur-[50px] rounded-full"></div>
+              
+              <div className="relative z-10">
+                <p className="text-sfu-red mb-2 text-[10px] font-bold uppercase tracking-[0.4em]">Deep Analysis</p>
+                <h2 className="text-3xl font-black tracking-tighter text-white uppercase italic mb-6">
+                  Talent <span className="text-neutral-500">Audit</span>
+                </h2>
+                
+                <p className="text-sm text-neutral-400 leading-relaxed mb-10">
+                  AI has completed a cross-reference of your academic transcript and professional experience against these live listings.
+                </p>
+
+                <Link href="/skill-insights" className="block w-full">
+                  <button className="group relative w-full overflow-hidden rounded-lg bg-sfu-red px-6 py-4 transition-all hover:bg-[#8B1526]">
+                    <span className="relative z-10 text-xs font-bold uppercase tracking-[0.2em] text-white flex items-center justify-center gap-2">
+                      View Skill Insights 
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                  </button>
+                </Link>
+                
+                <p className="mt-6 text-[9px] text-neutral-600 uppercase tracking-widest text-center">
+                  Verified by Gemini AI
+                </p>
               </div>
-
-              {/* Dynamic Summary: Shows Gemma's insight or a default loading message */}
-              <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">
-                "{jobsData?.profileSummary || "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
-              </p>
-
-              <hr className="mb-6 border-neutral-800" />
-
-              {/* Interview Prep Section */}
-              <div className="space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-400">Interview Strategy</h3>
-                <ul className="space-y-3">
-                  {/* If interviewPrep exists, map it; otherwise show default helpful tips */}
-                  {(jobsData?.interviewPrep && jobsData.interviewPrep.length > 0 ?
-                    jobsData.interviewPrep
-                  : [
-                      "Highlight specific technical projects from your SFU coursework.",
-                      "Prepare to discuss your problem-solving process in depth.",
-                      "Be ready to map your academic skills to the job's daily tasks.",
-                    ]
-                  ).map((tip, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-neutral-300">
-                      <span className="text-sfu-red font-bold">•</span>
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <button className="border-sfu-red text-sfu-red hover:bg-sfu-red mt-8 w-full rounded-lg border py-3 text-xs font-bold uppercase tracking-widest transition-all hover:text-white">
-                Download Career Roadmap
-              </button>
             </div>
           </div>
-
           {/* JOB LIST */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {jobs.length > 0 ?

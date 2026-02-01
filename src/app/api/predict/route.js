@@ -119,7 +119,11 @@ export async function POST(request) {
         {
           "jobs": [...],
           "profileSummary": "A 2-sentence summary of their current competitiveness.",
-          "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"]
+          "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"], 
+          "competencies": [
+              {"skill": "Python", "level": 90, "source": "Used in CMPT 120 and Research Project"},
+              {"skill": "Data Analysis", "level": 85, "source": "Experience at Research Lab"}
+            ]
         }`,
       },
     ];
@@ -159,6 +163,7 @@ export async function POST(request) {
       jobs: finalJobs,
       profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
       interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
+      competencies: rankedScores.competencies || []
     });
   } catch (error) {
     console.error("Predict Error:", error);
