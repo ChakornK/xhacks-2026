@@ -31,30 +31,32 @@ export default function SkillInsights() {
       <section className="bg-background-alt grow px-8 py-14">
         {skillsData.competencies.length > 0 ?
           <>
-            <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">
-              "{!loading ? skillsData.profileSummary : "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
-            </p>
+            <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">"{skillsData.profileSummary}"</p>
             <div className="space-y-12">
               {skillsData.competencies.map((item, i) => (
                 <div key={i} className="group">
                   <div className="mb-4 flex items-end justify-between">
                     <div className="flex flex-col">
                       <span className="text-2xl font-bold uppercase tracking-tight">{item.skill}</span>
-                      <span className="mt-2 font-mono text-[9px] uppercase leading-relaxed tracking-widest text-neutral-500">Source: {item.source}</span>
+                      <span className="mt-2 uppercase leading-relaxed tracking-wide text-neutral-500">Source: {item.source}</span>
                     </div>
                     <span className="text-sfu-red text-xl font-black italic">{item.level}%</span>
                   </div>
-                  <div className="h-0.5 w-full overflow-hidden rounded-full bg-neutral-900">
-                    <div className="duration-2500 h-full bg-white transition-all ease-out" style={{ width: `${item.level}%` }} />
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-600">
+                    <div className="bg-sfu-red h-full rounded-full ease-out" style={{ width: `${item.level}%` }} />
                   </div>
                 </div>
               ))}
             </div>
           </>
-        : <p className="text-center text-neutral-400">
-            No explicit competencies detected in current analysis. <br />
-            Re-upload your resume to try again.
-          </p>
+        : <>
+            {!loading ?
+              <p className="text-center text-neutral-400">
+                No explicit competencies detected in current analysis. <br />
+                Re-upload your resume to try again.
+              </p>
+            : <p className="text-center text-neutral-400">Gemini is analyzing your SFU courses and resume to find your competitive edge...</p>}
+          </>
         }
       </section>
     </div>
