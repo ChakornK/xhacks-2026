@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useOnInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation"; // Added missing import
 import { Icon } from "@mui/material";
-import { ChevronRightRounded } from "@mui/icons-material";
+import { ChevronRightRounded, DeleteOutlineRounded } from "@mui/icons-material";
 
 export default function CoursePage() {
   const router = useRouter(); // Initialize router
@@ -184,11 +184,11 @@ export default function CoursePage() {
                         <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
                       </div>
                       <button
-                        className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
+                        className="btn-secondary flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important]"
                         onClick={() => removeCourse(course.code)}
                         type="button"
                       >
-                        Remove
+                        <Icon component={DeleteOutlineRounded} />
                       </button>
                     </div>
                   ))}
