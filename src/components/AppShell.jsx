@@ -72,7 +72,7 @@ export default function AppShell({ children }) {
           {NAV_ITEMS.map(({ icon, label, href }) => (
             <Link
               key={label}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10" : ""}`}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10 text-white hover:bg-white/10" : ""}`}
               href={href}
             >
               <span className="material-symbols-outlined text-base">{icon}</span>
@@ -124,7 +124,7 @@ export default function AppShell({ children }) {
           {NAV_ITEMS.map(({ icon, label, href }) => (
             <Link
               key={label}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10" : ""}`}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10 text-white hover:bg-white/10" : ""}`}
               href={href}
             >
               <span className="material-symbols-outlined text-base">{icon}</span>
