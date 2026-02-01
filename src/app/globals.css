@@ -13,8 +13,14 @@
   color-scheme: dark;
 }
 
+button {
+  @apply cursor-pointer disabled:cursor-not-allowed;
+}
 .btn {
   @apply bg-sfu-red flex w-full cursor-pointer select-none items-center justify-between gap-1 rounded px-4 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:scale-105 hover:brightness-110 active:scale-100;
+}
+.btn-lg {
+  @apply px-6 py-4 text-lg;
 }
 .btn-secondary {
   @apply text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 flex w-full cursor-pointer select-none rounded border px-4 py-3 text-sm font-bold uppercase tracking-widest transition-all;
