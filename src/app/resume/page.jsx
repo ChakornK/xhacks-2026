@@ -12,26 +12,37 @@ export default function ResumePage() {
     setFile(e.target.files[0]);
   };
 
+  // Inside your ResumePage component...
   const handleUpload = async () => {
     if (!file) return alert("Please select a file first!");
-
     setIsUploading(true);
     
-    // This is where your AI logic will eventually live
-    // For now, we simulate the upload and save the "status" to localStorage
     try {
-      // In a real hackathon, you'd extract text from the PDF here
-      localStorage.setItem("resumeStatus", "uploaded");
-      localStorage.setItem("resumeFileName", file.name);
-      
-      // Navigate to the next step (e.g., matching)
-      router.push("/courses");
+        const savedCourses = localStorage.getItem("selectedCourses");
+        const formData = new FormData();
+        formData.append("resume", file);
+        formData.append("courses", savedCourses);
+
+        const response = await fetch("/api/predict", { // Ensure this matches your route filename
+        method: "POST",
+        body: formData, // No headers needed for FormData
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+        // Save Gemini's actual results to use on the next page
+        localStorage.setItem("jobMatches", JSON.stringify(data.jobs));
+        router.push("/match");
+        } else {
+        throw new Error(data.error || "Analysis failed");
+        }
     } catch (error) {
-      console.error("Upload failed", error);
+        console.error("Analysis Error:", error);
+        alert("Error: " + error.message);
     } finally {
-      setIsUploading(false);
+        setIsUploading(false);
     }
-  };
+    };
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark min-h-screen transition-colors duration-300 dark:text-neutral-100">
