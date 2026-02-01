@@ -76,7 +76,7 @@ export default function CoursePage() {
   };
 
   return (
-    <div className="bg-background-dark min-h-screen text-neutral-100 transition-colors duration-300">
+    <div className="bg-background-dark flex min-h-screen flex-col text-neutral-100 transition-colors duration-300">
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
@@ -111,7 +111,7 @@ export default function CoursePage() {
         </div>
       </section>
 
-      <section className="bg-background-alt py-14">
+      <section className="bg-background-alt grow py-14">
         <div className="mx-auto flex max-w-7xl flex-col-reverse gap-8 px-6 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:px-10">
           <div className="rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
