@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
               <span className="material-symbols-outlined text-xl text-white">school</span>
             </div>
             <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight">
-              SFU <span className="text-sfu-red">CourseConnect</span>
+              SFU <span className="text-sfu-red">CareerConnect</span>
             </h2>
           </div>
 
