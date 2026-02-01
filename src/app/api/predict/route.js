@@ -62,7 +62,7 @@ export async function POST(req, res) {
         const courseContext = savedCourses
           .map((courseCode) => {
             const c = allCourses.find((course) => course.code === courseCode);
-            return `[${c.dept} ${c.number}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
+            return `[${c.code}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
           })
           .join("\n");
 
@@ -70,7 +70,18 @@ export async function POST(req, res) {
         updateStatus("Matching your profile to job titles");
         const filledJobTitlePrompt = jobTitlesPrompt(courseContext, resume);
 
-        const titleResult = await model.generateContent(filledJobTitlePrompt);
+        let titleResult;
+        let titleResultRetries = 3;
+        while (titleResultRetries > 0) {
+          try {
+            titleResult = await model.generateContent(filledJobTitlePrompt);
+            break;
+          } catch (e) {
+            console.error(e);
+            titleResultRetries--;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+        }
         const rawTitleText = titleResult.response.text().match(/\[[^`]*\]/);
         const predictedTitles = JSON.parse(rawTitleText);
 
@@ -119,7 +130,18 @@ export async function POST(req, res) {
         updateStatus("Computing job match scores");
         const filledJobRankingPrompt = jobRankingPrompt(courseContext, priorityJobs);
 
-        const rankingResult = await model.generateContent(filledJobRankingPrompt);
+        let rankingResult;
+        let rankingResultRetries = 3;
+        while (rankingResultRetries > 0) {
+          try {
+            rankingResult = await model.generateContent(filledJobRankingPrompt);
+            break;
+          } catch (e) {
+            console.error(e);
+            rankingResultRetries--;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+        }
         const rawRankingText = rankingResult.response.text().match(/{[^`]*}/);
         const rankedScores = JSON.parse(rawRankingText);
 
