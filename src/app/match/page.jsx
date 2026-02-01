@@ -87,6 +87,7 @@ export default function MatchPage() {
                   link={job.url}
                   missingCourses={job.missingCourses || []}
                   missingSkills={job.missingSkills || []}
+                  additionalInfo={job.matchReason}
                 />
               ))
             : <div className="col-span-2 py-20 text-center text-neutral-400">No matches found. Try uploading your resume again.</div>}

@@ -32,7 +32,6 @@ export default function ResumePage() {
         method: "POST",
         body: JSON.stringify({ resume: text }),
       });
-      console.log(response);
       const reader = response.body.getReader();
 
       if (reader) {
@@ -44,7 +43,6 @@ export default function ResumePage() {
             break;
           }
           const decoded = decoder.decode(value).trim();
-          console.log(decoded);
           if (decoded === "OK") {
             router.push("/match");
             break;

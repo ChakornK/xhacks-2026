@@ -15,19 +15,21 @@ Output rules:
 
 Resume: ${resume}`;
 }
-export function jobRankingPrompt(courseContext, jobs) {
+export function jobRankingPrompt(courseContext, allCourses, jobs) {
   return `Student experience:${courseContext}
+All courses:${allCourses}
 Jobs: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
 
 Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
-Return JSON array of objects: [{"id": 0, "score": 85, "reason": "..."}]
+Include missing courses that are recommended and missing skills required for the job.
+Return JSON array of objects: [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...]
 
 In addition to the jobs, provide a general "profileSummary" and "interviewPrep".
 Return the final JSON in this format:
 {
-  "jobs": [{"id": 0, "score": 85, "reason": "..."}, ...],
+  "jobs": [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...],
   "profileSummary": "A 2-sentence summary of their current competitiveness.",
-  "interviewPrep": ["Tip 1: Brush up on Python", "Tip 2: Mention your CMPT 225 project"]
+  "interviewPrep": ["Brush up on Python", "Prepare to discuss your CMPT 225 project"]
 }
 
 Output rules:

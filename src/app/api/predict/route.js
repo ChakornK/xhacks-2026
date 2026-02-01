@@ -59,10 +59,11 @@ export async function POST(req, res) {
         });
 
         const allCourses = await getCourses();
+        const allCoursesContext = allCourses.map((c) => `[${c.code}] ${c.title}`).join("\n");
         const courseContext = savedCourses
           .map((courseCode) => {
             const c = allCourses.find((course) => course.code === courseCode);
-            return `[${c.code}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
+            return `[${c.code}] ${c.title}`;
           })
           .join("\n");
 
@@ -111,7 +112,9 @@ export async function POST(req, res) {
 
         if (allJobs.length === 0) return NextResponse.json({ jobs: [], message: "No live listings found." });
 
-        const uniqueJobs = Array.from(new Set(allJobs.map((j) => j.jobUrl))).map((jobUrl) => allJobs.find((j) => j.jobUrl === jobUrl));
+        const uniqueJobs = Array.from(new Set(allJobs.map((j) => j.title + j.company + j.location))).map((jobIden) =>
+          allJobs.find((j) => j.title + j.company + j.location === jobIden),
+        );
         const priorityJobs = uniqueJobs
           .map((job, originalIndex) => ({
             ...job,
@@ -128,7 +131,7 @@ export async function POST(req, res) {
 
         // Phase 3: AI Match Ranking
         updateStatus("Computing job match scores");
-        const filledJobRankingPrompt = jobRankingPrompt(courseContext, uniqueJobs);
+        const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, uniqueJobs);
 
         let rankingResult;
         let rankingResultRetries = 3;
