@@ -4,7 +4,7 @@ export function jobTitlesPrompt(courseContext) {
       text: `Analyze these SFU courses:${courseContext}
   
   Task:
-  Generate 5 high-demand job titles for someone targeting employment in **British Columbia**.
+  Generate 3 high-demand job titles for someone targeting employment in **British Columbia**.
   
   Hard constraints:
   - Prioritize roles that are commonly hired in BC (Vancouver, Burnaby, Richmond, Surrey, Victoria).

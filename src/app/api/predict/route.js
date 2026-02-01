@@ -73,7 +73,7 @@ export async function POST(request) {
             linkedIn.query({
               keyword: title,
               location: "Vancouver, BC",
-              limit: "15",
+              limit: "6",
               dateSincePosted: "past Month",
             }),
           60 * 60 * 24, // 24 hour cache

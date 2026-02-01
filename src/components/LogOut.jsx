@@ -1,15 +1,26 @@
 "use client";
-import { useSession, signIn } from "@/lib/auth-client";
+import { useSession, signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 export default function LogOut() {
-    const {data: session } = useSession();
-    const router = useRouter();
+  const { data: session } = useSession();
+  const router = useRouter();
 
-    if (session) {
-        return (
-            <button onClick={() => signOut() } className="bg-sfu-red min-w-20 flex h-8 cursor-pointer items-center justify-center rounded px-8 text-md font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]">Log Out</button>
-        );
-    }
-    return null;
+  /** Handles sign out and redirects to landing page */
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/");
+  };
+
+  if (!session) return null;
+
+  return (
+    <button
+      onClick={handleSignOut}
+      className="group flex cursor-pointer items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
+    >
+      <span className="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-0.5">logout</span>
+      Sign Out
+    </button>
+  );
 }
