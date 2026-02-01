@@ -1,18 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useOnInView } from "react-intersection-observer";
+import { useRouter } from "next/navigation"; // Added missing import
+import { Icon } from "@mui/material";
+import { ChevronRightRounded, DeleteOutlineRounded } from "@mui/icons-material";
 
 export default function CoursePage() {
+  const router = useRouter(); // Initialize router
   const [apiData, setApiData] = useState([]);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true); // UI feedback for judges
   const [listLength, setListLength] = useState(20);
-  const endOfListRef = useOnInView(
-    (inView, entry) => {
+
+  const { ref: endOfListRef } = useOnInView(
+    (inView) => {
       if (inView) {
-        setListLength((prev) => Math.max(20, Math.min(prev + 20, apiData.length)));
+        setListLength((prev) => Math.min(prev + 20, results.length));
       }
     },
     {
@@ -22,16 +27,29 @@ export default function CoursePage() {
   );
 
   useEffect(() => {
-    fetch("/api/courses")
-      .then((res) => res.json())
-      .then((data) => setApiData(data));
+    (async () => {
+      let d = [];
+      setIsLoading(true);
+      await fetch("/api/courses")
+        .then((res) => res.json())
+        .then((data) => {
+          setApiData(data);
+          d = data;
+          fetch("/api/my-courses")
+            .then((res) => res.json())
+            .then((data) => setSelected(data.map((course) => d.find((item) => item.code === course))));
+        })
+        .finally(() => setIsLoading(false));
+    })();
   }, []);
 
   const results = useMemo(() => {
-    if (!query.trim()) return apiData;
-    const normalized = query.toLowerCase();
+    const normalized = query.toLowerCase().trim();
+    if (!normalized) return apiData;
     return apiData.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
-  }, [query, apiData, listLength]);
+  }, [query, apiData]);
+
+  // FIX: This will no longer crash because results is guaranteed to be an array
   const truncatedResults = useMemo(() => results.slice(0, listLength), [results, listLength]);
 
   const addCourse = (course) => {
@@ -41,6 +59,21 @@ export default function CoursePage() {
 
   const removeCourse = (code) => {
     setSelected((prev) => prev.filter((item) => item.code !== code));
+  };
+
+  const handleProceedToResume = async () => {
+    if (selected.length === 0) {
+      alert("Please add at least one course before proceeding!");
+      return;
+    }
+    await fetch("/api/my-courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(selected.map((course) => course.code)),
+    });
+    router.push("/resume");
   };
 
   return (
@@ -57,7 +90,7 @@ export default function CoursePage() {
             </p>
           </div>
 
-          <hr className="border-t border-neutral-800" />
+          <hr className="border-t border-neutral-200 dark:border-neutral-800" />
 
           <div className="flex flex-col gap-3">
             <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">Look up a class</label>
@@ -75,7 +108,6 @@ export default function CoursePage() {
                 />
               </div>
             </div>
-            <p className="text-xs text-neutral-400 dark:text-neutral-500">Tip: Use course code, title, or topic keywords.</p>
           </div>
         </div>
       </section>
@@ -125,50 +157,54 @@ export default function CoursePage() {
                     </div>
                   );
                 })
-              : <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">No results found.</p>}
+              : <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">{isLoading ? "Loading..." : "No results found."}</p>}
               <div ref={endOfListRef}></div>
             </div>
           </div>
 
           <div>
-            <div className="sticky top-8 rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
-                  <h2 className="text-2xl font-extrabold tracking-tight">Your Course Plan</h2>
-                </div>
-                <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
-              </div>
-              {selected.length > 0 ?
-                <div className="mb-6">
-                  <button
-                    type="button"
-                    onClick={() => setSelected([])}
-                    className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 w-full cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                  >
-                    Remove All
-                  </button>
-                </div>
-              : <p className="text-center text-neutral-400">No courses added</p>}
-              <div className="space-y-3">
-                {selected.map((course) => (
-                  <div
-                    key={course.code}
-                    className="flex items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 dark:border-neutral-800 dark:bg-[#141414]"
-                  >
-                    <div>
-                      <p className="text-sfu-dark text-sm font-bold dark:text-white">{course.code}</p>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
-                    </div>
-                    <button
-                      className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                      onClick={() => removeCourse(course.code)}
-                      type="button"
-                    >
-                      Remove
-                    </button>
+            <div className="h-dvh sticky top-8">
+              <div className="flex max-h-[calc(100%-4rem)] flex-col gap-4 overflow-clip rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
+                    <h2 className="text-2xl font-extrabold tracking-tight">Your Course Plan</h2>
                   </div>
-                ))}
+                  <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
+                </div>
+                {selected.length === 0 && <p className="text-center text-neutral-400">No courses added</p>}
+                <div className="space-y-3 overflow-y-auto">
+                  {selected.map((course) => (
+                    <div
+                      key={course.code}
+                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 dark:border-neutral-800 dark:bg-[#141414]"
+                    >
+                      <div>
+                        <p className="text-sfu-dark text-sm font-bold dark:text-white">{course.code}</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
+                      </div>
+                      <button
+                        className="btn-secondary flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important]"
+                        onClick={() => removeCourse(course.code)}
+                        type="button"
+                      >
+                        <Icon component={DeleteOutlineRounded} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {selected.length > 0 && (
+                  <>
+                    <button type="button" onClick={() => setSelected([])} className="btn-secondary">
+                      <p className="w-full text-center text-xs">Clear All Courses</p>
+                    </button>
+                    <button onClick={handleProceedToResume} className="btn">
+                      <p className="flex w-full items-center justify-center gap-1">
+                        Next: Upload Resume <Icon component={ChevronRightRounded} />
+                      </p>
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
