@@ -1,12 +1,13 @@
-"use client"
+"use client";
 
+import JobMatchCard from "@/components/JobMatchCard";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const heroBgStyle = {
     backgroundImage:
       'linear-gradient(to bottom, rgba(35, 31, 32, 0.85) 0%, rgba(35, 31, 32, 0.95) 100%), url("https://www.sfu.ca/content/sfu/main/campuses/surrey/jcr:content/main_content/image_0.img.2000.low.jpg/1614225784102.jpg")',
-    };
+  };
 
   const router = useRouter();
 
@@ -16,7 +17,6 @@ export default function HomePage() {
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
-      
       <main className="flex-1">
         {/* Hero */}
         <div className="@container mx-auto max-w-[1440px]">
@@ -29,20 +29,20 @@ export default function HomePage() {
               <div className="bg-sfu-red/10 absolute -right-24 -top-24 h-96 w-96 rounded-full blur-[120px]" />
 
               <div className="relative z-10 flex max-w-[900px] flex-col gap-6">
-
-
                 <h1 className="@[480px]:text-7xl text-5xl font-extrabold leading-tight tracking-tight text-white">
                   Your Degree, <span className="text-sfu-red">Connected.</span>
                 </h1>
 
                 <h2 className="@[480px]:text-2xl mx-auto max-w-3xl text-lg font-light leading-relaxed text-neutral-300">
-                  Connect the gap between Simon Fraser University academics and global careers. We match your
-                  course history to live career opportunities.
+                  Connect the gap between Simon Fraser University academics and global careers. We match your course history to live career opportunities.
                 </h2>
               </div>
 
               <div className="relative z-10 mt-4 flex flex-col gap-5 sm:flex-row">
-                <button className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]" onClick={matchBtn}>
+                <button
+                  className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]"
+                  onClick={matchBtn}
+                >
                   <span className="truncate uppercase tracking-wide">Find Your Match</span>
                 </button>
               </div>
@@ -54,9 +54,7 @@ export default function HomePage() {
         <div className="bg-background-alt py-24 dark:bg-[#181818]">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
             <div className="mb-16 flex flex-col items-center gap-4 text-center">
-              <h2 className="text-sfu-dark text-4xl font-extrabold tracking-tight dark:text-white">
-                The Matching Process
-              </h2>
+              <h2 className="text-sfu-dark text-4xl font-extrabold tracking-tight dark:text-white">The Matching Process</h2>
               <div className="bg-sfu-red h-1.5 w-24" />
               <p className="mt-2 max-w-xl text-neutral-500 dark:text-neutral-400">
                 A data-driven approach to professional development tailored specifically for the SFU curriculum.
@@ -71,20 +69,14 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
-                    1. Sync SFU Courses
-                  </h3>
+                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">1. Sync SFU Courses</h3>
                   <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                    Import your academic transcript directly. Our matching engine decodes SFU course codes into
-                    industry-standard competencies.
+                    Import your academic transcript directly. Our matching engine decodes SFU course codes into industry-standard competencies.
                   </p>
                 </div>
 
                 <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a
-                    className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
-                    href="#"
-                  >
+                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
                     Security Details <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
                   </a>
                 </div>
@@ -97,19 +89,15 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
-                    2. Upload Resume
-                  </h3>
+                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">2. Upload Resume</h3>
                   <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                    Provide your latest professional profile. We will analyze your coverletter and your SFU courses. Tips will be provided to help strengthen your resume/coverletter. 
+                    Provide your latest professional profile. We will analyze your coverletter and your SFU courses. Tips will be provided to help strengthen
+                    your resume/coverletter.
                   </p>
                 </div>
 
                 <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a
-                    className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
-                    href="#"
-                  >
+                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
                     Resume Tips <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
                   </a>
                 </div>
@@ -122,20 +110,15 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">
-                    3. Live Career Match
-                  </h3>
+                  <h3 className="text-sfu-dark text-xl font-bold uppercase tracking-tight dark:text-white">3. Live Career Match</h3>
                   <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                    Instantly see LinkedIn job postings and see where you hold a competitive advantage based on your SFU
-                    education. Get a rating based on how well your background matches with the job.
+                    Instantly see LinkedIn job postings and see where you hold a competitive advantage based on your SFU education. Get a rating based on how
+                    well your background matches with the job.
                   </p>
                 </div>
 
                 <div className="mt-auto border-t border-neutral-50 pt-6 dark:border-neutral-800">
-                  <a
-                    className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2"
-                    href="#"
-                  >
+                  <a className="text-sfu-red inline-flex items-center text-sm font-bold uppercase tracking-wider transition-all hover:gap-2" href="#">
                     View Matches <span className="material-symbols-outlined ml-1 text-sm">chevron_right</span>
                   </a>
                 </div>
@@ -154,8 +137,8 @@ export default function HomePage() {
                   Technology that speaks <span className="text-sfu-red">SFU.</span>
                 </h2>
                 <p className="mb-10 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  Standard job boards treat every degree the same. We understand that an SFU degree carries specific
-                  rigor. Our AI knows exactly how your coursework prepares you for industry leaders.
+                  Standard job boards treat every degree the same. We understand that an SFU degree carries specific rigor. Our AI knows exactly how your
+                  coursework prepares you for industry leaders.
                 </p>
 
                 <div className="mx-auto max-w-md space-y-6 lg:mx-0">
@@ -169,7 +152,6 @@ export default function HomePage() {
 
                   <div className="flex items-start gap-4 text-left text-neutral-700 dark:text-neutral-300">
                     <span className="material-symbols-outlined text-sfu-red mt-1">verified</span>
-                    
                   </div>
 
                   <div className="flex items-start gap-4 text-left text-neutral-700 dark:text-neutral-300">
@@ -184,43 +166,15 @@ export default function HomePage() {
 
               <div className="relative w-full flex-1">
                 <div className="mx-auto max-w-md rounded border border-neutral-200 bg-neutral-50 p-3 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900">
-                  <div className="dark:bg-background-dark flex flex-col gap-5 rounded border border-neutral-100 bg-white p-6 dark:border-neutral-800">
-                    <div className="flex items-center gap-4 border-b border-neutral-100 pb-4 dark:border-neutral-800">
-                      <div className="size-14 flex items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
-                        <span className="material-symbols-outlined text-neutral-400">corporate_fare</span>
-                      </div>
-
-                      <div>
-                        <p className="text-sfu-dark text-lg font-bold tracking-tight dark:text-white">
-                          Systems Architect
-                        </p>
-                        <p className="text-sm text-neutral-500">Tech Corp • Burnaby, BC</p>
-                      </div>
-
-                      <div className="bg-sfu-red ml-auto rounded px-2.5 py-1 text-[11px] font-bold uppercase text-white">
-                        High Match
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">SFU Program Fit</p>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="text-sfu-dark rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[11px] font-semibold dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
-                          CMPT 300: Operating Systems
-                        </span>
-                        <span className="text-sfu-dark rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[11px] font-semibold dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
-                          CMPT 295: Arch
-                        </span>
-                        <span className="bg-sfu-red/10 text-sfu-red border-sfu-red/20 rounded border px-2.5 py-1 text-[11px] font-bold">
-                          Co-op Experience
-                        </span>
-                      </div>
-                    </div>
-
-                    <button className="bg-sfu-dark dark:bg-sfu-red w-full rounded py-4 text-sm font-bold uppercase tracking-widest text-white transition-all hover:brightness-110">
-                      View on LinkedIn
-                    </button>
-                  </div>
+                  <JobMatchCard
+                    title={"Software Engineer"}
+                    company={"Tech Corp"}
+                    location={"Burnaby, BC"}
+                    compatibility={67}
+                    missingCourses={["CMPT 300", "CMPT 295"]}
+                    missingSkills={["C++"]}
+                    link={null}
+                  />
                 </div>
 
                 <div className="size-40 bg-sfu-red/5 absolute -right-10 -top-10 rounded-full blur-3xl" />
@@ -230,7 +184,6 @@ export default function HomePage() {
         </section>
 
         {/* CTA */}
-        
       </main>
 
       <footer className="dark:bg-background-dark border-t border-neutral-200 bg-white py-16 dark:border-neutral-800">
@@ -243,8 +196,6 @@ export default function HomePage() {
                 </div>
                 <h2 className="text-lg font-extrabold uppercase tracking-tight">SFU CareerConnect</h2>
               </div>
-
-              
 
               <div className="flex gap-5">
                 <a className="hover:text-sfu-red text-neutral-400 transition-colors" href="#">
@@ -260,9 +211,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
-                Platform
-              </h4>
+              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">Platform</h4>
               <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
@@ -288,9 +237,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
-                Resources
-              </h4>
+              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">Resources</h4>
               <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
@@ -316,9 +263,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">
-                Institutional
-              </h4>
+              <h4 className="text-sfu-dark mb-8 text-xs font-bold uppercase tracking-[0.2em] dark:text-white">Institutional</h4>
               <ul className="space-y-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
                 <li>
                   <a className="hover:text-sfu-red" href="#">
@@ -353,7 +298,7 @@ export default function HomePage() {
               <a className="hover:text-sfu-red" href="#">
                 Status
               </a>
-              
+
               <a className="hover:text-sfu-red" href="#">
                 Feedback
               </a>
