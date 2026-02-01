@@ -21,6 +21,7 @@ export default function ResumePage() {
   // Inside your ResumePage component...
   const handleUpload = async () => {
     if (!file) return alert("Please select a file first!");
+    if (file.type !== "application/pdf") return alert("Not a PDF file!");
     setIsUploading(true);
 
     try {
@@ -92,13 +93,13 @@ export default function ResumePage() {
               }}
             >
               <span className="material-symbols-outlined text-sfu-red text-5xl">cloud_upload</span>
-              <input ref={fileUploadRef} type="file" onChange={handleFileChange} className="hidden" accept=".pdf,.doc,.docx" />
+              <input ref={fileUploadRef} type="file" onChange={handleFileChange} className="hidden" accept="application/pdf" />
               {!file && (
                 <button className="btn max-w-fit" onClick={() => fileUploadRef.current.click()}>
                   Browse File
                 </button>
               )}
-              <p className="text-xs font-medium uppercase tracking-widest text-neutral-400">{file ? `Selected: ${file.name}` : "PDF or Word documents only"}</p>
+              <p className="text-xs font-medium uppercase tracking-widest text-neutral-400">{file ? `Selected: ${file.name}` : "PDF documents only"}</p>
             </div>
 
             <button
