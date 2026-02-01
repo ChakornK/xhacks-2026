@@ -111,8 +111,8 @@ export async function POST(req, res) {
 
         if (allJobs.length === 0) return NextResponse.json({ jobs: [], message: "No live listings found." });
 
-        // Priority Sorting
-        const priorityJobs = allJobs
+        const uniqueJobs = Array.from(new Set(allJobs.map((j) => j.jobUrl))).map((jobUrl) => allJobs.find((j) => j.jobUrl === jobUrl));
+        const priorityJobs = uniqueJobs
           .map((job, originalIndex) => ({
             ...job,
             _priority: getLocationPriority(job.location),
@@ -128,7 +128,7 @@ export async function POST(req, res) {
 
         // Phase 3: AI Match Ranking
         updateStatus("Computing job match scores");
-        const filledJobRankingPrompt = jobRankingPrompt(courseContext, priorityJobs);
+        const filledJobRankingPrompt = jobRankingPrompt(courseContext, uniqueJobs);
 
         let rankingResult;
         let rankingResultRetries = 3;

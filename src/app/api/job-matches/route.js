@@ -11,5 +11,7 @@ export async function GET(req, res) {
 
   const user = await User.findById(s.user.id);
   if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
-  return NextResponse.json(JSON.parse(user.jobMatches));
+
+  const parsed = JSON.parse(user.jobMatches || "{}");
+  return NextResponse.json(parsed.jobs.jobs ? parsed.jobs : parsed);
 }

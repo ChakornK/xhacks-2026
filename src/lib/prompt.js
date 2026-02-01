@@ -31,7 +31,7 @@ Return the final JSON in this format:
 }
 
 Output rules:
-- Return ONLY a JSON array of strings (example: ["Title 1","Title 2"]).
+- Return ONLY the specified JSON format.
 - No markdown, no explanation, no extra keys, no trailing commas.
 - If you are unsure, still return your best guess but obey the JSON-only rule.`;
 }
