@@ -26,6 +26,7 @@ Include missing/recommended courses that are directly related to "reason" and mi
 Return JSON array of objects: [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...]
 
 In addition to the internships, provide a general "profileSummary", "interviewPrep", and "competencies".
+Do not include upcoming opportunities or internships in competencies!
 Return the final JSON in this format:
 {
   "jobs": [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...],

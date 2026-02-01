@@ -131,7 +131,8 @@ export async function POST(req, res) {
           .slice(0, 15); // Limit to 15 jobs
 
         // Phase 3: AI Match Ranking
-        updateStatus("Computing job match scores");
+        updateStatus("Analyzing your experience");
+        setTimeout(() => updateStatus("Computing job match scores"), 10000);
         const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, resume, uniqueJobs);
 
         let rankingResult;
