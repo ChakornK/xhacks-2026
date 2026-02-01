@@ -1,11 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useOnInView } from "react-intersection-observer";
 
 export default function CoursePage() {
   const [apiData, setApiData] = useState([]);
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState([]); // selected courses
+  const [selected, setSelected] = useState([]);
+
+  const [listLength, setListLength] = useState(20);
+  const endOfListRef = useOnInView(
+    (inView, entry) => {
+      if (inView) {
+        setListLength((prev) => Math.max(20, Math.min(prev + 20, apiData.length)));
+      }
+    },
+    {
+      rootMargin: "0px 0px 500px 0px",
+    },
+  );
 
   useEffect(() => {
     fetch("/api/courses")
@@ -17,7 +30,8 @@ export default function CoursePage() {
     if (!query.trim()) return apiData;
     const normalized = query.toLowerCase();
     return apiData.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
-  }, [query, apiData]);
+  }, [query, apiData, listLength]);
+  const truncatedResults = useMemo(() => results.slice(0, listLength), [results, listLength]);
 
   const addCourse = (course) => {
     if (selected.some((item) => item.code === course.code)) return;
@@ -42,25 +56,25 @@ export default function CoursePage() {
             </p>
           </div>
 
-          <div className="grid gap-4 rounded-xl border border-neutral-100 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-[#111111] md:grid-cols-[1.2fr_0.8fr]">
-            <div className="flex flex-col gap-3">
-              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">Look up a class</label>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <div className="relative flex-1">
-                  <span className="material-symbols-outlined text-sfu-red absolute left-4 top-1/2 -translate-y-1/2 text-xl">search</span>
-                  <input
-                    className="text-sfu-dark focus:border-sfu-red/60 focus:ring-sfu-red/20 w-full rounded border border-neutral-200 bg-neutral-50 px-12 py-3 text-sm font-medium shadow-inner outline-none transition-all placeholder:text-neutral-400 focus:ring-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
-                    placeholder="Try CMPT 125, data structures, or systems..."
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                  />
-                </div>
-                <button className="bg-sfu-red flex h-12 cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526]">
-                  Search
-                </button>
+          <hr className="border-t border-neutral-800" />
+
+          <div className="flex flex-col gap-3">
+            <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">Look up a class</label>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="relative flex-1">
+                <span className="material-symbols-outlined text-sfu-red absolute left-4 top-1/2 -translate-y-1/2 text-xl">search</span>
+                <input
+                  className="text-sfu-dark focus:border-sfu-red/60 focus:ring-sfu-red/20 w-full rounded border border-neutral-200 bg-neutral-50 px-12 py-3 text-sm font-medium shadow-inner outline-none transition-all placeholder:text-neutral-400 focus:ring-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                  placeholder="Try CMPT 125, data structures, or systems..."
+                  value={query}
+                  onChange={(event) => {
+                    setQuery(event.target.value);
+                    setListLength(20);
+                  }}
+                />
               </div>
-              <p className="text-xs text-neutral-400 dark:text-neutral-500">Tip: Use course code, title, or topic keywords.</p>
             </div>
+            <p className="text-xs text-neutral-400 dark:text-neutral-500">Tip: Use course code, title, or topic keywords.</p>
           </div>
         </div>
       </section>
@@ -79,7 +93,7 @@ export default function CoursePage() {
             </div>
 
             <div className="space-y-3">
-              {results.map((course) => {
+              {truncatedResults.map((course) => {
                 const isAdded = selected.some((item) => item.code === course.code);
                 return (
                   <div
@@ -109,6 +123,7 @@ export default function CoursePage() {
                   </div>
                 );
               })}
+              <div ref={endOfListRef}></div>
             </div>
           </div>
 
