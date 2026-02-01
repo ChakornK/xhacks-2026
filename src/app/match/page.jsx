@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import JobMatchCard from "@/components/JobMatchCard";
 
 export default function MatchPage() {
-  // 1. Define jobsData state here
+  const [loading, setLoading] = useState(true);
   const [jobsData, setJobsData] = useState({
     jobs: [],
     profileSummary: "",
@@ -12,27 +12,14 @@ export default function MatchPage() {
   });
 
   useEffect(() => {
-    const saved = localStorage.getItem("jobMatches");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-
-        // 2. Map the saved data to our state
-        if (Array.isArray(parsed)) {
-          // Fallback if the data is just an array
-          setJobsData({ jobs: parsed, profileSummary: "", interviewPrep: [] });
-        } else {
-          // Use the new object format from Gemma 3
-          setJobsData(parsed);
-        }
-      } catch (e) {
-        console.error("Error parsing job matches:", e);
-      }
-    }
+    fetch("/api/job-matches")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.jobs);
+        setJobsData(data);
+        setLoading(false);
+      });
   }, []);
-
-  // 3. Keep your existing jobs constant for the main list
-  const jobs = jobsData.jobs || [];
 
   return (
     <main className="bg-background-dark min-h-screen text-neutral-100">
@@ -41,7 +28,7 @@ export default function MatchPage() {
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">AI Analysis</p>
             <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-              {jobs.length > 0 ? `${jobs.length} Job Matches Found` : "Looking for matches..."}
+              {jobsData.jobs.length > 0 ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
             </h1>
           </div>
         </div>
@@ -84,17 +71,13 @@ export default function MatchPage() {
                   ))}
                 </ul>
               </div>
-
-              <button className="border-sfu-red text-sfu-red hover:bg-sfu-red mt-8 w-full rounded-lg border py-3 text-xs font-bold uppercase tracking-widest transition-all hover:text-white">
-                Download Career Roadmap
-              </button>
             </div>
           </div>
 
           {/* JOB LIST */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {jobs.length > 0 ?
-              jobs.map((job, index) => (
+            {jobsData.jobs.length > 0 ?
+              jobsData.jobs.map((job, index) => (
                 <JobMatchCard
                   key={index}
                   title={job.position}
@@ -102,9 +85,9 @@ export default function MatchPage() {
                   location={job.location || "Canada"}
                   compatibility={job.matchScore}
                   link={job.url}
-                  // SAFETY FALLBACKS: These prevent the ".map() of undefined" error
                   missingCourses={job.missingCourses || []}
                   missingSkills={job.missingSkills || []}
+                  additionalInfo={job.matchReason}
                 />
               ))
             : <div className="col-span-2 py-20 text-center text-neutral-400">No matches found. Try uploading your resume again.</div>}
