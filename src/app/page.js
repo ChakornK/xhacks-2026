@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <div className="bg-background-light dark:bg-background-dark text-sfu-dark relative flex w-full flex-col overflow-x-hidden transition-colors duration-300 dark:text-neutral-100">
       <main className="flex-1">
-        <section className="relative">
+        <section className="relative h-dvh">
           <div
             className="absolute inset-0"
             style={{
@@ -31,7 +31,7 @@ export default function HomePage() {
               backgroundPosition: "center top",
             }}
           />
-          <div className="bg-black/65 absolute inset-0" />
+          <div className="bg-black/75 absolute inset-0 h-dvh"/>
           <div className="relative z-10">
             <div className="sticky top-0 z-50 w-full">
               <div className="mx-auto flex max-w-[1280px] items-center justify-center whitespace-nowrap px-6 py-4 lg:px-10">
