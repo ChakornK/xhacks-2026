@@ -1,58 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
-
-const COURSE_CATALOG = [
-  {
-    code: "CMPT 120",
-    title: "Introduction to Computing Science",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "CMPT 225",
-    title: "Data Structures and Programming",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "CMPT 276",
-    title: "Software Engineering",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "CMPT 295",
-    title: "Computer Architecture",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "CMPT 300",
-    title: "Operating Systems",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "BUS 232",
-    title: "Business Statistics for Decisions",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "MACM 201",
-    title: "Discrete Mathematics I",
-    description: "Lorem ipsum",
-  },
-  {
-    code: "STAT 270",
-    title: "Probability & Statistics",
-    description: "Lorem ipsum",
-  },
-];
+import { useEffect, useMemo, useState } from "react";
 
 export default function CoursePage() {
+  const [apiData, setApiData] = useState([]);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState([]); // selected courses
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((res) => res.json())
+      .then((data) => setApiData(data));
+  }, []);
+
   const results = useMemo(() => {
-    if (!query.trim()) return COURSE_CATALOG;
+    if (!query.trim()) return apiData;
     const normalized = query.toLowerCase();
-    return COURSE_CATALOG.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
-  }, [query]);
+    return apiData.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
+  }, [query, apiData]);
 
   const addCourse = (course) => {
     if (selected.some((item) => item.code === course.code)) return;

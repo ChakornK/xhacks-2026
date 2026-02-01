@@ -15,7 +15,6 @@ export async function GET(req, res) {
             prev.push({
               code: `${dept} ${number}`,
               title,
-              description,
             });
           }
           return prev;
