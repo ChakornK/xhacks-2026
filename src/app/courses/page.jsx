@@ -131,44 +131,46 @@ export default function CoursePage() {
           </div>
 
           <div>
-            <div className="sticky top-8 rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
-                  <h2 className="text-2xl font-extrabold tracking-tight">Your Course Plan</h2>
+            <div className="h-dvh sticky top-8">
+              <div className="flex max-h-[calc(100%-4rem)] flex-col gap-4 overflow-clip rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
+                    <h2 className="text-2xl font-extrabold tracking-tight">Your Course Plan</h2>
+                  </div>
+                  <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
                 </div>
-                <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
-              </div>
-              {selected.length > 0 ?
-                <div className="mb-6">
-                  <button
-                    type="button"
-                    onClick={() => setSelected([])}
-                    className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 w-full cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                  >
-                    Remove All
-                  </button>
-                </div>
-              : <p className="text-center text-neutral-400">No courses added</p>}
-              <div className="space-y-3">
-                {selected.map((course) => (
-                  <div
-                    key={course.code}
-                    className="flex items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 dark:border-neutral-800 dark:bg-[#141414]"
-                  >
-                    <div>
-                      <p className="text-sfu-dark text-sm font-bold dark:text-white">{course.code}</p>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
-                    </div>
+                {selected.length > 0 ?
+                  <div>
                     <button
-                      className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                      onClick={() => removeCourse(course.code)}
                       type="button"
+                      onClick={() => setSelected([])}
+                      className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 w-full cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
                     >
-                      Remove
+                      Remove All
                     </button>
                   </div>
-                ))}
+                : <p className="text-center text-neutral-400">No courses added</p>}
+                <div className="space-y-3 overflow-y-auto">
+                  {selected.map((course) => (
+                    <div
+                      key={course.code}
+                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-3 dark:border-neutral-800 dark:bg-[#141414]"
+                    >
+                      <div>
+                        <p className="text-sfu-dark text-sm font-bold dark:text-white">{course.code}</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">{course.title}</p>
+                      </div>
+                      <button
+                        className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
+                        onClick={() => removeCourse(course.code)}
+                        type="button"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
