@@ -14,10 +14,10 @@ export default function CoursePage() {
   const [isLoading, setIsLoading] = useState(true); // UI feedback for judges
   const [listLength, setListLength] = useState(20);
 
-  const { ref: endOfListRef } = useOnInView(
-    (inView) => {
+  const endOfListRef = useOnInView(
+    (inView, entry) => {
       if (inView) {
-        setListLength((prev) => Math.min(prev + 20, results.length));
+        setListLength((prev) => Math.max(20, Math.min(prev + 20, results.length)));
       }
     },
     {
@@ -112,7 +112,7 @@ export default function CoursePage() {
       </section>
 
       <section className="bg-background-alt py-14">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col-reverse gap-8 px-6 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:px-10">
           <div className="rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
               <div>
@@ -157,12 +157,12 @@ export default function CoursePage() {
                   );
                 })
               : <p className="text-center text-sm text-neutral-400">{isLoading ? "Loading..." : "No results found."}</p>}
-              <div ref={endOfListRef}></div>
+              <div ref={endOfListRef} className="h-px bg-white"></div>
             </div>
           </div>
 
           <div>
-            <div className="h-dvh sticky top-8">
+            <div className="lg:h-dvh sticky top-8">
               <div className="flex max-h-[calc(100%-4rem)] flex-col gap-4 overflow-clip rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
