@@ -45,7 +45,8 @@ export async function POST(request) {
     if (resumeData) jobTitlePrompt.push(resumeData);
 
     const titleResult = await model.generateContent(jobTitlePrompt);
-    const predictedTitles = JSON.parse(titleResult.response.text());
+    const rawTitleText = titleResult.response.text().replace(/```json|```/g, "");
+    const predictedTitles = JSON.parse(rawTitleText);
 
     // 4. Phase 2: Live LinkedIn Job Search
     const jobSearches = await Promise.allSettled(
@@ -86,7 +87,8 @@ export async function POST(request) {
     if (resumeData) rankingPrompt.push(resumeData);
 
     const rankingResult = await model.generateContent(rankingPrompt);
-    const rankedScores = JSON.parse(rankingResult.response.text());
+    const rawRankingText = rankingResult.response.text().replace(/```json|```/g, "");
+    const rankedScores = JSON.parse(rawRankingText);
 
     // 6. Final Merge with Safety Check
     const finalJobs = rankedScores
