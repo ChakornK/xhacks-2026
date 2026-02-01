@@ -86,7 +86,7 @@ export default function CoursePage() {
                     key={course.code}
                     className="hover:border-sfu-red/30 flex flex-col gap-3 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-4 transition-all hover:bg-white dark:border-neutral-800 dark:bg-[#141414] dark:hover:bg-[#1a1a1a]"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center justify-between gap-4">
                       <div>
                         <p className="text-sfu-dark text-lg font-bold dark:text-white">{course.code}</p>
                         <p className="text-sm text-neutral-500 dark:text-neutral-400">{course.title}</p>
