@@ -1,45 +1,28 @@
+import { cacheData } from "@/lib/redis";
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const dept = searchParams.get("dept")?.toLowerCase() || "cmpt";
+const allowedDepts = ["CMPT", "MATH", "MACM", "STAT", "ENSC"];
 
+export async function GET(req, res) {
   try {
-    const listRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}`);
-    const courseList = await listRes.json();
-
-    const hydrated = await Promise.all(
-      courseList.slice(0, 30).map(async (item) => {
-        try {
-          // Try D100 first, then C100 as a backup
-          let detailRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}/${item.value}/d100`);
-          let details = await detailRes.json();
-
-          if (!details.info?.description) {
-            detailRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}/${item.value}/c100`);
-            details = await detailRes.json();
+    const data = await cacheData(
+      `courses`,
+      async () => {
+        const listRes = await fetch("https://api.sfucourses.com/v1/rest/outlines");
+        const courseList = await listRes.json();
+        return courseList.reduce((prev, { dept, number, title, description }) => {
+          if (allowedDepts.includes(dept)) {
+            prev.push({
+              code: `${dept} ${number}`,
+              title,
+            });
           }
-
-          return {
-            _id: `${dept}-${item.value}`,
-            dept: dept.toUpperCase(),
-            number: item.value,
-            title: item.title,
-            description: details.info?.description || "Technical course focusing on " + item.title
-          };
-        } catch (e) {
-          return {
-            _id: `${dept}-${item.value}`,
-            dept: dept.toUpperCase(),
-            number: item.value,
-            title: item.title,
-            description: "Detailed study of " + item.title
-          };
-        }
-      })
+          return prev;
+        }, []);
+      },
+      60 * 60 * 24 * 7,
     );
-
-    return NextResponse.json(hydrated);
+    return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
