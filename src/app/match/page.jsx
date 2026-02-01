@@ -4,19 +4,35 @@ import { useEffect, useState } from "react";
 import JobMatchCard from "@/components/JobMatchCard";
 
 export default function MatchPage() {
-  const [jobs, setJobs] = useState([]);
+  // 1. Define jobsData state here
+  const [jobsData, setJobsData] = useState({ 
+    jobs: [], 
+    profileSummary: "", 
+    interviewPrep: [] 
+  });
 
   useEffect(() => {
-    // Pull the REAL data Gemini just saved to localStorage
-    const savedJobs = localStorage.getItem("jobMatches");
-    if (savedJobs) {
+    const saved = localStorage.getItem("jobMatches");
+    if (saved) {
       try {
-        setJobs(JSON.parse(savedJobs));
+        const parsed = JSON.parse(saved);
+        
+        // 2. Map the saved data to our state
+        if (Array.isArray(parsed)) {
+          // Fallback if the data is just an array
+          setJobsData({ jobs: parsed, profileSummary: "", interviewPrep: [] });
+        } else {
+          // Use the new object format from Gemma 3
+          setJobsData(parsed);
+        }
       } catch (e) {
         console.error("Error parsing job matches:", e);
       }
     }
   }, []);
+
+  // 3. Keep your existing jobs constant for the main list
+  const jobs = jobsData.jobs || [];
 
   return (
     <main className="bg-background-dark min-h-screen text-neutral-100">
@@ -33,13 +49,45 @@ export default function MatchPage() {
 
       <section className="bg-background-alt py-14 dark:bg-[#181818]">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-6 lg:grid-cols-[0.6fr_1.4fr] lg:px-10">
-          {/* SIDEBAR */}
+          {/* SIDEBAR - PROFILE STRENGTH */}
           <div className="flex flex-col gap-6">
-            <div className="rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
-              <h2 className="text-lg font-bold mb-2 text-sfu-dark dark:text-white">Profile Strength</h2>
-              <p className="text-sm text-neutral-500">
-                Gemini evaluated your SFU courses and resume to find these opportunities.
+            <div className="sticky top-8 rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
+              <div className="mb-4">
+                <p className="text-sfu-red text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Analysis</p>
+                <h2 className="text-2xl font-extrabold tracking-tight text-sfu-dark dark:text-white">Profile Strength</h2>
+              </div>
+
+              {/* Dynamic Summary: Shows Gemma's insight or a default loading message */}
+              <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 mb-6 italic">
+                "{jobsData?.profileSummary || "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
               </p>
+
+              <hr className="border-neutral-100 dark:border-neutral-800 mb-6" />
+
+              {/* Interview Prep Section */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-400">Interview Strategy</h3>
+                <ul className="space-y-3">
+                  {/* If interviewPrep exists, map it; otherwise show default helpful tips */}
+                  {(jobsData?.interviewPrep && jobsData.interviewPrep.length > 0 
+                    ? jobsData.interviewPrep 
+                    : [
+                        "Highlight specific technical projects from your SFU coursework.",
+                        "Prepare to discuss your problem-solving process in depth.",
+                        "Be ready to map your academic skills to the job's daily tasks."
+                      ]
+                  ).map((tip, i) => (
+                    <li key={i} className="flex gap-3 text-sm text-neutral-600 dark:text-neutral-300">
+                      <span className="text-sfu-red font-bold">•</span>
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <button className="mt-8 w-full border border-sfu-red text-sfu-red hover:bg-sfu-red hover:text-white transition-all py-3 rounded-lg text-xs font-bold uppercase tracking-widest font-bold">
+                Download Career Roadmap
+              </button>
             </div>
           </div>
 
