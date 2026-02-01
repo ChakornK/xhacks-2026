@@ -37,7 +37,7 @@ export default function CoursePage() {
           d = data;
           fetch("/api/my-courses")
             .then((res) => res.json())
-            .then((data) => setSelected(data.map((course) => d.find((item) => item.code === course))));
+            .then((data) => setSelected((data || []).map((course) => d.find((item) => item.code === course))));
         })
         .finally(() => setIsLoading(false));
     })();
@@ -49,7 +49,6 @@ export default function CoursePage() {
     return apiData.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
   }, [query, apiData]);
 
-  // FIX: This will no longer crash because results is guaranteed to be an array
   const truncatedResults = useMemo(() => results.slice(0, listLength), [results, listLength]);
 
   const addCourse = (course) => {
