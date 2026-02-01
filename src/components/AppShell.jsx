@@ -119,7 +119,7 @@ export default function AppShell({ children }) {
           ))}
         </nav>
       </aside>
-      <main className="flex-1">{children}</main>
+      <main className="h-dvh flex-1 overflow-y-auto overflow-x-clip">{children}</main>
     </div>
   );
 }
