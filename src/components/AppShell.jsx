@@ -41,7 +41,7 @@ export default function AppShell({ children }) {
             <span className="material-symbols-outlined text-base">dashboard</span>
             Home
           </Link>
-          <Link className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white" href="/" aria-current="page">
+          <Link className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white" href="/courses" aria-current="page">
             <span className="material-symbols-outlined text-base">person</span>
             Courses
           </Link>
@@ -49,7 +49,7 @@ export default function AppShell({ children }) {
             <span className="material-symbols-outlined text-base">work</span>
             Job Matches
           </Link>
-          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/courses">
+          <Link className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white" href="/">
             <span className="material-symbols-outlined text-base">insights</span>
             Skill Insights
           </Link>
