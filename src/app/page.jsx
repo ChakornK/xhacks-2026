@@ -23,25 +23,36 @@ export default function HomePage() {
           <div className="h-dvh absolute inset-0 bg-black/75" />
           <div className="relative z-10">
             <div className="sticky top-0 z-50 w-full">
-              <div
-                className={`mx-auto flex max-w-7xl items-center whitespace-nowrap px-6 py-4 lg:px-10 ${sessionData?.session ? "justify-between" : "justify-center"}`}
-              >
-                <div className="group flex cursor-pointer items-center gap-3 text-white">
-                  <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
-                    <span className="material-symbols-outlined text-xl text-white">school</span>
+              {sessionData?.session && (
+                <div className="mx-auto flex max-w-7xl items-center justify-between whitespace-nowrap px-6 py-4 lg:px-10">
+                  <div className="group flex cursor-pointer items-center gap-3 text-white">
+                    <div className="size-9 bg-sfu-red flex items-center justify-center rounded">
+                      <span className="material-symbols-outlined text-xl text-white">school</span>
+                    </div>
+                    <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight">
+                      SFU <span className="text-sfu-red">CareerConnect</span>
+                    </h2>
                   </div>
-                  <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight">
-                    SFU <span className="text-sfu-red">CareerConnect</span>
-                  </h2>
+                  {sessionData?.session && <LogOut />}
                 </div>
-                {sessionData?.session && <LogOut />}
-              </div>
+              )}
             </div>
             {/* Hero */}
-            <div className="@container max-w-360 mx-auto">
+            <div className="@container max-w-360 mx-auto pt-8">
               <div className="@[480px]:p-10 p-6">
                 <div className="@[480px]:gap-8 min-h-150 relative flex flex-col items-center justify-center gap-6 p-8 text-center">
                   <div className="bg-sfu-red/10 absolute -right-24 -top-24 h-96 w-96 rounded-full blur-[120px]" />
+
+                  {!sessionData?.session && (
+                    <div className="group flex cursor-pointer items-center gap-3 text-white">
+                      <div className="size-12 bg-sfu-red flex items-center justify-center rounded">
+                        <span className="material-symbols-outlined text-xl text-white">school</span>
+                      </div>
+                      <h2 className="text-3xl font-extrabold uppercase leading-tight tracking-tight">
+                        SFU <span className="text-sfu-red">CareerConnect</span>
+                      </h2>
+                    </div>
+                  )}
 
                   <div className="max-w-225 relative z-10 flex flex-col gap-6">
                     <h1 className="@[480px]:text-7xl text-5xl font-extrabold leading-tight tracking-tight text-white">
