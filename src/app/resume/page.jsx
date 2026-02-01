@@ -9,6 +9,8 @@ export default function ResumePage() {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
+  const [status, setStatus] = useState(null);
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -26,11 +28,26 @@ export default function ResumePage() {
         method: "POST",
         body: JSON.stringify({ resume: text }),
       });
+      console.log(response);
+      const reader = response.body.getReader();
 
-      if (response.ok) {
-        router.push("/match");
-      } else {
-        alert("Analysis failed, please try again");
+      if (reader) {
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            alert("Analysis failed, please try again");
+            break;
+          }
+          const decoded = decoder.decode(value).trim();
+          console.log(decoded);
+          if (decoded === "OK") {
+            router.push("/match");
+            break;
+          }
+          setStatus(decoded);
+        }
+        setStatus(null);
       }
     } catch (error) {
       console.error("Analysis Error:", error);
@@ -75,7 +92,7 @@ export default function ResumePage() {
               disabled={!file || isUploading}
               className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:bg-neutral-800"
             >
-              {isUploading ? "Processing..." : "Upload Resume"}
+              {isUploading ? `${status || "Processing"}...` : "Upload Resume"}
             </button>
           </div>
         </div>

@@ -45,110 +45,129 @@ export async function POST(req, res) {
     const { resume } = await req.json();
     if (!resume) return NextResponse.json({ error: "No resume" }, { status: 400 });
 
-    const model = genAI.getGenerativeModel({
-      model: "gemma-3-27b-it",
-      // generationConfig: { responseMimeType: "application/json" },
-    });
-
-    const allCourses = await getCourses();
-    const courseContext = savedCourses
-      .map((courseCode) => {
-        const c = allCourses.find((course) => course.code === courseCode);
-        return `[${c.dept} ${c.number}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
-      })
-      .join("\n");
-
-    // Phase 1: Strategic Job Title Prediction
-    const filledJobTitlePrompt = jobTitlesPrompt(courseContext, resume);
-
-    const titleResult = await model.generateContent(filledJobTitlePrompt);
-    const rawTitleText = titleResult.response.text().match(/\[[^`]*\]/);
-    const predictedTitles = JSON.parse(rawTitleText);
-
-    console.log("Predicted Job Titles:", predictedTitles);
-
-    // Phase 2: Live LinkedIn Job Search
-    const jobSearches = await Promise.allSettled(
-      predictedTitles.map((title) =>
-        cacheData(
-          `linkedin-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
-          () =>
-            linkedIn.query({
-              keyword: title,
-              location: "Vancouver, BC",
-              limit: "15",
-              dateSincePosted: "past Month",
-            }),
-          60 * 60 * 24, // 24 hour cache
-        ),
-      ),
-    );
-
-    const allJobs = jobSearches
-      .filter((r) => r.status === "fulfilled")
-      .flatMap((r) => r.value || [])
-      .filter((v, i, a) => a.findIndex((t) => t.jobUrl === v.jobUrl) === i)
-      .slice(0, 15);
-
-    if (allJobs.length === 0) return NextResponse.json({ jobs: [], message: "No live listings found." });
-
-    // Priority Sorting
-    const priorityJobs = allJobs
-      .map((job, originalIndex) => ({
-        ...job,
-        _priority: getLocationPriority(job.location),
-        _originalIndex: originalIndex,
-      }))
-      .sort((a, b) => {
-        // Sort Location by priority
-        if (a._priority !== b._priority) return a._priority - b._priority;
-        // If same priority, sort by original index
-        return a._originalIndex - b._originalIndex;
-      })
-      .slice(0, 15); // Limit to 15 jobs
-
-    // Phase 3: AI Match Ranking
-    const filledJobRankingPrompt = jobRankingPrompt(courseContext, priorityJobs);
-
-    const rankingResult = await model.generateContent(filledJobRankingPrompt);
-    const rawRankingText = rankingResult.response.text().match(/{[^`]*}/);
-    const rankedScores = JSON.parse(rawRankingText);
-
-    // 6. Final Merge with Safety Check
-    // Check if rankedScores is the new object format or the old array format
-    const jobsToMap = Array.isArray(rankedScores) ? rankedScores : rankedScores.jobs || [];
-
-    const finalJobs = jobsToMap
-      .map((score) => {
-        const originalJob = priorityJobs[score.id];
-        if (!originalJob) return null;
-
-        // Calculte match score based on BC priority
-        const locationBoost = getLocationBoost(originalJob._priority);
-
-        return {
-          ...originalJob,
-          matchScore: score.score,
-          adjustedScore: Math.min(score.score + locationBoost, 100),
-          matchReason: score.reason,
-          missingCourses: score.missingCourses || [], // Ensure these exist for your card
-          missingSkills: score.missingSkills || [],
-          url: originalJob.jobUrl,
+    const streamEncoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        const updateStatus = (status) => {
+          controller.enqueue(streamEncoder.encode(`${status}\n`));
         };
-      })
-      .filter((job) => job !== null) // Remove any failed matches
-      .sort((a, b) => b.adjustedScore - a.adjustedScore);
+        const endStream = () => controller.close();
 
-    const finalJobMatches = {
-      jobs: finalJobs,
-      profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
-      interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
-    };
+        const model = genAI.getGenerativeModel({
+          model: "gemma-3-27b-it",
+          // generationConfig: { responseMimeType: "application/json" },
+        });
 
-    user.jobMatches = JSON.stringify(finalJobMatches);
-    await user.save();
+        const allCourses = await getCourses();
+        const courseContext = savedCourses
+          .map((courseCode) => {
+            const c = allCourses.find((course) => course.code === courseCode);
+            return `[${c.dept} ${c.number}] ${c.title}${c.description ? `: ${c.description}` : ""}`;
+          })
+          .join("\n");
 
-    return NextResponse.json({ status: "success" });
+        // Phase 1: Strategic Job Title Prediction
+        updateStatus("Matching your profile to job titles");
+        const filledJobTitlePrompt = jobTitlesPrompt(courseContext, resume);
+
+        const titleResult = await model.generateContent(filledJobTitlePrompt);
+        const rawTitleText = titleResult.response.text().match(/\[[^`]*\]/);
+        const predictedTitles = JSON.parse(rawTitleText);
+
+        // Phase 2: Live LinkedIn Job Search
+        updateStatus("Searching for job postings");
+        const jobSearches = await Promise.allSettled(
+          predictedTitles.map((title) =>
+            cacheData(
+              `linkedin-${title.toLowerCase().replace(/[^a-zA-Z0-9]/g, "")}`,
+              () =>
+                linkedIn.query({
+                  keyword: title,
+                  location: "Vancouver, BC",
+                  limit: "15",
+                  dateSincePosted: "past Month",
+                }),
+              60 * 60 * 24, // 24 hour cache
+            ),
+          ),
+        );
+
+        const allJobs = jobSearches
+          .filter((r) => r.status === "fulfilled")
+          .flatMap((r) => r.value || [])
+          .filter((v, i, a) => a.findIndex((t) => t.jobUrl === v.jobUrl) === i)
+          .slice(0, 15);
+
+        if (allJobs.length === 0) return NextResponse.json({ jobs: [], message: "No live listings found." });
+
+        // Priority Sorting
+        const priorityJobs = allJobs
+          .map((job, originalIndex) => ({
+            ...job,
+            _priority: getLocationPriority(job.location),
+            _originalIndex: originalIndex,
+          }))
+          .sort((a, b) => {
+            // Sort Location by priority
+            if (a._priority !== b._priority) return a._priority - b._priority;
+            // If same priority, sort by original index
+            return a._originalIndex - b._originalIndex;
+          })
+          .slice(0, 15); // Limit to 15 jobs
+
+        // Phase 3: AI Match Ranking
+        updateStatus("Computing job match scores");
+        const filledJobRankingPrompt = jobRankingPrompt(courseContext, priorityJobs);
+
+        const rankingResult = await model.generateContent(filledJobRankingPrompt);
+        const rawRankingText = rankingResult.response.text().match(/{[^`]*}/);
+        const rankedScores = JSON.parse(rawRankingText);
+
+        // 6. Final Merge with Safety Check
+        // Check if rankedScores is the new object format or the old array format
+        const jobsToMap = Array.isArray(rankedScores) ? rankedScores : rankedScores.jobs || [];
+
+        const finalJobs = jobsToMap
+          .map((score) => {
+            const originalJob = priorityJobs[score.id];
+            if (!originalJob) return null;
+
+            // Calculte match score based on BC priority
+            const locationBoost = getLocationBoost(originalJob._priority);
+
+            return {
+              ...originalJob,
+              matchScore: score.score,
+              adjustedScore: Math.min(score.score + locationBoost, 100),
+              matchReason: score.reason,
+              missingCourses: score.missingCourses || [], // Ensure these exist for your card
+              missingSkills: score.missingSkills || [],
+              url: originalJob.jobUrl,
+            };
+          })
+          .filter((job) => job !== null) // Remove any failed matches
+          .sort((a, b) => b.adjustedScore - a.adjustedScore);
+
+        const finalJobMatches = {
+          jobs: finalJobs,
+          profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
+          interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
+        };
+
+        user.jobMatches = JSON.stringify(finalJobMatches);
+        await user.save();
+
+        updateStatus("OK");
+        endStream();
+      },
+    });
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      },
+    });
   } catch (error) {
     console.error("Predict Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
