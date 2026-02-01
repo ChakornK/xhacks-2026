@@ -1,6 +1,7 @@
 "use client";
 
 import JobMatchCard from "@/components/JobMatchCard";
+import LoginButton from "@/components/LoginButton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 export default function HomePage() {
@@ -28,10 +29,12 @@ export default function HomePage() {
                 SFU <span className="text-sfu-red">CareerConnect</span>
               </h2>
             </div>
+            <div>
+            </div>
 
-            <nav className="hidden flex-1 justify-center gap-10 md:flex">
+            {/* <nav className="hidden flex-1 justify-center gap-10 md:flex">
               <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/">
-                Home
+                Process
               </Link>
 
               <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="/courses">
@@ -40,16 +43,16 @@ export default function HomePage() {
               <Link className="hover:text-sfu-red text-sm font-semibold text-neutral-600 transition-colors dark:text-neutral-300" href="#">
                 Match
               </Link>
-            </nav>
+            </nav> */}
 
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <button className="text-sfu-dark flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded border border-neutral-300 bg-transparent px-4 text-sm font-bold transition-all hover:bg-neutral-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/5">
                 Login
               </button>
               <button className="bg-sfu-red flex h-10 min-w-[90px] cursor-pointer items-center justify-center rounded px-4 text-sm font-bold text-white shadow-md transition-all hover:bg-[#8B1526]">
                 Sign-up
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Hero */}
@@ -72,12 +75,7 @@ export default function HomePage() {
               </div>
 
               <div className="relative z-10 mt-4 flex flex-col gap-5 sm:flex-row">
-                <button
-                  className="bg-sfu-red flex h-14 min-w-[200px] cursor-pointer items-center justify-center rounded px-8 text-lg font-bold text-white shadow-lg transition-all hover:bg-[#8B1526]"
-                  onClick={matchBtn}
-                >
-                  <span className="truncate uppercase tracking-wide">Find Your Match</span>
-                </button>
+                <LoginButton />
               </div>
             </div>
           </div>
