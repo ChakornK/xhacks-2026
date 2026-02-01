@@ -62,7 +62,7 @@ export default function MatchPage() {
             <div className="space-y-3">
               {JOB_MATCHES.map((job) => {
                 return (
-                  <div key={job.code} className="flex gap-3 rounded-lg border border-neutral-800 bg-[#141414] px-4 py-4 transition-all">
+                  <div key={`${job.link}-${job.title}`} className="flex gap-3 rounded-lg border border-neutral-800 bg-[#141414] px-4 py-4 transition-all">
                     <div className="flex grow flex-col items-start justify-between">
                       <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">{job.company}</p>
                       <p className="text-xl font-extrabold text-white">{job.title}</p>
