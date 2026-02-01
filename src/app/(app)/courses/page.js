@@ -2,53 +2,49 @@
 
 import { useMemo, useState } from "react";
 
-const COURSE_CATALOG = [
-  {
-    code: "CMPT 120",
-    title: "Introduction to Computing Science",
-  },
-  {
-    code: "CMPT 225",
-    title: "Data Structures and Programming",
-  },
-  {
-    code: "CMPT 276",
-    title: "Software Engineering",
-  },
-  {
-    code: "CMPT 295",
-    title: "Computer Architecture",
-  },
-  {
-    code: "CMPT 300",
-    title: "Operating Systems",
-  },
-  {
-    code: "BUS 232",
-    title: "Business Statistics for Decisions",
-  },
-  {
-    code: "MACM 201",
-    title: "Discrete Mathematics I",
-  },
-  {
-    code: "STAT 270",
-    title: "Probability & Statistics",
-  },
-];
+const COURSE_CATALOG = []; // Holds the course catalog
 
 export default function CoursePage() {
   const [query, setQuery] = useState("");
+  const [courses, setCourses] = useState([]); // Fetched courses on search
   const [selected, setSelected] = useState([]); // selected courses
+
   const results = useMemo(() => {
-    if (!query.trim()) return COURSE_CATALOG;
+    if (!query.trim()) return courses;
     const normalized = query.toLowerCase();
-    return COURSE_CATALOG.filter(
+    return courses.filter(
       (course) =>
         course.code.toLowerCase().includes(normalized) ||
         course.title.toLowerCase().includes(normalized)
     );
-  }, [query]);
+  }, [query, courses]);
+
+ // Handler for Search button click
+ const handleSearch = async () => {
+  try {
+    // Extract department from query (e.g., "cmpt" from "CMPT 120")
+    const deptMatch = query.match(/^([a-zA-Z]+)/);
+    const dept = deptMatch ? deptMatch[1].toLowerCase() : "cmpt";
+    
+    const response = await fetch(`/api/courses?dept=${dept}`);
+    const data = await response.json();
+    
+    if (!Array.isArray(data)) {
+      console.error("API returned an error:", data);
+      return;
+    }
+
+    const formattedCourses = data.map((course) => ({
+      code: `${course.dept} ${course.number}`,
+      title: course.title,
+      description: course.description,
+    }));
+    
+    setCourses(formattedCourses);
+  } catch (error) {
+    console.error("Failed to fetch courses:", error);
+  } 
+};
 
   const addCourse = (course) => {
     if (selected.some((item) => item.code === course.code)) return;
@@ -96,7 +92,7 @@ export default function CoursePage() {
                     onChange={(event) => setQuery(event.target.value)}
                   />
                 </div>
-                <button className="bg-sfu-red flex h-12 cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526]">
+                <button onClick={handleSearch} className=" bg-sfu-red flex h-12 cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526]">
                   Search
                 </button>
               </div>
@@ -173,7 +169,7 @@ export default function CoursePage() {
                     type="button"
                     onClick={() => setSelected([])}
                     className="
-                      w-full cursor-pointer rounded border-3 px-3 py-2
+                      w-full cursor-pointer rounded border px-3 py-2
                       text-xs font-bold uppercase tracking-widest
                       text-sfu-red border-sfu-red/20
                       hover:bg-sfu-red/10 transition-all
