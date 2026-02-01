@@ -4,6 +4,34 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+const NAV_ITEMS = [
+  {
+    icon: "dashboard",
+    label: "Home",
+    href: "/",
+  },
+  {
+    icon: "person",
+    label: "Courses",
+    href: "/courses",
+  },
+  {
+    icon: "work",
+    label: "Job Matches",
+    href: "/match",
+  },
+  {
+    icon: "insights",
+    label: "Skill Insights",
+    href: "/",
+  },
+  {
+    icon: "settings",
+    label: "Settings",
+    href: "/",
+  },
+];
+
 export default function AppShell({ children }) {
   const pathname = usePathname();
   const isLanding = pathname === "/";
@@ -37,33 +65,7 @@ export default function AppShell({ children }) {
         </div>
 
         <nav className="flex flex-col gap-2 text-sm font-semibold">
-          {[
-            {
-              icon: "dashboard",
-              label: "Home",
-              href: "/",
-            },
-            {
-              icon: "person",
-              label: "Courses",
-              href: "/courses",
-            },
-            {
-              icon: "work",
-              label: "Job Matches",
-              href: "/match",
-            },
-            {
-              icon: "insights",
-              label: "Skill Insights",
-              href: "/",
-            },
-            {
-              icon: "settings",
-              label: "Settings",
-              href: "/",
-            },
-          ].map(({ icon, label, href }) => (
+          {NAV_ITEMS.map(({ icon, label, href }) => (
             <Link
               key={label}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10" : ""}`}
@@ -105,43 +107,16 @@ export default function AppShell({ children }) {
         </div>
 
         <nav className="flex flex-col gap-2 text-sm font-semibold">
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="material-symbols-outlined text-base">dashboard</span>
-            Dashboard
-          </Link>
-          <Link className="flex items-center gap-3 rounded-lg bg-white/10 px-3 py-2 text-white" href="/" aria-current="page" onClick={() => setIsOpen(false)}>
-            <span className="material-symbols-outlined text-base">person</span>
-            Profile
-          </Link>
-
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/courses"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="material-symbols-outlined text-base">insights</span>
-            Skill Insights
-          </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/courses"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="material-symbols-outlined text-base">work</span>
-            Job Matches
-          </Link>
-          <Link
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white"
-            href="/"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="material-symbols-outlined text-base">settings</span>
-            Settings
-          </Link>
+          {NAV_ITEMS.map(({ icon, label, href }) => (
+            <Link
+              key={label}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-neutral-300 hover:bg-white/5 hover:text-white ${pathname === href ? "bg-white/10" : ""}`}
+              href={href}
+            >
+              <span className="material-symbols-outlined text-base">{icon}</span>
+              {label}
+            </Link>
+          ))}
         </nav>
       </aside>
       <main className="flex-1">{children}</main>
