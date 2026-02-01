@@ -171,6 +171,9 @@ export default function CoursePage() {
                     </div>
                   ))}
                 </div>
+                <button type="button" onClick={() => {}} className="btn">
+                  <p className="w-full">Save</p>
+                </button>
               </div>
             </div>
           </div>
