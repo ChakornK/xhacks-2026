@@ -180,7 +180,7 @@ export default function CoursePage() {
                         <p className="text-xs text-neutral-400">{course.title}</p>
                       </div>
                       <button
-                        className="btn-secondary hover:scale-130 flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important] hover:bg-[#8B1526] active:scale-105"
+                        className="btn-secondary flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important] hover:bg-[#8B1526] active:scale-105"
                         onClick={() => removeCourse(course.code)}
                         type="button"
                       >
