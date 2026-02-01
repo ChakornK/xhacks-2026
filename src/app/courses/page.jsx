@@ -113,7 +113,7 @@ export default function CoursePage() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
+            <div className="top-30 sticky rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
               <div className="mb-6 flex items-center justify-between">
                 <div>
                   <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
