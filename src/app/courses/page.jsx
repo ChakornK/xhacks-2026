@@ -80,7 +80,7 @@ export default function CoursePage() {
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
-            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Course Builder</p>
+            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">Course Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Add Your <span className="text-sfu-red">SFU</span> Courses
             </h1>

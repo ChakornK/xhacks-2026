@@ -65,7 +65,7 @@ export default function ResumePage() {
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
-            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Profile Builder</p>
+            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">Profile Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Upload Your <span className="text-sfu-red">Resume</span>
             </h1>
@@ -76,9 +76,9 @@ export default function ResumePage() {
         </div>
       </section>
 
-      <section className="bg-background-alt grow py-14">
+      <section className="bg-background-alt grow px-8 py-14">
         {/* UPLOAD BOX */}
-        <div className="grid gap-4 rounded-xl px-8 shadow-sm">
+        <div className="grid gap-4 rounded-xl shadow-sm">
           <div
             className={`flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed py-12 ${fileOver ? "bg-sfu-red/10 border-sfu-red" : "border-neutral-700"}`}
             onDragOver={(e) => {

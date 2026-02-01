@@ -193,7 +193,6 @@ export async function POST(req, res) {
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
       },
-      competencies: rankedScores.competencies || [],
     });
   } catch (error) {
     console.error("Predict Error:", error);

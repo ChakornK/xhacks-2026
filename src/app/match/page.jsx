@@ -15,7 +15,6 @@ export default function MatchPage() {
     fetch("/api/job-matches")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.jobs);
         setJobsData(data);
         setLoading(false);
       });
@@ -28,7 +27,7 @@ export default function MatchPage() {
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">AI Analysis</p>
             <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-              {jobsData.jobs.length > 0 ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
+              {!loading ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
             </h1>
           </div>
         </div>
@@ -45,7 +44,7 @@ export default function MatchPage() {
               </div>
 
               <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">
-                "{jobsData?.profileSummary || "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
+                "{!loading ? jobsData.profileSummary : "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
               </p>
 
               <hr className="mb-6 border-neutral-800" />
