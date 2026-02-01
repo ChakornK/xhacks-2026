@@ -15,8 +15,7 @@ export async function GET(req, res) {
   const parsed = JSON.parse(user.jobMatches || "{}");
   const d = parsed.jobs.jobs ? parsed.jobs : parsed;
   return NextResponse.json({
-    jobs: d.jobs || [],
     profileSummary: d.profileSummary || "",
-    interviewPrep: d.interviewPrep || [],
+    competencies: d.competencies || [],
   });
 }

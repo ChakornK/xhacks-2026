@@ -15,7 +15,6 @@ export default function MatchPage() {
     fetch("/api/job-matches")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.jobs);
         setJobsData(data);
         setLoading(false);
       });
@@ -28,7 +27,7 @@ export default function MatchPage() {
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">AI Analysis</p>
             <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-              {jobsData.jobs.length > 0 ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
+              {!loading ? `${jobsData.jobs.length} Job Matches Found` : "Looking for matches..."}
             </h1>
           </div>
         </div>
@@ -44,18 +43,15 @@ export default function MatchPage() {
                 <h2 className="text-2xl font-extrabold tracking-tight text-white">Profile Strength</h2>
               </div>
 
-              {/* Dynamic Summary: Shows Gemma's insight or a default loading message */}
               <p className="mb-6 text-sm italic leading-relaxed text-neutral-400">
-                "{jobsData?.profileSummary || "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
+                "{!loading ? jobsData.profileSummary : "Gemini is analyzing your SFU courses and resume to find your competitive edge..."}"
               </p>
 
               <hr className="mb-6 border-neutral-800" />
 
-              {/* Interview Prep Section */}
               <div className="space-y-4">
                 <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-400">Interview Strategy</h3>
                 <ul className="space-y-3">
-                  {/* If interviewPrep exists, map it; otherwise show default helpful tips */}
                   {(jobsData?.interviewPrep && jobsData.interviewPrep.length > 0 ?
                     jobsData.interviewPrep
                   : [

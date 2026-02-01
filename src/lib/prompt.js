@@ -21,15 +21,20 @@ All courses:${allCourses}
 Jobs: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
 
 Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
-Include missing courses that are recommended and missing skills required for the job.
+Include missing/recommended courses that are directly related to "reason" and missing skills required for the job.
 Return JSON array of objects: [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...]
 
-In addition to the jobs, provide a general "profileSummary" and "interviewPrep".
+In addition to the jobs, provide a general "profileSummary", "interviewPrep", and "competencies".
 Return the final JSON in this format:
 {
   "jobs": [{"id": 0, "score": 85, "reason": "...", "missingCourses": ["CMPT XXX", "CMPT YYY", ...], "missingSkills": ["Skill 1", "Skill 2", ...]}, ...],
   "profileSummary": "A 2-sentence summary of their current competitiveness.",
-  "interviewPrep": ["Brush up on Python", "Prepare to discuss your CMPT 225 project"]
+  "interviewPrep": ["Brush up on Python", "Prepare to discuss your CMPT 225 project"],
+  "competencies": [
+    {"skill": "Python", "level": 90, "source": "Used in CMPT 120 and Research Project"},
+    {"skill": "Data Analysis", "level": 85, "source": "Experience at Research Lab"},
+    {"skill": "Machine Learning", "level": 80, "source": "Personal project"}
+  ]
 }
 
 Output rules:

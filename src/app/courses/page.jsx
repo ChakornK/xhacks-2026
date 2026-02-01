@@ -76,11 +76,11 @@ export default function CoursePage() {
   };
 
   return (
-    <div className="bg-background-dark min-h-screen text-neutral-100 transition-colors duration-300">
+    <div className="bg-background-dark flex min-h-screen flex-col text-neutral-100 transition-colors duration-300">
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
-            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Course Builder</p>
+            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">Course Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Add Your <span className="text-sfu-red">SFU</span> Courses
             </h1>
@@ -111,7 +111,7 @@ export default function CoursePage() {
         </div>
       </section>
 
-      <section className="bg-background-alt py-14">
+      <section className="bg-background-alt grow py-14">
         <div className="mx-auto flex max-w-7xl flex-col-reverse gap-8 px-6 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:px-10">
           <div className="rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
@@ -180,7 +180,7 @@ export default function CoursePage() {
                         <p className="text-xs text-neutral-400">{course.title}</p>
                       </div>
                       <button
-                        className="btn-secondary hover:scale-130 flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important] hover:bg-[#8B1526] active:scale-105"
+                        className="btn-secondary flex h-[2.5rem_!important] w-[2.5rem_!important] shrink-0 items-center justify-center p-[0_!important] hover:bg-[#8B1526] active:scale-105"
                         onClick={() => removeCourse(course.code)}
                         type="button"
                       >

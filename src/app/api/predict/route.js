@@ -177,6 +177,7 @@ export async function POST(req, res) {
           jobs: finalJobs,
           profileSummary: rankedScores.profileSummary || "Your profile shows strong technical foundations.",
           interviewPrep: rankedScores.interviewPrep || ["Highlight your course projects", "Review core fundamentals"],
+          competencies: rankedScores.competencies || [],
         };
 
         user.jobMatches = JSON.stringify(finalJobMatches);

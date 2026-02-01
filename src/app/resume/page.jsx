@@ -60,12 +60,12 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="bg-background-dark min-h-screen text-neutral-100 transition-colors duration-300">
+    <div className="bg-background-dark flex min-h-screen flex-col text-neutral-100 transition-colors duration-300">
       {/* HEADER SECTION */}
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
-            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Profile Builder</p>
+            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">Profile Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Upload Your <span className="text-sfu-red">Resume</span>
             </h1>
@@ -73,48 +73,50 @@ export default function ResumePage() {
               Our AI analyzes your experience to better match you with SFU-friendly job opportunities.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* UPLOAD BOX */}
-          <div className="grid gap-4 rounded-xl border border-neutral-800 bg-[#111111] p-8 shadow-sm">
-            <div
-              className={`flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed py-12 ${fileOver ? "bg-sfu-red/10 border-sfu-red" : "border-neutral-700"}`}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setFileOver(true);
-              }}
-              onDragLeave={() => {
-                setFileOver(false);
-              }}
-              onDrop={(e) => {
-                e.preventDefault();
-                e.dataTransfer.files[0] && setFile(e.dataTransfer.files[0]);
-              }}
-            >
-              <span className="material-symbols-outlined text-sfu-red text-5xl">cloud_upload</span>
-              <input ref={fileUploadRef} type="file" onChange={handleFileChange} className="hidden" accept="application/pdf" />
-              {!file && (
-                <button className="btn max-w-fit" onClick={() => fileUploadRef.current.click()}>
-                  Browse File
-                </button>
-              )}
-              <p className="text-xs font-medium uppercase tracking-widest text-neutral-400">{file ? `Selected: ${file.name}` : "PDF documents only"}</p>
-            </div>
-
-            <button
-              onClick={handleUpload}
-              disabled={!file || isUploading}
-              className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:cursor-not-allowed disabled:bg-neutral-800"
-            >
-              {isUploading ?
-                <>
-                  {`${status || "Processing"}`}
-                  <span className="anim-elip-1">.</span>
-                  <span className="anim-elip-2">.</span>
-                  <span className="anim-elip-3">.</span>
-                </>
-              : "Upload Resume"}
-            </button>
+      <section className="bg-background-alt grow px-8 py-14">
+        {/* UPLOAD BOX */}
+        <div className="grid gap-4 rounded-xl shadow-sm">
+          <div
+            className={`flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed py-12 ${fileOver ? "bg-sfu-red/10 border-sfu-red" : "border-neutral-700"}`}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setFileOver(true);
+            }}
+            onDragLeave={() => {
+              setFileOver(false);
+            }}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.dataTransfer.files[0] && setFile(e.dataTransfer.files[0]);
+            }}
+          >
+            <span className="material-symbols-outlined text-sfu-red text-5xl">cloud_upload</span>
+            <input ref={fileUploadRef} type="file" onChange={handleFileChange} className="hidden" accept="application/pdf" />
+            {!file && (
+              <button className="btn max-w-fit" onClick={() => fileUploadRef.current.click()}>
+                Browse File
+              </button>
+            )}
+            <p className="text-xs font-medium uppercase tracking-widest text-neutral-400">{file ? `Selected: ${file.name}` : "PDF documents only"}</p>
           </div>
+
+          <button
+            onClick={handleUpload}
+            disabled={!file || isUploading}
+            className="bg-sfu-red flex h-12 w-full cursor-pointer items-center justify-center rounded px-6 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-[#8B1526] disabled:cursor-not-allowed disabled:bg-neutral-800 disabled:opacity-50 disabled:shadow-none"
+          >
+            {isUploading ?
+              <>
+                {`${status || "Processing"}`}
+                <span className="anim-elip-1">.</span>
+                <span className="anim-elip-2">.</span>
+                <span className="anim-elip-3">.</span>
+              </>
+            : "Upload Resume"}
+          </button>
         </div>
       </section>
     </div>
