@@ -85,7 +85,7 @@ export default function AppShell({ children }) {
 
       <aside
         id="mobile-side-header"
-        className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 bg-gradient-to-b from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 shadow-2xl transition-transform lg:hidden ${
+        className={`bg-linear-to-b fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 shadow-2xl transition-transform lg:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="dialog"

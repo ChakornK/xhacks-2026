@@ -37,7 +37,7 @@ export default function MatchPage() {
   return (
     <main className="bg-background-dark min-h-screen text-neutral-100">
       <section className="border-b border-neutral-800 bg-[#171717]/80 py-14 backdrop-blur">
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-6 lg:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
             <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.2em]">AI Analysis</p>
             <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
@@ -48,7 +48,7 @@ export default function MatchPage() {
       </section>
 
       <section className="bg-background-alt py-14">
-        <div className="mx-auto grid max-w-[1280px] gap-8 px-6 lg:grid-cols-[0.6fr_1.4fr] lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.6fr_1.4fr] lg:px-10">
           {/* SIDEBAR - PROFILE STRENGTH */}
           <div className="flex flex-col gap-6">
             <div className="sticky top-8 rounded-xl border border-neutral-800 bg-[#111111] p-6 shadow-sm">
