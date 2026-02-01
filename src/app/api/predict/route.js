@@ -131,7 +131,7 @@ export async function POST(req, res) {
 
         // Phase 3: AI Match Ranking
         updateStatus("Computing job match scores");
-        const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, uniqueJobs);
+        const filledJobRankingPrompt = jobRankingPrompt(courseContext, allCoursesContext, resume, uniqueJobs);
 
         let rankingResult;
         let rankingResultRetries = 3;

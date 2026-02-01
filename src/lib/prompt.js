@@ -15,9 +15,10 @@ Output rules:
 
 Resume: ${resume}`;
 }
-export function jobRankingPrompt(courseContext, allCourses, jobs) {
+export function jobRankingPrompt(courseContext, allCourses, resume, jobs) {
   return `Student experience:${courseContext}
 All courses:${allCourses}
+Resume: ${resume}
 Jobs: ${jobs.map((j, i) => `ID ${i}: ${j.position} at ${j.company}`).join("\n")}
 
 Rate each job (0-100) and provide a "reason" mentioning specific course codes (e.g., CMPT XXX).
