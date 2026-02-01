@@ -53,7 +53,7 @@ export default function AppShell({ children }) {
     <div className="bg-background-dark flex min-h-screen w-full overflow-x-hidden text-neutral-100 transition-colors duration-300">
       {/* Mobile hamburger menu button */}
       <button
-        className="bg-sfu-red size-11 fixed left-4 top-4 z-50 flex items-center justify-center rounded-lg text-white shadow-lg lg:hidden"
+        className="bg-sfu-red size-11 fixed left-4 top-4 z-50 flex items-center justify-center rounded-lg text-white shadow-lg md:hidden"
         onClick={() => setIsOpen(true)}
         aria-label="Open navigation"
         aria-controls="mobile-side-header"
@@ -62,7 +62,7 @@ export default function AppShell({ children }) {
         <span className="material-symbols-outlined text-2xl">menu</span>
       </button>
 
-      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-neutral-800 bg-neutral-950 px-5 py-6 text-neutral-200 lg:flex">
+      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-neutral-800 bg-neutral-950 px-5 py-6 text-neutral-200 md:flex">
         <div className="mb-8 flex items-center gap-3">
           <div className="bg-sfu-red size-9 flex items-center justify-center rounded">
             <span className="material-symbols-outlined text-xl text-white">school</span>
@@ -97,14 +97,14 @@ export default function AppShell({ children }) {
 
       {/* Mobile sidebar overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black/60 transition-opacity lg:hidden ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`fixed inset-0 z-50 bg-black/60 transition-opacity md:hidden ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         onClick={() => setIsOpen(false)}
       />
 
       {/* Mobile sidebar */}
       <aside
         id="mobile-side-header"
-        className={`bg-linear-to-b fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 from-[#0E141B] to-[#0B0F14] px-5 py-6 text-neutral-200 shadow-2xl transition-transform lg:hidden ${
+        className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-neutral-800 bg-neutral-950 px-5 py-6 text-neutral-200 shadow-2xl transition-transform md:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="dialog"
@@ -116,8 +116,8 @@ export default function AppShell({ children }) {
               <span className="material-symbols-outlined text-xl text-white">school</span>
             </div>
             <div>
-              <p className="text-sm font-bold uppercase tracking-wide">SFU Career Net</p>
-              <p className="text-xs text-neutral-400">Student Portal</p>
+              <p className="text-sm font-bold uppercase tracking-wide">SFU</p>
+              <p className="text-sfu-red text-sm font-bold uppercase tracking-wide">CareerConnect</p>
             </div>
           </div>
           <button className="text-neutral-300 hover:text-white" onClick={() => setIsOpen(false)} aria-label="Close navigation">
