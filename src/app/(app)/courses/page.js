@@ -59,7 +59,7 @@ export default function CoursePage() {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-sfu-dark min-h-screen transition-colors duration-300 dark:text-neutral-100">
+    <>
       <section className="border-b border-neutral-100 bg-white/80 py-14 backdrop-blur dark:border-neutral-800 dark:bg-[#171717]/80">
         <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
@@ -203,6 +203,6 @@ export default function CoursePage() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 } 

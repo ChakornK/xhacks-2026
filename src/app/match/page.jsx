@@ -1,9 +1,6 @@
 "use client";
 
-import { CircularIndicator } from "@/components/CircularIndicator";
 import JobMatchCard from "@/components/JobMatchCard";
-import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
-import { Icon } from "@mui/material";
 
 const JOB_MATCHES = [
   {
@@ -54,7 +51,7 @@ export default function MatchPage() {
 
           <div className="grid grid-cols-1 gap-4 rounded-xl sm:grid-cols-2">
             {JOB_MATCHES.map((job) => {
-              return <JobMatchCard {...job} compatibility={job.compatibility * 100} />;
+              return <JobMatchCard key={`${job.title}-${job.link}-${job.company}`} {...job} compatibility={job.compatibility * 100} />;
             })}
           </div>
         </div>
