@@ -24,12 +24,7 @@ const NAV_ITEMS = [
   {
     icon: "insights",
     label: "Skill Insights",
-    href: "/",
-  },
-  {
-    icon: "settings",
-    label: "Settings",
-    href: "/",
+    href: "/skill-insights",
   },
 ];
 
