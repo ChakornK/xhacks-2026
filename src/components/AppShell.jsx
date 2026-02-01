@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   },
   {
     icon: "person",
-    label: "Courses",
+    label: "Edit Profile",
     href: "/courses",
   },
   {
