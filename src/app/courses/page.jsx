@@ -157,7 +157,7 @@ export default function CoursePage() {
                   );
                 })
               : <p className="text-center text-sm text-neutral-400">{isLoading ? "Loading..." : "No results found."}</p>}
-              <div ref={endOfListRef} className="h-px bg-white"></div>
+              <div ref={endOfListRef}></div>
             </div>
           </div>
 
