@@ -34,6 +34,14 @@ export const redisAdapter = {
   },
 };
 
+export async function storeUser(userId, data) {
+  await redis.set(`user:${userId}`, JSON.stringify(data));
+}
+
+export async function removeUser(userId) {
+  await redis.del(`user:${userId}`);
+}
+
 export function disconnectRedis() {
   redis.disconnect();
 }
