@@ -87,48 +87,50 @@ export default function CoursePage() {
                 <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Results</p>
                 <h2 className="text-2xl font-extrabold tracking-tight">Matching Courses</h2>
               </div>
-              <p className="text-xs font-semibold text-neutral-400">
+              <p className="font-semibold text-neutral-300">
                 {results.length} result{results.length === 1 ? "" : "s"}
               </p>
             </div>
 
             <div className="space-y-3">
-              {truncatedResults.map((course) => {
-                const isAdded = selected.some((item) => item.code === course.code);
-                return (
-                  <div
-                    key={course.code}
-                    className="hover:border-sfu-red/30 flex flex-col gap-3 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-4 transition-all hover:bg-white dark:border-neutral-800 dark:bg-[#141414] dark:hover:bg-[#1a1a1a]"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sfu-dark text-lg font-bold dark:text-white">{course.code}</p>
-                        <p className="text-sm text-neutral-500 dark:text-neutral-400">{course.title}</p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <button
-                          className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
-                            isAdded ?
-                              "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
-                            : "bg-sfu-red cursor-pointer text-white hover:bg-[#8B1526]"
-                          }`}
-                          onClick={() => addCourse(course)}
-                          disabled={isAdded}
-                          type="button"
-                        >
-                          {isAdded ? "Added" : "Add"}
-                        </button>
+              {truncatedResults.length > 0 ?
+                truncatedResults.map((course) => {
+                  const isAdded = selected.some((item) => item.code === course.code);
+                  return (
+                    <div
+                      key={course.code}
+                      className="hover:border-sfu-red/30 flex flex-col gap-3 rounded-lg border border-neutral-100 bg-neutral-50 px-4 py-4 transition-all hover:bg-white dark:border-neutral-800 dark:bg-[#141414] dark:hover:bg-[#1a1a1a]"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="text-sfu-dark text-lg font-bold dark:text-white">{course.code}</p>
+                          <p className="text-sm text-neutral-500 dark:text-neutral-400">{course.title}</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <button
+                            className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
+                              isAdded ?
+                                "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
+                              : "bg-sfu-red cursor-pointer text-white hover:bg-[#8B1526]"
+                            }`}
+                            onClick={() => addCourse(course)}
+                            disabled={isAdded}
+                            type="button"
+                          >
+                            {isAdded ? "Added" : "Add"}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              : <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">No results found.</p>}
               <div ref={endOfListRef}></div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
-            <div className="top-30 sticky rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
+          <div>
+            <div className="sticky top-8 rounded-xl border border-neutral-100 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-[#111111]">
               <div className="mb-6 flex items-center justify-between">
                 <div>
                   <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
@@ -136,7 +138,7 @@ export default function CoursePage() {
                 </div>
                 <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
               </div>
-              {selected.length > 0 && (
+              {selected.length > 0 ?
                 <div className="mb-6">
                   <button
                     type="button"
@@ -146,7 +148,7 @@ export default function CoursePage() {
                     Remove All
                   </button>
                 </div>
-              )}
+              : <p className="text-center text-neutral-400">No courses added</p>}
               <div className="space-y-3">
                 {selected.map((course) => (
                   <div
