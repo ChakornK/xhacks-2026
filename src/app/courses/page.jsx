@@ -157,7 +157,7 @@ export default function CoursePage() {
                     </div>
                   );
                 })
-              : <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">No results found.</p>}
+              : <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">{isLoading ? "Loading..." : "No results found."}</p>}
               <div ref={endOfListRef}></div>
             </div>
           </div>
