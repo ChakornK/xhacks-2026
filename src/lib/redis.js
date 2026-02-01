@@ -3,7 +3,7 @@
 import Redis from "ioredis";
 import "./cleanup";
 
-const redis = new Redis(process.env.REDIS_URI);
+export const redis = new Redis(process.env.REDIS_URI);
 
 export async function cacheData(key, fetchData, ttl) {
   const cachedData = await redis.get(key);
