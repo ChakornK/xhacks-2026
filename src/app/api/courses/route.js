@@ -1,3 +1,4 @@
+import { cacheData } from "@/lib/redis";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
@@ -5,41 +6,20 @@ export async function GET(request) {
   const dept = searchParams.get("dept")?.toLowerCase() || "cmpt";
 
   try {
-    const listRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}`);
-    const courseList = await listRes.json();
-
-    const hydrated = await Promise.all(
-      courseList.slice(0, 30).map(async (item) => {
-        try {
-          // Try D100 first, then C100 as a backup
-          let detailRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}/${item.value}/d100`);
-          let details = await detailRes.json();
-
-          if (!details.info?.description) {
-            detailRes = await fetch(`https://www.sfu.ca/bin/wcm/course-outlines?current/current/${dept}/${item.value}/c100`);
-            details = await detailRes.json();
-          }
-
-          return {
-            _id: `${dept}-${item.value}`,
-            dept: dept.toUpperCase(),
-            number: item.value,
-            title: item.title,
-            description: details.info?.description || "Technical course focusing on " + item.title
-          };
-        } catch (e) {
-          return {
-            _id: `${dept}-${item.value}`,
-            dept: dept.toUpperCase(),
-            number: item.value,
-            title: item.title,
-            description: "Detailed study of " + item.title
-          };
-        }
-      })
+    const data = await cacheData(
+      `courses-${dept}`,
+      async () => {
+        const listRes = await fetch(`https://api.sfucourses.com/v1/rest/outlines?dept=${dept}`);
+        const courseList = await listRes.json();
+        return courseList.map(({ dept, number, title, description }) => ({
+          code: `${dept} ${number}`,
+          title,
+          description,
+        }));
+      },
+      60 * 60 * 24 * 7,
     );
-
-    return NextResponse.json(hydrated);
+    return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

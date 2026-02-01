@@ -6,34 +6,42 @@ const COURSE_CATALOG = [
   {
     code: "CMPT 120",
     title: "Introduction to Computing Science",
+    description: "Lorem ipsum",
   },
   {
     code: "CMPT 225",
     title: "Data Structures and Programming",
+    description: "Lorem ipsum",
   },
   {
     code: "CMPT 276",
     title: "Software Engineering",
+    description: "Lorem ipsum",
   },
   {
     code: "CMPT 295",
     title: "Computer Architecture",
+    description: "Lorem ipsum",
   },
   {
     code: "CMPT 300",
     title: "Operating Systems",
+    description: "Lorem ipsum",
   },
   {
     code: "BUS 232",
     title: "Business Statistics for Decisions",
+    description: "Lorem ipsum",
   },
   {
     code: "MACM 201",
     title: "Discrete Mathematics I",
+    description: "Lorem ipsum",
   },
   {
     code: "STAT 270",
     title: "Probability & Statistics",
+    description: "Lorem ipsum",
   },
 ];
 
@@ -43,19 +51,12 @@ export default function CoursePage() {
   const results = useMemo(() => {
     if (!query.trim()) return COURSE_CATALOG;
     const normalized = query.toLowerCase();
-    return COURSE_CATALOG.filter(
-      (course) =>
-        course.code.toLowerCase().includes(normalized) ||
-        course.title.toLowerCase().includes(normalized)
-    );
+    return COURSE_CATALOG.filter((course) => course.code.toLowerCase().includes(normalized) || course.title.toLowerCase().includes(normalized));
   }, [query]);
 
   const addCourse = (course) => {
     if (selected.some((item) => item.code === course.code)) return;
-    setSelected((prev) => [
-      ...prev,
-      { code: course.code, title: course.title },
-    ]);
+    setSelected((prev) => [...prev, { code: course.code, title: course.title }]);
   };
 
   const removeCourse = (code) => {
@@ -67,28 +68,21 @@ export default function CoursePage() {
       <section className="border-b border-neutral-100 bg-white/80 py-14 backdrop-blur dark:border-neutral-800 dark:bg-[#171717]/80">
         <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-6 lg:px-10">
           <div className="flex flex-col gap-4">
-            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">
-              Course Builder
-            </p>
+            <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.4em]">Course Builder</p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
               Add Your <span className="text-sfu-red">SFU</span> Courses
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">
-              Search the SFU catalog, add the courses you&apos;ve completed, and build a timeline that powers
-              your job matches.
+              Search the SFU catalog, add the courses you&apos;ve completed, and build a timeline that powers your job matches.
             </p>
           </div>
 
           <div className="grid gap-4 rounded-xl border border-neutral-100 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-[#111111] md:grid-cols-[1.2fr_0.8fr]">
             <div className="flex flex-col gap-3">
-              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">
-                Look up a class
-              </label>
+              <label className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400">Look up a class</label>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <div className="relative flex-1">
-                  <span className="material-symbols-outlined text-sfu-red absolute left-4 top-1/2 -translate-y-1/2 text-xl">
-                    search
-                  </span>
+                  <span className="material-symbols-outlined text-sfu-red absolute left-4 top-1/2 -translate-y-1/2 text-xl">search</span>
                   <input
                     className="text-sfu-dark focus:border-sfu-red/60 focus:ring-sfu-red/20 w-full rounded border border-neutral-200 bg-neutral-50 px-12 py-3 text-sm font-medium shadow-inner outline-none transition-all placeholder:text-neutral-400 focus:ring-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
                     placeholder="Try CMPT 125, data structures, or systems..."
@@ -100,11 +94,8 @@ export default function CoursePage() {
                   Search
                 </button>
               </div>
-              <p className="text-xs text-neutral-400 dark:text-neutral-500">
-                Tip: Use course code, title, or topic keywords.
-              </p>
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">Tip: Use course code, title, or topic keywords.</p>
             </div>
-
           </div>
         </div>
       </section>
@@ -121,7 +112,7 @@ export default function CoursePage() {
                 {results.length} result{results.length === 1 ? "" : "s"}
               </p>
             </div>
-            
+
             <div className="space-y-3">
               {results.map((course) => {
                 const isAdded = selected.some((item) => item.code === course.code);
@@ -138,9 +129,9 @@ export default function CoursePage() {
                       <div className="flex items-center gap-3">
                         <button
                           className={`rounded px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${
-                            isAdded
-                              ? "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
-                              : "cursor-pointer bg-sfu-red text-white hover:bg-[#8B1526]"
+                            isAdded ?
+                              "cursor-not-allowed bg-neutral-200 text-neutral-500 dark:bg-neutral-800"
+                            : "bg-sfu-red cursor-pointer text-white hover:bg-[#8B1526]"
                           }`}
                           onClick={() => addCourse(course)}
                           disabled={isAdded}
@@ -163,21 +154,14 @@ export default function CoursePage() {
                   <p className="text-sfu-red text-xs font-bold uppercase tracking-[0.3em]">Added</p>
                   <h2 className="text-2xl font-extrabold tracking-tight">Your Course Plan</h2>
                 </div>
-                <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">
-                  {selected.length} total
-                </div>
+                <div className="bg-sfu-red/10 text-sfu-red rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">{selected.length} total</div>
               </div>
               {selected.length > 0 && (
                 <div className="mb-6">
                   <button
                     type="button"
                     onClick={() => setSelected([])}
-                    className="
-                      w-full cursor-pointer rounded border px-3 py-2
-                      text-xs font-bold uppercase tracking-widest
-                      text-sfu-red border-sfu-red/20
-                      hover:bg-sfu-red/10 transition-all
-                    "
+                    className="text-sfu-red border-sfu-red/20 hover:bg-sfu-red/10 w-full cursor-pointer rounded border px-3 py-2 text-xs font-bold uppercase tracking-widest transition-all"
                   >
                     Remove All
                   </button>
@@ -209,4 +193,4 @@ export default function CoursePage() {
       </section>
     </div>
   );
-} 
+}
