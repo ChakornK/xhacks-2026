@@ -17,6 +17,7 @@ export default function CoursePage() {
     },
     {
       rootMargin: "0px 0px 500px 0px",
+      root: typeof document !== "undefined" && document.querySelector("main"),
     },
   );
 
