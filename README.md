@@ -2,6 +2,8 @@
 
 AI-powered internship finder, based on your courses @ SFU and your resume.
 
+[Devpost](https://devpost.com/software/sfu-careerconnect)
+
 ## Inspiration
 
 Finding internships is one of the biggest challenges students face today. We realized there is a major disconnect: students have the skills from their rigorous SFU coursework, but they struggle to translate that experience and their resumes into industry-ready language. Many students don't know how to map their academic background to actual live job listings in Vancouver and across BC. Therefore, we built SFU CareerConnect to bridge this gap between academic transcripts and the professional world.
